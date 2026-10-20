@@ -424,6 +424,21 @@ svg{flex:none}
 
 /* in a phone browser (not installed), the browser's own toolbar sits below the page: hug it */
 @media (display-mode:browser) and (hover:none){:root{--tb-b:8px}}
+
+/* desktop: "best on your phone" panel beside the phone column */
+.desk{display:none}
+@media (min-width:960px) and (min-height:640px){
+  body{gap:64px}
+  .desk{display:flex;flex-direction:column;align-items:flex-start;width:300px;color:var(--ink)}
+  .desk h2{margin:18px 0 8px;font-size:30px;font-weight:600;letter-spacing:-.03em;line-height:1.1}
+  .desk p{margin:0;color:var(--ink-2);font-size:16px;line-height:1.5}
+  .desk .qr{margin-top:22px;padding:14px;background:#fff;border-radius:20px;border:1px solid var(--line-2);box-shadow:var(--shadow-card)}
+  .desk .qr svg{display:block;width:148px;height:148px}
+  .desk h3{margin:30px 0 10px;font-size:13px;font-weight:600;color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em}
+  .keys{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:15px}
+  .keys li{display:flex;align-items:center;gap:6px}
+  .keys kbd{min-width:30px;height:28px;padding:0 8px;display:inline-grid;place-items:center;border:1px solid var(--line-2);border-bottom-width:2px;border-radius:8px;background:var(--paper);font:500 13px var(--body);margin-right:6px}
+}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
@@ -1283,6 +1298,20 @@ svg{flex:none}
   </nav>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </div>
+<aside class="desk" aria-label="About this app">
+  <span class="mark" aria-hidden="true"><i></i><i></i></span>
+  <h2>Best on your phone</h2>
+  <p>UX Lexicon is made for quick sessions on the go. Scan to open it on your phone, then Add to Home Screen.</p>
+  <div class="qr" id="qr" hidden></div>
+  <h3>Keyboard shortcuts</h3>
+  <ul class="keys">
+    <li><kbd>Space</kbd>Flip the card</li>
+    <li><kbd>&rarr;</kbd>Know it</li>
+    <li><kbd>&larr;</kbd>Still learning</li>
+    <li><kbd>Z</kbd>Previous card</li>
+    <li><kbd>1</kbd>&ndash;<kbd>4</kbd>Answer in Quiz</li>
+  </ul>
+</aside>
 <p class="sr" id="live" aria-live="polite"></p>
 <canvas id="confetti" aria-hidden="true"></canvas>
 <script>
@@ -2597,6 +2626,14 @@ document.addEventListener('keydown',e=>{
   }
 });
 
+
+/* desktop panel: QR code for the page's own address (only when hosted somewhere a phone can open) */
+if(matchMedia('(min-width:960px)').matches){
+  const url=/^https?:$/.test(location.protocol)&&!/claude|usercontent|localhost/.test(location.hostname)?location.origin+location.pathname:null;
+  if(url){const sc=document.createElement('script');sc.src='https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
+    sc.onload=()=>{try{const q=qrcode(0,'M');q.addData(url);q.make();const el=$('#qr');el.innerHTML=q.createSvgTag({cellSize:4,margin:0,scalable:true});el.hidden=false}catch(e){}};
+    document.head.appendChild(sc)}
+}
 /* ---------- boot ---------- */
 renderLevel(); rebuild(); render();
 if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>{fit();fitTerm()});
