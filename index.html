@@ -451,6 +451,19 @@ svg{flex:none}
   .keys li{display:flex;align-items:center;gap:6px}
   .keys kbd{min-width:30px;height:28px;padding:0 8px;display:inline-grid;place-items:center;border:1px solid var(--line-2);border-bottom-width:2px;border-radius:8px;background:var(--paper);font:500 13px var(--body);margin-right:6px}
 }
+
+/* feedback sheet */
+.rate{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.rate button{height:56px;border-radius:16px;border:1px solid var(--line-2);background:var(--paper);font-size:28px;line-height:1;filter:grayscale(.85);opacity:.75;transition:transform .25s cubic-bezier(.3,1.6,.5,1),filter .2s,opacity .2s,border-color .2s,background .2s}
+.rate button[aria-pressed="true"]{filter:none;opacity:1;border-color:var(--green);background:var(--green-tint);transform:scale(1.06)}
+.fb{width:100%;border:1px solid var(--line-2);border-radius:16px;background:var(--surface);padding:12px 14px;font:inherit;font-size:16px;color:var(--ink);resize:vertical;outline:none;transition:border-color .2s,box-shadow .2s}
+.fb:focus{border-color:var(--green);box-shadow:0 0 0 4px color-mix(in srgb,var(--green) 16%,transparent)}
+.fb::placeholder{color:var(--ink-3)}
+input.fb{height:50px;border-radius:99px;padding:0 18px}
+.slabel small{color:var(--ink-3);font-size:13px}
+.fbsend{margin-top:20px}
+.fbsend:disabled{opacity:.6}
+.privacy{margin:18px 0 0;font-size:13px;line-height:1.5;color:var(--ink-3)}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
@@ -2201,6 +2214,7 @@ const P={
   flip:'<path d="M20 12a8 8 0 01-14.3 4.9M4 12A8 8 0 0118.3 7.1"/><path d="M18.5 3v4.5H14M5.5 21v-4.5H10"/>',
   bolt:'<path d="M13 2.5L4.5 14H11l-1 7.5L18.5 10H12z" fill="currentColor" stroke="none"/>',
   reset:'<path d="M4 12a8 8 0 102.3-5.7"/><path d="M4 4v5h5"/>',
+  chat:'<path d="M5 5h14a1.5 1.5 0 011.5 1.5v9A1.5 1.5 0 0119 17H10l-4.5 3.5V17H5a1.5 1.5 0 01-1.5-1.5v-9A1.5 1.5 0 015 5z"/><path d="M8 10h8M8 13h5"/>',
   sound:'<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 010 6M18 6.5a7.5 7.5 0 010 11"/>',
   shuffle:'<path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>',
 };
@@ -2238,11 +2252,11 @@ const S={
   pic:!!saved.pic, shuffle:!!saved.shuffle,
   known:new Set([...(saved.known||[]),...(v1.known||[])].filter(id=>BYID[id])),
   qc:saved.qc||0, qa:saved.qa||0, best:Math.max(saved.best||0,v1.best||0),
-  hint:!!saved.hint, seen:saved.seen??-2, sound:saved.sound!==false,
+  hint:!!saved.hint, seen:saved.seen??-2, sound:saved.sound!==false, fbDone:!!saved.fbDone, fbNudge:!!saved.fbNudge, marks:saved.marks||0,
   q:'', order:[], pos:0, flipped:false, busy:false, first:true, resetAsk:false,
   quiz:{cur:null,opts:[],answered:false,pick:null,score:0,total:0,streak:0,recent:[]}
 };
-const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify({tab:S.tab,cat:S.cat,deck:S.deck,pic:S.pic,shuffle:S.shuffle,known:[...S.known],qc:S.qc,qa:S.qa,best:S.best,hint:S.hint,seen:S.seen,sound:S.sound}))}catch(e){}};
+const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify({tab:S.tab,cat:S.cat,deck:S.deck,pic:S.pic,shuffle:S.shuffle,known:[...S.known],qc:S.qc,qa:S.qa,best:S.best,hint:S.hint,seen:S.seen,sound:S.sound,fbDone:S.fbDone,fbNudge:S.fbNudge,marks:S.marks}))}catch(e){}};
 const xp=()=>S.known.size*10+S.qc*5;
 /* ---------- sound: playful effects made on the fly with Web Audio (no files) ---------- */
 const SFX=(()=>{let ctx=null,out;
@@ -2377,6 +2391,7 @@ function mark(kind,drag){
   let gapBefore=-1;
   if(kind==='learn'){const at=Math.min(S.pos+1+REPEAT,S.order.length);S.order.splice(at,0,id);gapBefore=at-S.pos-1}
   if(kind==='know'){SFX.play('know');buzz(15)}else{SFX.play('learn');buzz(10)}
+  track(kind==='know'?'card-know':'card-learn');S.marks++;
   c.classList.add(kind==='know'?'ok':'lt');
   const tag=c.querySelector('.dtag.'+kind); if(tag) tag.style.opacity=1;
   if(kind==='know'){const b=$('#knowb');if(b)b.classList.add('done')}
@@ -2386,7 +2401,8 @@ function mark(kind,drag){
     c.style.opacity='0';
     setTimeout(()=>{S.pos++;S.flipped=false;S.busy=false;renderStudy(true);
       if(gapBefore>=0) toast(gapBefore>=REPEAT?`We'll bring this back after ${REPEAT} cards`:gapBefore===0?"We'll show this one again next":`We'll bring this back at the end`,P.reset);
-      if(S.pos>=S.order.length) setTimeout(()=>{burst(innerWidth/2,innerHeight*.35,150,1.5);SFX.play('fanfare')},200);
+      if(S.pos>=S.order.length){track('deck-finished');setTimeout(()=>{burst(innerWidth/2,innerHeight*.35,150,1.5);SFX.play('fanfare')},200)}
+      else if(S.marks>=20&&!S.fbNudge&&!S.fbDone&&gapBefore<0){S.fbNudge=true;persist();setTimeout(()=>{if(document.querySelector('.unlock')||sheetOpen){S.fbNudge=false;persist();return}fbRate=0;openSheet(feedbackHTML(0))},700)}
       checkBadge(before)},380);
   };
   drag?go():setTimeout(go,kind==='know'?260:120);
@@ -2465,6 +2481,7 @@ function pick(id){
   if(ok){Q.score++;Q.streak++;S.qc++;if(Q.streak>S.best)S.best=Q.streak}else Q.streak=0;
   persist(); renderQuiz(); if(ok) renderLevel(true);
   if(ok) SFX.play(Q.streak%5===0?'streak':'right'); else {SFX.play('wrong');buzz([20,40,20])}
+  track(ok?'quiz-right':'quiz-wrong');
   if(ok){const b=document.querySelector('.opt.right');if(b){const r=b.getBoundingClientRect();burst(r.left+40,r.top+r.height/2,Q.streak%5===0?110:22,Q.streak%5===0?1.3:.55)}
     if(Q.streak%5===0) toast(`${Q.streak} in a row`)}
   const nb=document.querySelector('.qnext'); if(nb){reveal(nb);nb.focus({preventScroll:true})}
@@ -2527,10 +2544,12 @@ function renderProgress(){
     <div class="stats"><div><small>Answered</small><b>${S.qa}</b></div><div><small>Accuracy</small><b>${acc}</b></div><div><small>Best streak</small><b>${S.best}</b></div></div>
     <p class="label">Settings</p>
     <div class="list">
+      <button class="lrow" data-act="feedback"><span class="ico">${I(P.chat,18,2)}</span><span><b>Send feedback</b><small>Tell us what to improve</small></span><span class="rt">${I(P.chev,18,2)}</span></button>
       <button class="lrow" role="switch" data-act="sound" aria-checked="${S.sound}"><span class="ico">${I(P.sound,18,2)}</span><span><b>Sound effects</b><small>Playful sounds as you study</small></span><span class="rt"><span class="sw"></span></span></button>
       <button class="lrow danger" data-act="askreset"><span class="ico">${I(P.reset,18,2)}</span><span><b>Reset progress</b><small>Clears known terms, xp and badges on this device</small></span><span class="rt">${I(P.chev,18,2)}</span></button>
       ${S.resetAsk?`<div class="confirm"><button class="pill out sm" data-act="noreset">Cancel</button><button class="pill red sm" data-act="doreset">Yes, reset</button></div>`:''}
     </div>
+    <p class="privacy">We count anonymous usage (no names, no tracking cookies) to make UX Lexicon better. Your progress stays on this device.</p>
   </section>`;
 }
 
@@ -2580,6 +2599,34 @@ function checkBadge(before){
   } else if(i<S.seen){S.seen=i;persist()}
 }
 
+/* ---------- feedback + usage (fill these two in) ---------- */
+const FEEDBACK_URL='https://script.google.com/macros/s/AKfycbx6v7VYfC6why5SN0E6WbUQiTIk12uYzugOVJWEeTNzmA6yre-4ujeeofEf5TQ4uYHA/exec';          // Google Apps Script web app URL (ends in /exec)
+const GOATCOUNTER='dvn019';           // GoatCounter site code, e.g. "uxlexicon"
+const track=(name,title)=>{try{if(window.goatcounter&&goatcounter.count)goatcounter.count({path:name,title:title||name,event:true})}catch(e){}};
+const trackView=tab=>{try{if(window.goatcounter&&goatcounter.count)goatcounter.count({path:'/'+tab,title:tab})}catch(e){}};
+if(GOATCOUNTER&&/^https?:$/.test(location.protocol)){window.goatcounter={no_onload:true};const g=document.createElement('script');g.async=true;g.src='https://gc.zgo.at/count.js';
+  g.dataset.goatcounter=`https://${GOATCOUNTER}.goatcounter.com/count`;g.onload=()=>trackView(S.tab);document.head.appendChild(g)}
+const FACES=['😞','🙁','😐','🙂','😍'];
+function feedbackHTML(r){return `<div class="shead"><h3>Send feedback</h3><button class="link" data-act="close">Close</button></div>
+  <p class="slabel">How are you finding UX Lexicon?</p>
+  <div class="rate">${FACES.map((f,i)=>`<button type="button" data-rate="${i+1}" aria-label="${i+1} of 5" aria-pressed="${r===i+1}">${f}</button>`).join('')}</div>
+  <p class="slabel">What would make it better?</p>
+  <textarea class="fb" id="fbtext" rows="4" maxlength="2000" placeholder="A missing term, a bug, an idea…"></textarea>
+  <p class="slabel">Email <small>(optional, if you'd like a reply)</small></p>
+  <input class="fb" id="fbmail" type="email" maxlength="200" placeholder="you@example.com" autocomplete="email">
+  <button class="pill dark full fbsend" data-act="sendfb">Send feedback</button>`}
+let fbRate=0;
+async function sendFeedback(){
+  const text=$('#fbtext').value.trim(), email=$('#fbmail').value.trim();
+  if(!fbRate&&!text){toast('Pick a face or write a note first');return}
+  const btn=$('.fbsend');btn.disabled=true;btn.textContent='Sending…';
+  const body={rating:fbRate||'',text,email,known:S.known.size,device:`${innerWidth}×${innerHeight} · ${navigator.userAgent}`.slice(0,200),page:S.tab};
+  try{
+    if(!FEEDBACK_URL) throw new Error('no url');
+    await fetch(FEEDBACK_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)});
+    S.fbDone=true;persist();closeSheet();track('feedback-sent');SFX.play('know');toast('Thanks! Your feedback was sent');fbRate=0;
+  }catch(e){btn.disabled=false;btn.textContent='Send feedback';toast("Couldn't send. Check your connection")}
+}
 /* ---------- render ---------- */
 function render(enter){
   renderTabs();
@@ -2588,7 +2635,7 @@ function render(enter){
   else if(S.tab==='browse') renderBrowse();
   else renderProgress();
 }
-function go(tab){if(S.tab===tab){main.scrollTo({top:0,behavior:reduced?'auto':'smooth'});return}S.tab=tab;S.resetAsk=false;persist();SFX.play('tick');closeSheet();main.scrollTop=0;render()}
+function go(tab){if(S.tab===tab){main.scrollTo({top:0,behavior:reduced?'auto':'smooth'});return}S.tab=tab;S.resetAsk=false;persist();SFX.play('tick');trackView(tab);closeSheet();main.scrollTop=0;render()}
 
 /* ---------- confetti ---------- */
 const cv=$('#confetti'), cx=cv.getContext('2d'); let parts=[], raf=0;
@@ -2627,6 +2674,7 @@ app.addEventListener('click',e=>{
   const dk=t.closest('[data-deck]'); if(dk){S.deck=dk.dataset.deck;persist();rebuild();refreshSheet(filterHTML());render(true);return}
   const opt=t.closest('[data-opt]'); if(opt){const k=opt.dataset.opt;S[k]=!S[k];persist();opt.setAttribute('aria-checked',S[k]);if(k==='shuffle'){const cur=S.order[S.pos];rebuild();}S.flipped=false;render(true);return}
   const ch=t.closest('.chip'); if(ch){S.cat=ch.dataset.cat;persist();rebuild();S.quiz.cur=null;document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c===ch));renderRows();const cs=ch.parentElement;cs.scrollTo({left:ch.offsetLeft-cs.clientWidth/2+ch.offsetWidth/2,behavior:reduced?'auto':'smooth'});return}
+  const rt=t.closest('[data-rate]'); if(rt){fbRate=+rt.dataset.rate;document.querySelectorAll('[data-rate]').forEach(b=>b.setAttribute('aria-pressed',b===rt));SFX.play('tick');return}
   const a=t.closest('[data-act]'); if(!a) return;
   const act=a.dataset.act;
   if(act==='flip') flip();
@@ -2645,7 +2693,9 @@ app.addEventListener('click',e=>{
     checkBadge(before)}
   else if(act==='studyfrom'){const id=a.dataset.id;S.deck='all';S.order=TERMS.filter(inDeck).map(t=>t.id);if(!S.order.includes(id)){S.cat='all';S.order=TERMS.map(t=>t.id)}S.shuffle=false;persist();S.pos=Math.max(0,S.order.indexOf(id));S.flipped=false;S.first=true;closeSheet();S.tab='study';persist();main.scrollTop=0;render()}
   else if(act==='searchall'){S.cat='all';persist();rebuild();S.quiz.cur=null;document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.cat==='all'));$('#chips').scrollTo({left:0});renderRows()}
-  else if(act==='sound'){S.sound=!S.sound;persist();a.setAttribute('aria-checked',S.sound);if(S.sound)SFX.play('know')}
+  else if(act==='feedback'){fbRate=0;openSheet(feedbackHTML(0))}
+  else if(act==='sendfb'){sendFeedback()}
+  else if(act==='sound'){S.sound=!S.sound;persist();track(S.sound?'sound-on':'sound-off');a.setAttribute('aria-checked',S.sound);if(S.sound)SFX.play('know')}
   else if(act==='askreset'){S.resetAsk=!S.resetAsk;renderProgress()}
   else if(act==='noreset'){S.resetAsk=false;renderProgress()}
   else if(act==='doreset'){S.known.clear();S.qc=0;S.qa=0;S.best=0;S.seen=-1;S.resetAsk=false;S.quiz={cur:null,opts:[],answered:false,pick:null,score:0,total:0,streak:0,recent:[]};persist();rebuild();renderLevel();renderProgress();toast('Progress reset')}
