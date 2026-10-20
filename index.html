@@ -112,7 +112,7 @@ svg{flex:none}
 .mark i{position:absolute;width:15px;height:19px;border-radius:4px;border:2px solid #fff;background:var(--green)}
 .mark i:first-child{transform:translate(-3px,1px) rotate(-12deg);opacity:.7}
 .mark i:last-child{transform:translate(3px,-1px) rotate(6deg);animation:markflip 6s infinite cubic-bezier(.3,1.4,.5,1)}
-@keyframes markflip{0%,80%{transform:translate(3px,-1px) rotate(6deg)}88%{transform:translate(3px,-1px) rotate(6deg) rotateY(180deg)}96%,100%{transform:translate(3px,-1px) rotate(6deg) rotateY(360deg)}}
+@keyframes markflip{0%,80%,100%{transform:translate(3px,-1px) rotate(6deg) scaleX(1)}88%{transform:translate(3px,-1px) rotate(6deg) scaleX(-1)}}
 .bar h1{margin:0;font-size:22px;font-weight:600;letter-spacing:-.025em;white-space:nowrap;margin-right:auto}
 .lvl{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 6px 0 8px;border:1px solid var(--line-2);border-radius:99px;font-size:14px;font-weight:500;background:var(--paper);box-shadow:0 1px 2px rgba(17,17,17,.04);transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
 .lvl:active{transform:scale(.95)}
@@ -213,7 +213,10 @@ svg{flex:none}
 
 /* deck card faces (Figma: Flashcard / Deck – Front, Deck – Back) */
 .face.front.dk{padding:26px}
-.face.back.dk{padding:20px}
+.face.back.dk{padding:20px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.face.back.dk::-webkit-scrollbar{display:none}
+.face.back.dk .stage{flex:none}
+.face.back.dk .def{overflow:visible;flex:none}
 .clab{display:inline-flex;align-items:center;gap:8px;min-width:0;font-size:13px;font-weight:500;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .clab i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--c)}
 .dk-top{display:flex;flex:none;min-width:0}
@@ -226,7 +229,7 @@ svg{flex:none}
 .face.dk .stage{margin-top:0}
 .face.dk .fmid.sm{padding-top:18px}
 .face.dk.front .stage{margin-top:16px}
-.bterm{margin:22px 0 8px;font-size:clamp(24px,7.7vw,30px);line-height:1.15;font-weight:600;letter-spacing:-.03em;text-wrap:balance}
+.bterm{margin:20px 0 8px;font-size:24px;line-height:1.15;font-weight:600;letter-spacing:-.03em;text-wrap:balance}
 .bmeta{display:flex;flex:none;margin-bottom:14px;min-width:0}
 
 /* hint pill (like "Swipe to see settings") */
