@@ -3279,8 +3279,16 @@ const HAPT=(()=>{let lbl=null;
     l.style.cssText='position:fixed;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none';l.append(i);document.body.append(l);return lbl=l}
   return {tick(n=1,gap=90){try{const l=el();l.click();for(let k=1;k<n;k++)setTimeout(()=>l.click(),gap*k)}catch(e){}}};
 })();
+/* iOS only plays the switch haptic while handling a real tap (click / touchend / keydown).
+   Swipes and taps on the card finish in pointerup, which comes just before touchend, so hold the tick until then. */
+let hapPend=0,hapAt=0;
+const inGesture=()=>{const e=window.event;return !!e&&/^(click|touchend|keydown|keyup|mouseup)$/.test(e.type)};
 const buzz=p=>{if(!S.sound)return;if(navigator.vibrate){try{navigator.vibrate(p)}catch(e){}return}
-  HAPT.tick(Array.isArray(p)?Math.ceil(p.length/2):1)};
+  const n=Array.isArray(p)?Math.ceil(p.length/2):1;
+  if(inGesture())HAPT.tick(n);else{hapPend=Math.max(hapPend,n);hapAt=Date.now()}};
+const hapFlush=()=>{if(hapPend&&Date.now()-hapAt<400)HAPT.tick(hapPend);hapPend=0};
+document.addEventListener('touchend',hapFlush,{capture:true,passive:true});
+document.addEventListener('click',hapFlush,true);
 addEventListener('pointerdown',()=>SFX.wake(),{once:true});
 const badgeIdx=x=>{let i=-1;BADGES.forEach((b,j)=>{if(x>=b.xp)i=j});return i};
 if(S.seen===-2){S.seen=badgeIdx(xp())}
@@ -3588,7 +3596,7 @@ function fitHome(){
   while((h.scrollWidth>h.clientWidth+1||c.scrollHeight>c.clientHeight+1)&&fs>30&&i++<20){fs-=3;h.style.fontSize=fs+'px'}
   if(c.scrollHeight>c.clientHeight+1) c.classList.add('tight');
 }
-function cycleDeck(d){const n=TKEYS.length;S.hpos=(S.hpos+d+n)%n;SFX.play('flip');buzz(8);renderHome(true,d>0?'fwd':'back')}
+function cycleDeck(d,quiet){const n=TKEYS.length;S.hpos=(S.hpos+d+n)%n;SFX.play('flip');if(!quiet)buzz(8);renderHome(true,d>0?'fwd':'back')}
 function bindHome(){
   const c=$('#hcard'); if(!c) return; let d=null;
   c.addEventListener('pointerdown',e=>{if(e.button!==0||e.target.closest('button'))return;d={x:e.clientX,y:e.clientY,dx:0,moved:false,id:e.pointerId};c.style.transition='none'});
@@ -3597,7 +3605,7 @@ function bindHome(){
     if(d.moved)c.style.transform=`translateX(${d.dx}px) rotate(${d.dx*.04}deg)`});
   c.addEventListener('pointerup',()=>{if(!d)return;const dd=d;d=null;
     if(!dd.moved){c.style.transition='';if(Math.abs(dd.dx)<8)openDeck(TKEYS[S.hpos]);return}
-    if(Math.abs(dd.dx)>80){const dir=dd.dx<0?1:-1;c.style.transition='transform .3s ease-in, opacity .3s';c.style.transform=`translateX(${dd.dx<0?-480:480}px) rotate(${dd.dx<0?-14:14}deg)`;c.style.opacity='0';setTimeout(()=>cycleDeck(dir),220);return}
+    if(Math.abs(dd.dx)>80){const dir=dd.dx<0?1:-1;buzz(8);c.style.transition='transform .3s ease-in, opacity .3s';c.style.transform=`translateX(${dd.dx<0?-480:480}px) rotate(${dd.dx<0?-14:14}deg)`;c.style.opacity='0';setTimeout(()=>cycleDeck(dir,true),220);return}
     c.style.transition='transform .45s cubic-bezier(.3,1.6,.5,1)';c.style.transform=''});
   c.addEventListener('pointercancel',()=>{if(!d)return;d=null;c.style.transition='transform .45s cubic-bezier(.3,1.6,.5,1)';c.style.transform=''});
 }
