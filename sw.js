@@ -1,12 +1,12 @@
 /* Flashdecks offline support: the app opens with no signal.
    Page: network first (so updates arrive), cached copy when offline. Icons/images: cache first. */
-const V='flashdecks-v3';
+const V='flashdecks-v4';
 const CORE=['./','index.html','manifest.webmanifest','icon-180.png','icon-192.png','icon-512.png','favicon.svg','favicon-32.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{
   const r=e.request; if(r.method!=='GET') return;
-  const u=new URL(r.url); if(u.origin!==location.origin) return; // analytics, fonts, feedback: straight to network
+  const u=new URL(r.url); if(u.origin!==location.origin) return; if(u.pathname.endsWith('version.json')) return; // always fresh from the network // analytics, fonts, feedback: straight to network
   if(r.mode==='navigate'||u.pathname.endsWith('.html')||u.pathname.endsWith('/')){
     e.respondWith(fetch(r).then(res=>{const c=res.clone();caches.open(V).then(x=>x.put('index.html',c));return res}).catch(()=>caches.match('index.html').then(m=>m||caches.match('./'))));
     return}
