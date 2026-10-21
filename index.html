@@ -466,11 +466,11 @@ input.fb{height:50px;border-radius:99px;padding:0 18px}
 .hd-top{flex:none;display:flex;align-items:baseline;justify-content:space-between;padding-top:20px;padding-bottom:var(--gap)}
 .hd-top h2{margin:0;font-size:22px;font-weight:600;letter-spacing:-.02em}
 .hd-top span{font-size:14px;font-weight:500;color:var(--ink-2);font-variant-numeric:tabular-nums}
-.hstack{position:relative;flex:1 1 auto;min-height:330px;max-height:var(--card-max);margin:0 max(20px,env(safe-area-inset-right,0px)) 36px max(20px,env(safe-area-inset-left,0px));touch-action:pan-y}
+.hstack{position:relative;flex:1 1 auto;min-height:330px;max-height:var(--card-max);margin:0 max(20px,env(safe-area-inset-right,0px)) 34px max(20px,env(safe-area-inset-left,0px));touch-action:pan-y}
 .hg{position:absolute;border-radius:24px}
 .hg.g1{background:var(--m-fill);border:1px solid var(--line-2)}.hg.g2{background:var(--line-2)}
 .hg.g1{inset:14px 10px -8px}.hg.g2{inset:28px 20px -22px}
-.hcard{position:absolute;inset:0 0 38px;display:flex;flex-direction:column;gap:16px;padding:16px;background:var(--paper);border:1px solid var(--line-2);border-radius:24px;box-shadow:var(--shadow-card);cursor:grab;user-select:none;-webkit-user-select:none;overflow:hidden;will-change:transform}
+.hcard{position:absolute;inset:0 0 24px;display:flex;flex-direction:column;gap:16px;padding:16px;background:var(--paper);border:1px solid var(--line-2);border-radius:24px;box-shadow:var(--shadow-card);cursor:grab;user-select:none;-webkit-user-select:none;overflow:hidden;will-change:transform}
 .hcard.enter.h-fwd{animation:henter .5s cubic-bezier(.3,1.35,.5,1)}.hcard.enter.h-back{animation:hback .5s cubic-bezier(.3,1.35,.5,1)}
 @keyframes henter{from{transform:translateY(14px) scale(.96)}}
 @keyframes hback{from{transform:translateX(-60px) rotate(-4deg);opacity:0}}
@@ -589,7 +589,7 @@ input.fb{height:50px;border-radius:99px;padding:0 18px}
 .hchips::-webkit-scrollbar{display:none}
 .hchip{flex:none;height:35px;padding:0 15px;border-radius:99px;border:1px solid var(--line-2);background:var(--paper);color:var(--ink);font-size:14px;font-weight:500;white-space:nowrap;transition:background .25s,color .25s,border-color .25s}
 .hchip[aria-selected="true"]{background:var(--btn);color:var(--on-btn);border-color:var(--btn)}
-.hnext{position:absolute;left:0;right:0;bottom:10px;display:flex;align-items:center;justify-content:center;gap:5px;font-size:13px;color:var(--ink-3);white-space:nowrap;overflow:hidden;padding:0 10px}
+.hnext{position:absolute;left:0;right:0;bottom:7px;height:16px;line-height:16px;display:flex;align-items:center;justify-content:center;gap:5px;font-size:13px;color:var(--ink-3);white-space:nowrap;overflow:hidden;padding:0 10px}
 .hnext b{font-weight:600;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis}.hnext svg{color:var(--ink-2);flex:none}
 .adl{margin-top:4px}
 .adr{display:flex;align-items:center;gap:14px;width:100%;padding:14px 0;text-align:left;border-top:1px solid var(--line)}.adr:first-child{border-top:0}
@@ -599,7 +599,7 @@ input.fb{height:50px;border-radius:99px;padding:0 18px}
 .adr .ck{color:var(--green)}.adr>svg{color:var(--ink-3)}
 @media (max-height:700px){
   .hd-top{padding-top:12px;padding-bottom:8px}.goal{margin-bottom:12px}.hchips{padding-bottom:12px}
-  .hstack{margin-bottom:22px;min-height:300px}
+  .hstack{margin-bottom:34px;min-height:300px}
 }
 /* iOS 26+ home-screen app: the system draws a soft blur ~40pt down from the top edge that no CSS can switch off.
    Keep the header's logo and text below it; the band above stays flat page colour, so the blur is invisible. */
