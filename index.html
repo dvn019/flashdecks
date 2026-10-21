@@ -719,11 +719,11 @@ html,body,button,a,input,select,textarea,label,[role=button]{touch-action:manipu
 @media (min-width:1024px) and (min-height:600px){.upd{left:auto;right:24px;top:20px;width:380px}}
 
 /* deck-first navigation: Home picks a deck (no tab bar); inside a deck: Study · Quiz · Search */
-.bk{display:none;flex:none;width:36px;height:36px;margin-left:-8px;border-radius:50%;place-items:center;color:var(--ink)}
-.bk:active{background:var(--m-fill)}
+.hback{display:none;flex:none;width:36px;height:36px;margin-left:-8px;border-radius:50%;place-items:center;color:var(--ink)}
+.hback:active{background:var(--m-fill)}
 .hb-deck{display:none}
 .bar h1{min-width:0;overflow:hidden;text-overflow:ellipsis}
-.app.in-deck .bk{display:grid}
+.app.in-deck .hback{display:grid}
 .app.in-deck .bar .mark,.app.in-deck .hb-app{display:none}
 .app.in-deck .hb-deck{display:inline}
 .app.in-deck .bar h1{font-size:20px;letter-spacing:-.02em}
@@ -733,7 +733,7 @@ html,body,button,a,input,select,textarea,label,[role=button]{touch-action:manipu
 .app:not(.in-deck) .view{padding-bottom:var(--gap)}
 .app:not(.in-deck) .toast{bottom:28px}
 @media (min-width:1024px) and (min-height:600px){
-  .app.in-deck .bk,.app.in-deck .hb-deck{display:none}
+  .app.in-deck .hback,.app.in-deck .hb-deck{display:none}
   .app.in-deck .bar .mark,.app.in-deck .hb-app{display:inline}
   .app.in-deck .bar .mark{display:grid}
   .app.in-deck .bar h1{font-size:22px}
@@ -741,6 +741,14 @@ html,body,button,a,input,select,textarea,label,[role=button]{touch-action:manipu
   .tab[data-tab=home]{display:flex}
   .tb-deck{display:block;margin:18px 14px 6px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 }
+
+/* notification soft ask */
+.trow .tsub{display:block;font-size:13px;color:var(--ink-2);margin-top:2px;font-weight:400}
+.trow b{font-weight:500}
+.trow select{appearance:none;-webkit-appearance:none;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:500 16px/1 var(--body);height:36px;padding:0 14px;border-radius:99px}
+.bk .box{margin-bottom:16px}.bk .box .trow:first-child{border-top:0}
+.nask-go:disabled{opacity:.4}
+.bk .trow{padding-top:12px;padding-bottom:12px;min-height:56px}
 
 /* ===== Mini UI kit (drawn inside the card's visual stage) ===== */
 .vis{position:relative;display:flex;align-items:center;justify-content:center;font-family:var(--body);font-size:11px;line-height:1.25;color:var(--ink-2);overflow:hidden;text-align:left}
@@ -1605,7 +1613,7 @@ html,body,button,a,input,select,textarea,label,[role=button]{touch-action:manipu
 </style>
 <div class="app" id="app">
   <header class="bar gut">
-    <button class="bk" id="bkhome" type="button" data-act="home" aria-label="Back to all decks"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="hback" id="bkhome" type="button" data-act="home" aria-label="Back to all decks"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
     <span class="mark" aria-hidden="true"><svg viewBox="0 0 100 100" width="34" height="34"><rect x="14" y="31" width="8" height="38" rx="4" fill="#fff" opacity=".35"/><rect x="24" y="25" width="8" height="50" rx="4" fill="#fff" opacity=".6"/><rect x="34" y="19" width="50" height="62" rx="12" fill="#fff"/><path class="bolt" d="M65 30L49 53h11l-5 16 17-24H61z" fill="currentColor"/></svg></span>
     <h1><span class="hb-app">Flashdecks</span><span class="hb-deck" id="hbdeck"></span></h1>
     <button class="lvl" id="lvl" type="button"></button>
@@ -3255,11 +3263,11 @@ const S={
   known:new Set([...(saved.known||[]),...(v1.known||[])].filter(id=>BYID[id])),
   qc:saved.qc||0, qa:saved.qa||0, best:Math.max(saved.best||0,v1.best||0),
   hint:!!saved.hint, seen:saved.seen??-2, sound:saved.sound!==false, fbDone:!!saved.fbDone, music:saved.music!==false, toured:!!saved.toured, visited:new Set(saved.visited||[]), hpos:-1, fbNudge:!!saved.fbNudge, marks:saved.marks||0,
-  srs:saved.srs||{}, goal:saved.goal||20, remind:saved.remind||{on:false,hour:19}, instAsk:saved.instAsk||0, instCount:saved.instCount||0, lastStudy:saved.lastStudy||0, day:saved.day||{d:0,n:0}, dstreak:saved.dstreak||{last:0,n:0},
+  srs:saved.srs||{}, goal:saved.goal||20, remind:Object.assign({on:false,hour:19,daily:true,updates:true},saved.remind||{}), nAsk:saved.nAsk||0, nAskAt:saved.nAskAt||0, instAsk:saved.instAsk||0, instCount:saved.instCount||0, lastStudy:saved.lastStudy||0, day:saved.day||{d:0,n:0}, dstreak:saved.dstreak||{last:0,n:0},
   q:'', order:[], pos:0, flipped:false, busy:false, first:true, resetAsk:false,
   quiz:{cur:null,opts:[],answered:false,pick:null,score:0,total:0,streak:0,recent:[]}
 };
-const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify({tab:S.tab,topic:S.topic,cat:S.cat,deck:S.deck,pic:S.pic,shuffle:S.shuffle,known:[...S.known],qc:S.qc,qa:S.qa,best:S.best,hint:S.hint,seen:S.seen,sound:S.sound,fbDone:S.fbDone,music:S.music,toured:S.toured,visited:[...S.visited],fbNudge:S.fbNudge,marks:S.marks,srs:S.srs,goal:S.goal,day:S.day,dstreak:S.dstreak,remind:S.remind,lastStudy:S.lastStudy,instAsk:S.instAsk,instCount:S.instCount}))}catch(e){}};
+const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify({tab:S.tab,topic:S.topic,cat:S.cat,deck:S.deck,pic:S.pic,shuffle:S.shuffle,known:[...S.known],qc:S.qc,qa:S.qa,best:S.best,hint:S.hint,seen:S.seen,sound:S.sound,fbDone:S.fbDone,music:S.music,toured:S.toured,visited:[...S.visited],fbNudge:S.fbNudge,marks:S.marks,srs:S.srs,goal:S.goal,day:S.day,dstreak:S.dstreak,remind:S.remind,nAsk:S.nAsk,nAskAt:S.nAskAt,lastStudy:S.lastStudy,instAsk:S.instAsk,instCount:S.instCount}))}catch(e){}};
 /* ---------- spaced repetition + daily goal ---------- */
 const today=()=>{const d=new Date();return Math.floor((d-d.getTimezoneOffset()*6e4)/864e5)};
 const GAPS=[1,3,7,14,30,60];
@@ -3485,7 +3493,7 @@ function mark(kind,drag){
       if(goalHit){track('goal-done');setTimeout(()=>{toast(`Daily goal done · ${S.goal} cards`,P.target);burst(innerWidth/2,innerHeight*.3,90,1.1);SFX.play('fanfare');buzz([15,70,15])},gapBefore>=0?1400:150)}
       if(S.pos>=S.order.length){track('deck-finished');setTimeout(()=>{burst(innerWidth/2,innerHeight*.35,150,1.5);SFX.play('fanfare')},200)}
       else if(S.marks>=20&&!S.fbNudge&&!S.fbDone&&gapBefore<0){S.fbNudge=true;persist();setTimeout(()=>{if(document.querySelector('.unlock')||sheetOpen){S.fbNudge=false;persist();return}openSheet(nudgeHTML())},700)}
-      checkBadge(before)},380);
+      checkBadge(before);setTimeout(maybeNotifAsk,900)},380);
   };
   drag?go():setTimeout(go,kind==='know'?260:120);
 }
@@ -3701,8 +3709,9 @@ function progressHTML(){
       <button class="lrow" data-act="feedback"><span class="ico">${I(P.chat,18,2)}</span><span><b>Send feedback</b><small>Tell us what to improve</small></span><span class="rt">${I(P.chev,18,2)}</span></button>
       <button class="lrow" role="switch" data-act="music" aria-checked="${S.music}"><span class="ico">${I(P.music,18,2)}</span><span><b>Background music</b><small>Soft lo-fi while you study</small></span><span class="rt"><span class="sw"></span></span></button>
       <button class="lrow" data-act="tour"><span class="ico">${I(P.flip,18,2)}</span><span><b>How it works</b><small>Replay the intro</small></span><span class="rt">${I(P.chev,18,2)}</span></button>
-      ${pushOK()?`<button class="lrow" role="switch" data-act="remind" aria-checked="${S.remind.on}"><span class="ico">${I(P.bell,18,2)}</span><span><b>Daily reminder</b><small>${S.remind.on?`Every day at ${fmtHour(S.remind.hour)}`:'Streak, reviews and daily goal'}</small></span><span class="rt"><span class="sw"></span></span></button>
-      ${S.remind.on?`<label class="lrow rtime"><span class="ico">${I(P.cal,18,2)}</span><span><b>Reminder time</b><small>In your time zone</small></span><span class="rt"><select id="rhour" aria-label="Reminder time">${Array.from({length:18},(_,i)=>i+6).map(h=>`<option value="${h}" ${h===S.remind.hour?'selected':''}>${fmtHour(h)}</option>`).join('')}</select></span></label>`:''}`:''}
+      ${pushOK()?`<button class="lrow" role="switch" data-act="npref" data-k="daily" aria-checked="${S.remind.on&&S.remind.daily}"><span class="ico">${I(P.bell,18,2)}</span><span><b>Daily reminders</b><small>${S.remind.on&&S.remind.daily?`Every day at ${fmtHour(S.remind.hour)}`:'Streak, reviews and daily goal'}</small></span><span class="rt"><span class="sw"></span></span></button>
+      ${S.remind.on&&S.remind.daily?`<label class="lrow rtime"><span class="ico">${I(P.cal,18,2)}</span><span><b>Reminder time</b><small>In your time zone</small></span><span class="rt"><select id="rhour" aria-label="Reminder time">${Array.from({length:18},(_,i)=>i+6).map(h=>`<option value="${h}" ${h===S.remind.hour?'selected':''}>${fmtHour(h)}</option>`).join('')}</select></span></label>`:''}
+      <button class="lrow" role="switch" data-act="npref" data-k="updates" aria-checked="${S.remind.on&&S.remind.updates}"><span class="ico">${I(P.bolt,18,2)}</span><span><b>Updates & check-ins</b><small>New versions and come-back nudges</small></span><span class="rt"><span class="sw"></span></span></button>`:''}
       <button class="lrow" role="switch" data-act="sound" aria-checked="${S.sound}"><span class="ico">${I(P.sound,18,2)}</span><span><b>Sound effects</b><small>Playful sounds as you study</small></span><span class="rt"><span class="sw"></span></span></button>
       <button class="lrow danger" data-act="askreset"><span class="ico">${I(P.reset,18,2)}</span><span><b>Reset progress</b><small>Clears known cards, xp and badges on this device</small></span><span class="rt">${I(P.chev,18,2)}</span></button>
       ${S.resetAsk?`<div class="confirm"><button class="pill out sm" data-act="noreset">Cancel</button><button class="pill red sm" data-act="doreset">Yes, reset</button></div>`:''}
@@ -3869,26 +3878,53 @@ function pushState(){const due={},t=today();Object.entries(S.srs).forEach(([id,r
 async function currentSub(){try{const r=await navigator.serviceWorker.ready;return await r.pushManager.getSubscription()}catch(e){return null}}
 async function pushPost(path,extra,keepalive){const sub=await currentSub();if(!sub)return false;
   try{const r=await fetch(PUSH_API.replace(/\/$/,'')+path,{method:'POST',keepalive:!!keepalive,headers:{'Content-Type':'application/json'},body:JSON.stringify({sub:sub.toJSON(),...extra})});return r.ok}catch(e){return false}}
+const pushOpened=()=>{if(S.remind.on&&PUSH_API)pushPost('/state',{state:pushState(),opened:true})};
+setTimeout(pushOpened,3000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)pushOpened()});
 let psT=0;function pushSync(now){if(!S.remind.on||!PUSH_API)return;clearTimeout(psT);psT=setTimeout(()=>pushPost('/state',{state:pushState()},true),now?0:15000)}
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&S.remind.on)pushSync(true)});
 function refreshRemindRows(){if(sheetOpen&&document.querySelector('.psheet'))refreshSheet(progressHTML())}
-async function toggleRemind(){
-  if(S.remind.on){S.remind.on=false;persist();refreshRemindRows();track('remind-off');const sub=await currentSub();if(sub){await pushPost('/unsubscribe',{});try{await sub.unsubscribe()}catch(e){}}toast('Reminders off');return}
-  if(isIOS()&&!standalone()){openSheet(`<div class="shead"><h3>Add to Home Screen first</h3><button class="link" data-act="close">Done</button></div><div class="bk"><p>On iPhone, reminders only work when Flashdecks is on your Home Screen.</p><ol class="steps"><li>Tap the <b>Share</b> button in Safari</li><li>Choose <b>Add to Home Screen</b></li><li>Open Flashdecks from your Home Screen and turn reminders on</li></ol></div>`);track('remind-needs-install');return}
-  if(!('PushManager' in window)||!('Notification' in window)){toast("This browser can't show reminders");return}
+function installFirst(){openSheet(`<div class="shead"><h3>Add to Home Screen first</h3><button class="link" data-act="close">Done</button></div><div class="bk"><p>On iPhone, notifications only work when Flashdecks is on your Home Screen.</p><ol class="steps"><li>Tap the <b>Share</b> button in Safari</li><li>Choose <b>Add to Home Screen</b></li><li>Open Flashdecks from your Home Screen and turn notifications on</li></ol></div>`);track('remind-needs-install')}
+const canAskPush=()=>pushOK()&&'Notification' in window&&'PushManager' in window&&(!isIOS()||standalone());
+async function enableNotifs(daily,updates,hour){
+  if(isIOS()&&!standalone()){installFirst();return false}
+  if(!('PushManager' in window)||!('Notification' in window)){toast("This browser can't show notifications");return false}
   let perm=Notification.permission;
   if(perm!=='granted')perm=await Notification.requestPermission();
-  if(perm!=='granted'){toast(perm==='denied'?'Notifications are blocked. Turn them on in your phone settings':'Reminders need permission to work');return}
+  if(perm!=='granted'){track('notif-denied');toast(perm==='denied'?'Notifications are blocked. Turn them on in your phone settings':'Notifications need permission to work');return false}
   try{
     const reg=await navigator.serviceWorker.ready;
     const {key}=await (await fetch(PUSH_API.replace(/\/$/,'')+'/vapid')).json();
     let sub=await reg.pushManager.getSubscription();
     if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64ToBytes(key)});
     const tz=(Intl.DateTimeFormat().resolvedOptions().timeZone)||'UTC';
-    const r=await fetch(PUSH_API.replace(/\/$/,'')+'/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sub:sub.toJSON(),hour:S.remind.hour,tz,state:pushState(),test:true})});
+    if(hour!=null)S.remind.hour=hour;
+    const r=await fetch(PUSH_API.replace(/\/$/,'')+'/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sub:sub.toJSON(),hour:S.remind.hour,tz,daily,updates,state:pushState(),test:true})});
     if(!r.ok)throw 0;
-    S.remind.on=true;persist();refreshRemindRows();track('remind-on');SFX.play('know');toast(`Reminders on · ${fmtHour(S.remind.hour)} daily`,P.bell);
-  }catch(e){toast("Couldn't turn on reminders. Try again later")}
+    Object.assign(S.remind,{on:true,daily,updates});persist();refreshRemindRows();track('notif-on'+(daily?'-daily':'')+(updates?'-updates':''));SFX.play('know');
+    toast(daily?`Reminders on · ${fmtHour(S.remind.hour)} daily`:'Notifications on',P.bell);return true
+  }catch(e){toast("Couldn't turn on notifications. Try again later");return false}
+}
+async function setPref(k){
+  if(!S.remind.on){await enableNotifs(k==='daily',k==='updates');return}
+  S.remind[k]=!S.remind[k];track(`notif-${k}-${S.remind[k]?'on':'off'}`);
+  if(!S.remind.daily&&!S.remind.updates){S.remind.on=false;S.remind.daily=S.remind.updates=true;persist();refreshRemindRows();const sub=await currentSub();if(sub){await pushPost('/unsubscribe',{});try{await sub.unsubscribe()}catch(e){}}toast('Notifications off');return}
+  persist();refreshRemindRows();pushPost('/state',{state:pushState(),daily:S.remind.daily,updates:S.remind.updates})
+}
+/* soft ask: after 5 cards, our own sheet first; the system prompt only appears if they tap Turn on */
+let nask={daily:true,updates:true};
+function notifAskHTML(){return `<div class="shead"><h3>Want a nudge to keep going?</h3><button class="link" data-act="close">Later</button></div><div class="bk">
+  <p>Flashdecks works best a few minutes a day. Choose what you'd like to hear about. You can change this anytime in Settings.</p>
+  <div class="box">
+    <button class="trow" role="switch" data-act="naskk" data-k="daily" aria-checked="${nask.daily}"><span><b>Daily reminders</b><small class="tsub">Streak, reviews and daily goal</small></span><span class="sw"></span></button>
+    ${nask.daily?`<label class="trow"><span>Remind me at</span><select id="nahour" aria-label="Reminder time">${Array.from({length:18},(_,i)=>i+6).map(h=>`<option value="${h}" ${h===S.remind.hour?'selected':''}>${fmtHour(h)}</option>`).join('')}</select></label>`:''}
+    <button class="trow" role="switch" data-act="naskk" data-k="updates" aria-checked="${nask.updates}"><span><b>Updates & check-ins</b><small class="tsub">New versions and come-back nudges</small></span><span class="sw"></span></button>
+  </div>
+  <button class="pill go full nask-go" data-act="naskgo" ${nask.daily||nask.updates?'':'disabled'}>Turn on</button></div>`}
+function maybeNotifAsk(){
+  if(!canAskPush()||S.remind.on||Notification.permission!=='default')return;
+  if(S.marks<5||S.nAsk>=2||(S.nAskAt&&Date.now()-S.nAskAt<3*864e5))return;
+  if(sheetOpen||document.querySelector('.unlock,#intro'))return;
+  S.nAsk++;S.nAskAt=Date.now();persist();nask={daily:true,updates:true};track('notif-ask');openSheet(notifAskHTML());
 }
 document.addEventListener('change',e=>{if(e.target.id!=='rhour')return;S.remind.hour=+e.target.value;persist();track('remind-hour-'+S.remind.hour);
   pushPost('/state',{state:pushState(),hour:S.remind.hour,tz:Intl.DateTimeFormat().resolvedOptions().timeZone}).then(ok=>toast(ok?`Reminder moved to ${fmtHour(S.remind.hour)}`:"Couldn't update the time"));refreshRemindRows()});
@@ -3915,8 +3951,9 @@ function maybeInstall(){
 }
 
 /* ---------- version, What's new, update banner ---------- */
-const APP_VERSION='2.7';
+const APP_VERSION='2.8';
 const CHANGELOG=[ // newest first; the first line is the update banner's note
+  ['2.8','Oct 21, 2026','Notifications: choose daily reminders and/or updates and check-ins, and hear about new versions as soon as they land.'],
   ['2.7','Oct 21, 2026','Clearer navigation: pick a deck on Home, then Study, Quiz and Search inside it, with the deck name always at the top.'],
   ['2.6','Oct 21, 2026','Background music now starts on your first tap and keeps playing with the silent switch on.'],
   ['2.5','Oct 21, 2026',"See the version and what's new in Settings, get a nudge when an update is ready, and no more accidental zoom when tapping."],
@@ -3987,7 +4024,9 @@ app.addEventListener('click',e=>{
   else if(act==='sound'){S.sound=!S.sound;persist();track(S.sound?'sound-on':'sound-off');a.setAttribute('aria-checked',S.sound);if(S.sound)SFX.play('know')}
   else if(act==='nextdeck'){cycleDeck(1)}
   else if(act==='home'){go('home')}
-  else if(act==='remind'){toggleRemind()}
+  else if(act==='npref'){setPref(a.dataset.k)}
+  else if(act==='naskk'){const k=a.dataset.k;nask[k]=!nask[k];refreshSheet(notifAskHTML())}
+  else if(act==='naskgo'){const h=$('#nahour');const hr=h?+h.value:null;closeSheet();enableNotifs(nask.daily,nask.updates,hr)}
   else if(act==='whatsnew'){openSheet(whatsNewHTML());track('whats-new')}
   else if(act==='refresh'){doRefresh()}
   else if(act==='noupd'){const u=$('#upd');if(u){updSeen=u.dataset.v;u.classList.remove('on');setTimeout(()=>u.remove(),400)}}
