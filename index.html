@@ -3566,7 +3566,7 @@ function renderHome(enter,dir){
   const n=TKEYS.length, tp=TKEYS[S.hpos], T=TOPICS[tp], all=topicTerms(tp), k=all.filter(t=>S.known.has(t.id)).length;
   const due=dueIn(tp), started=S.visited.has(tp)||k>0, cats=Object.keys(CATS).filter(c=>CATS[c][2]===tp).length, pct=k/all.length;
   main.innerHTML=`<section class="view v-home">
-    <div class="hd-top gut"><h2>Your decks</h2><span class="hd-r"><button class="mus ${S.music?'on':''}" data-act="music" aria-label="Background music ${S.music?'on':'off'}" aria-pressed="${S.music}">${I(S.music?P.music:P.musicOff,18,2)}</button><button class="alld" data-act="alldecks" aria-label="All decks, ${n}">${I(P.grid,16,2)}All decks · ${n}</button></span><span class="sr" aria-live="polite">${esc(T.n)}, deck ${S.hpos+1} of ${n}</span></div>
+    <div class="hd-top gut"><h2>Pick a deck</h2><span class="hd-r"><button class="mus ${S.music?'on':''}" data-act="music" aria-label="Background music ${S.music?'on':'off'}" aria-pressed="${S.music}">${I(S.music?P.music:P.musicOff,18,2)}</button><button class="alld" data-act="alldecks" aria-label="All decks, ${n}">${I(P.grid,16,2)}All decks · ${n}</button></span><span class="sr" aria-live="polite">${esc(T.n)}, deck ${S.hpos+1} of ${n}</span></div>
     <div class="hstack" id="hstack">
       <div class="hg g2"></div><div class="hg g1"><button class="hnext" data-act="nextdeck" tabindex="-1">Next <b>${esc(TOPICS[TKEYS[(S.hpos+1)%n]].n)}</b>${I(P.arrow,14,2.2)}</button></div>
       <div class="hcard ${enter?'enter h-'+(dir||'fwd'):''}" id="hcard" style="--c:${T.c}" role="group" aria-label="${esc(T.n)} deck">
@@ -3585,7 +3585,7 @@ function renderHome(enter,dir){
 }
 function renderHomeDesk(){
   main.innerHTML=`<section class="view v-homed">
-    <div class="hd-top"><h2>Your decks</h2><span class="hd-r"><button class="mus ${S.music?'on':''}" data-act="music" aria-label="Background music ${S.music?'on':'off'}" aria-pressed="${S.music}">${I(S.music?P.music:P.musicOff,18,2)}</button></span></div>
+    <div class="hd-top"><h2>Pick a deck</h2><span class="hd-r"><button class="mus ${S.music?'on':''}" data-act="music" aria-label="Background music ${S.music?'on':'off'}" aria-pressed="${S.music}">${I(S.music?P.music:P.musicOff,18,2)}</button></span></div>
     <div class="dgrid">${TKEYS.map(tp=>{const T=TOPICS[tp],all=topicTerms(tp),k=all.filter(t=>S.known.has(t.id)).length,started=S.visited.has(tp)||k>0,pct=k/all.length,due=dueIn(tp),cats=Object.keys(CATS).filter(c=>CATS[c][2]===tp).length;
       return `<article class="dcard ${tp===S.topic?'cur':''}" style="--c:${T.c}" data-open-deck="${tp}" tabindex="0" role="button" aria-label="${esc(T.n)}. ${started?'Continue':'Start'}">
         <div><h3>${esc(T.n)}</h3><p>${esc(T.d)}</p></div>
