@@ -718,6 +718,30 @@ html,body,button,a,input,select,textarea,label,[role=button]{touch-action:manipu
 .upd .ux{flex:none;width:30px;height:30px;border-radius:50%;font-size:20px;line-height:1;color:inherit;opacity:.6}
 @media (min-width:1024px) and (min-height:600px){.upd{left:auto;right:24px;top:20px;width:380px}}
 
+/* deck-first navigation: Home picks a deck (no tab bar); inside a deck: Study · Quiz · Search */
+.bk{display:none;flex:none;width:36px;height:36px;margin-left:-8px;border-radius:50%;place-items:center;color:var(--ink)}
+.bk:active{background:var(--m-fill)}
+.hb-deck{display:none}
+.bar h1{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.app.in-deck .bk{display:grid}
+.app.in-deck .bar .mark,.app.in-deck .hb-app{display:none}
+.app.in-deck .hb-deck{display:inline}
+.app.in-deck .bar h1{font-size:20px;letter-spacing:-.02em}
+.tab[data-tab=home],.tb-deck{display:none}
+.tab[hidden]{display:none!important}
+.app:not(.in-deck) .tabbar{display:none}
+.app:not(.in-deck) .view{padding-bottom:var(--gap)}
+.app:not(.in-deck) .toast{bottom:28px}
+@media (min-width:1024px) and (min-height:600px){
+  .app.in-deck .bk,.app.in-deck .hb-deck{display:none}
+  .app.in-deck .bar .mark,.app.in-deck .hb-app{display:inline}
+  .app.in-deck .bar .mark{display:grid}
+  .app.in-deck .bar h1{font-size:22px}
+  .app:not(.in-deck) .tabbar{display:flex}
+  .tab[data-tab=home]{display:flex}
+  .tb-deck{display:block;margin:18px 14px 6px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+}
+
 /* ===== Mini UI kit (drawn inside the card's visual stage) ===== */
 .vis{position:relative;display:flex;align-items:center;justify-content:center;font-family:var(--body);font-size:11px;line-height:1.25;color:var(--ink-2);overflow:hidden;text-align:left}
 .vis *{box-sizing:border-box}
@@ -1581,16 +1605,17 @@ html,body,button,a,input,select,textarea,label,[role=button]{touch-action:manipu
 </style>
 <div class="app" id="app">
   <header class="bar gut">
+    <button class="bk" id="bkhome" type="button" data-act="home" aria-label="Back to all decks"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
     <span class="mark" aria-hidden="true"><svg viewBox="0 0 100 100" width="34" height="34"><rect x="14" y="31" width="8" height="38" rx="4" fill="#fff" opacity=".35"/><rect x="24" y="25" width="8" height="50" rx="4" fill="#fff" opacity=".6"/><rect x="34" y="19" width="50" height="62" rx="12" fill="#fff"/><path class="bolt" d="M65 30L49 53h11l-5 16 17-24H61z" fill="currentColor"/></svg></span>
-    <h1>Flashdecks</h1>
+    <h1><span class="hb-app">Flashdecks</span><span class="hb-deck" id="hbdeck"></span></h1>
     <button class="lvl" id="lvl" type="button"></button>
   </header>
   <main class="main" id="main"></main>
   <nav class="tabbar" role="tablist" aria-label="Sections">
-    <button class="tab" role="tab" data-tab="home" aria-label="Home"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V19a1.5 1.5 0 01-1.5 1.5h-4V15h-5v5.5h-4A1.5 1.5 0 014 19z"/></svg><span>Home</span></button>
+    <button class="tab" role="tab" data-tab="home" aria-label="Home"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V19a1.5 1.5 0 01-1.5 1.5h-4V15h-5v5.5h-4A1.5 1.5 0 014 19z"/></svg><span>All decks</span></button>
     <button class="tab" role="tab" data-tab="study" aria-label="Study"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="12" height="14" rx="2.5"/><path d="M8 3.5h9.5A2.5 2.5 0 0120 6v11"/></svg><span>Study</span></button>
     <button class="tab" role="tab" data-tab="quiz" aria-label="Quiz"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 014.9.6c0 1.7-2.5 2.1-2.5 3.6M12 17v.2"/></svg><span>Quiz</span></button>
-    <button class="tab" role="tab" data-tab="browse" aria-label="Browse"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span>Browse</span></button>
+    <button class="tab" role="tab" data-tab="browse" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span>Search</span></button>
   </nav>
   <div class="side-foot" aria-label="Keyboard shortcuts">
     <p>Shortcuts</p>
@@ -3344,7 +3369,12 @@ const hasArt=()=>!TOPICS[S.topic].qa;
 const $=s=>document.querySelector(s);
 const app=$('#app'), main=$('#main'), live=$('#live');
 
-function renderTabs(){document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===S.tab))}
+function renderTabs(){const inDeck=S.tab!=='home',T=TOPICS[S.topic];
+  app.classList.toggle('in-deck',inDeck);
+  $('#hbdeck').textContent=T.n;
+  document.querySelectorAll('.tab').forEach(b=>{b.setAttribute('aria-selected',b.dataset.tab===S.tab);if(b.dataset.tab==='quiz')b.hidden=!!T.qa});
+  const tb=$('.tabbar');tb.setAttribute('aria-label',inDeck?`${T.n} sections`:'Sections');
+  let dl=$('#tbdeck');if(!dl){dl=document.createElement('p');dl.id='tbdeck';dl.className='tb-deck';tb.querySelector('[data-tab=home]').after(dl)}dl.textContent=T.n}
 function renderLevel(bump){
   const x=xp(), i=badgeIdx(x), cur=BADGES[i], nxt=BADGES[i+1];
   const lo=cur?cur.xp:0, hi=nxt?nxt.xp:lo||1, p=nxt?(x-lo)/(hi-lo):1;
@@ -3396,7 +3426,7 @@ function renderStudy(enter){
   const uniq=[...new Set(S.order)], u=uniq.length;
   const k=uniq.filter(id=>S.known.has(id)).length;
   const coming=S.order.filter((id,i)=>i>S.pos&&S.order.indexOf(id)<i).length;
-  const title=(S.cat==='all'?TOPICS[S.topic].s:CATS[S.cat][0])+(S.deck==='learning'?' · Learning':S.deck==='known'?' · Known':S.deck==='review'?' · Review':'');
+  const title=(S.cat==='all'?'All cards':CATS[S.cat][0])+(S.deck==='learning'?' · Learning':S.deck==='known'?' · Known':S.deck==='review'?' · Review':'');
   const sub=!n?'No cards in this set':done?`All ${u} cards seen · ${k} known`:`${k} known${coming?` · ${coming} coming back`:''}`;
   const filtered=S.cat!=='all'||S.deck!=='all'||S.shuffle||S.pic;
   let stack;
@@ -3513,7 +3543,7 @@ function renderQuiz(){
     return `<button class="opt ${cls}" data-pick="${id}" ${Q.answered?'disabled':''} aria-label="${i+1}. ${esc(o.t)}"><span class="t">${esc(o.t)}</span><span class="k">${mk}</span></button>`};
   const ok=Q.answered&&Q.pick===t.id;
   main.innerHTML=`<section class="view v-quiz">
-    <div class="ctx gut"><div><h2>Which term is this?</h2><p>${CATS[t.c][0]} · ${Q.score} of ${Q.total} right</p></div><span class="streak ${Q.streak&&Q.streak%5===0&&Q.answered?'hot':''}" aria-label="Streak ${Q.streak}"><b>${I(P.bolt,14)}</b>${Q.streak}</span></div>
+    <div class="ctx gut"><div><h2>Which term is this?</h2><p>${esc(TOPICS[S.topic].s)} quiz · ${CATS[t.c][0]} · ${Q.score} of ${Q.total} right</p></div><span class="streak ${Q.streak&&Q.streak%5===0&&Q.answered?'hot':''}" aria-label="Streak ${Q.streak}"><b>${I(P.bolt,14)}</b>${Q.streak}</span></div>
     <div class="gut qbody">
       <div class="qcard ${Q.answered&&!ok?'shake':''}">
         <div class="stage"><div class="vis">${t.v}</div></div>
@@ -3558,7 +3588,7 @@ function renderRows(){
 function chipsHTML(){return `<button class="chip" data-cat="all" aria-pressed="${S.cat==='all'}">All</button>`+topicCats().map(c=>`<button class="chip" data-cat="${c}" aria-pressed="${S.cat===c}" style="--c:${col(c)}"><i></i>${CATS[c][0]}</button>`).join('')}
 function renderBrowse(){
   main.innerHTML=`<section class="view v-browse">
-    <h2 class="big gut">${TOPICS[S.topic].n}</h2>
+    <h2 class="big gut">Search</h2>
     <div class="gut"><label class="field" for="q">${I(P.browse,20,2)}<input id="q" type="search" placeholder="Search ${TERMS.length} ${TOPICS[S.topic].qa?'questions':'cards'} in ${TOPICS[S.topic].s}" autocomplete="off" spellcheck="false" enterkeyhint="search" value="${esc(S.q)}"><button class="clr" id="qclr" type="button" aria-label="Clear search" ${S.q?'':'hidden'}>${I(P.x,14,2.4)}</button></label></div>
     <div class="chips gut" id="chips">${chipsHTML()}</div>
     <p class="count gut" id="count"></p>
@@ -3885,8 +3915,9 @@ function maybeInstall(){
 }
 
 /* ---------- version, What's new, update banner ---------- */
-const APP_VERSION='2.6';
+const APP_VERSION='2.7';
 const CHANGELOG=[ // newest first; the first line is the update banner's note
+  ['2.7','Oct 21, 2026','Clearer navigation: pick a deck on Home, then Study, Quiz and Search inside it, with the deck name always at the top.'],
   ['2.6','Oct 21, 2026','Background music now starts on your first tap and keeps playing with the silent switch on.'],
   ['2.5','Oct 21, 2026',"See the version and what's new in Settings, get a nudge when an update is ready, and no more accidental zoom when tapping."],
   ['2.4','Oct 21, 2026','"Install the app" prompt with steps for iPhone and Android. Home now says "Pick a deck", and the app icon is refreshed.'],
@@ -3955,6 +3986,7 @@ app.addEventListener('click',e=>{
   else if(act==='tour'){closeSheet();startIntro()}
   else if(act==='sound'){S.sound=!S.sound;persist();track(S.sound?'sound-on':'sound-off');a.setAttribute('aria-checked',S.sound);if(S.sound)SFX.play('know')}
   else if(act==='nextdeck'){cycleDeck(1)}
+  else if(act==='home'){go('home')}
   else if(act==='remind'){toggleRemind()}
   else if(act==='whatsnew'){openSheet(whatsNewHTML());track('whats-new')}
   else if(act==='refresh'){doRefresh()}
