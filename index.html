@@ -750,6 +750,9 @@ html,body,button,a,input,select,textarea,label,[role=button]{touch-action:manipu
 .nask-go:disabled{opacity:.4}
 .bk .trow{padding-top:12px;padding-bottom:12px;min-height:56px}
 
+.adg{margin:18px 0 2px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}.adl .adg:first-child{margin-top:6px}
+.adg+.adr{border-top:0}
+
 /* ===== Mini UI kit (drawn inside the card's visual stage) ===== */
 .vis{position:relative;display:flex;align-items:center;justify-content:center;font-family:var(--body);font-size:11px;line-height:1.25;color:var(--ink-2);overflow:hidden;text-align:left}
 .vis *{box-sizing:border-box}
@@ -3153,6 +3156,428 @@ Q('iv-ask','What should you ask at the end of the interview?',
 Q('iv-ask','What questions should you avoid asking early on?',
 "Some topics are better saved for later stages.\n\n- Leading with salary, perks or time off before showing interest in the work\n- Questions answered on their website's front page\n- Anything negative about other candidates or companies\n\nTip: salary is important; raise it with the recruiter at the right stage, not with the first interviewer.");
 
+/* ================= HOME BAKING ================= */
+TP='bake';
+const BOWL=(x=110,y=96,w=120,fill='')=>`<path class="f" d="M${x-w/2} ${y-44}H${x+w/2}A${w/2} 44 0 0 1 ${x-w/2} ${y-44}Z"/>${fill}`;
+const OVEN=(inner='',hot='')=>`<rect class="f" x="40" y="4" width="140" height="100" rx="8"/><rect x="52" y="26" width="116" height="68" rx="4" fill="var(--paper)"/><circle cx="66" cy="15" r="4"/><circle cx="84" cy="15" r="4"/><path class="g" d="M110 15h52"/>${hot}${inner}`;
+const LOAF=(x,y,w,h,k='f')=>`<path class="${k}" d="M${x} ${y}V${y-h*.55}Q${x} ${y-h} ${x+w*.25} ${y-h}H${x+w*.75}Q${x+w} ${y-h} ${x+w} ${y-h*.55}V${y}Z"/>`;
+const CAKE=(x,y,w,h,k='f',dip=0)=>`<path class="${k}" d="M${x} ${y}V${y-h}Q${x+w/2} ${y-h+dip} ${x+w} ${y-h}V${y}Z"/>`;
+const SCALE=(t)=>`<rect class="f" x="62" y="70" width="96" height="36" rx="8"/><rect x="74" y="78" width="72" height="20" rx="3" fill="var(--paper)"/>${TX(110,92,t,'b')}<path class="f" d="M70 70h80l-6-10H76z"/>`;
+const THERMO=(x,y,t)=>`<rect x="${x-4}" y="${y-60}" width="8" height="52" rx="4"/><circle class="af" cx="${x}" cy="${y}" r="9"/><path class="a w" d="M${x} ${y-6}V${y-40}"/>${TX(x+14,y-36,t,'l')}`;
+const BUB3=(x,y)=>`<circle class="g" cx="${x}" cy="${y}" r="4"/><circle class="g" cx="${x+14}" cy="${y-8}" r="3"/><circle class="g" cx="${x+26}" cy="${y+2}" r="5"/>`;
+
+/* ===== Ingredients ===== */
+D('bk-ing','Flour protein',"The protein in flour decides how much gluten forms. Bread flour is high (about 12–14%), all-purpose is middle, cake flour is low for soft crumbs.",
+ AD(220,124,`<rect class="f" x="28" y="40" width="44" height="64" rx="6"/><rect class="f" x="88" y="40" width="44" height="64" rx="6"/><rect class="f" x="148" y="40" width="44" height="64" rx="6"/><rect class="af" x="34" y="56" width="32" height="42"/><rect class="af" x="94" y="70" width="32" height="28"/><rect class="af" x="154" y="82" width="32" height="16"/>${TX(50,32,'bread')}${TX(110,32,'all-purpose')}${TX(170,32,'cake')}${TX(110,120,'more protein → more gluten → chewier')}`));
+D('bk-ing','Gluten',"A stretchy network that forms when flour proteins meet water and are mixed. It traps gas, giving bread its chew and structure.",
+ AD(220,124,`<path class="a" d="M30 40C60 20 70 70 100 50S140 20 170 50S200 70 190 90"/><path class="a" d="M30 70C55 90 80 50 110 76S150 100 190 60"/><path class="g" d="M40 96C70 80 100 110 130 92S170 80 196 100"/>${BUB3(70,58)}${BUB3(130,72)}${TX(110,120,'stretchy strands trap gas bubbles')}`));
+D('bk-ing','Yeast',"A living fungus that eats sugar and releases carbon dioxide, which makes dough rise. It works best warm, around 24–30°C.",
+ AD(220,124,`<circle class="af" cx="60" cy="60" r="16"/><circle class="af" cx="78" cy="46" r="8"/>${TX(64,92,'yeast')}${ARW(96,60,128,60)}<circle class="g" cx="150" cy="44" r="8"/><circle class="g" cx="172" cy="62" r="10"/><circle class="g" cx="148" cy="74" r="6"/>${TX(160,96,'CO₂ gas')}${TX(110,118,'sugar → gas → rise')}`));
+D('bk-ing','Baking soda',"A pure alkali (bicarbonate of soda). It needs an acid in the recipe, like buttermilk or yogurt, to release gas. It also helps browning.",
+ AD(220,124,`<rect class="f" x="30" y="40" width="50" height="56" rx="6"/>${TX(55,72,'soda','b')}${TX(110,72,'+','b')}<rect class="f" x="140" y="40" width="50" height="56" rx="6"/>${TX(165,66,'acid','b')}${TX(165,80,'buttermilk')}${TX(110,116,'together they fizz → lift')}`));
+D('bk-ing','Baking powder',"Baking soda already mixed with a dry acid. Most is double-acting: it bubbles once when wet and again in the oven's heat.",
+ AD(220,124,`<rect class="f" x="80" y="20" width="60" height="70" rx="6"/>${TX(110,48,'soda','b')}${TX(110,62,'+ acid','b')}${TX(110,76,'(+ starch)')}${BUB3(40,70)}${TX(48,100,'when wet')}${BUB3(160,70)}${TX(172,100,'in the oven')}`));
+D('bk-ing','Eggs',"Eggs bind, lift and enrich. Whites trap air and set firm; yolks add fat, colour and help mixtures emulsify.",
+ AD(220,124,`<ellipse class="f" cx="110" cy="60" rx="70" ry="44"/><circle class="af" cx="110" cy="62" r="20"/>${TX(110,66,'yolk','b')}${TX(60,40,'white')}${TX(30,118,'bind','l')}${TX(110,118,'lift')}${TX(190,118,'richness')}`));
+D('bk-ing','Butter',"Adds flavour and tenderness. Cold butter makes flaky layers in pastry; soft butter traps air when creamed with sugar.",
+ AD(220,124,`<path class="f" d="M30 60l40-20h80l40 20v30H30z"/><path d="M30 60h160M70 40v20M150 40v20"/>${TX(60,112,'cold → flaky')}${TX(160,112,'soft → creamy, airy')}`));
+D('bk-ing','Sugar',"Sweetens, but also keeps bakes moist, helps browning and tenderises by slowing gluten. Cutting it changes texture, not just taste.",
+ AD(220,124,`<path class="f" d="M70 30h80l-10 70H80z"/><path class="g" d="M80 50h60"/>${TX(110,72,'sugar','b')}${TX(30,30,'moist','l')}${TX(30,52,'browns','l')}${TX(176,30,'tender','l')}${TX(176,52,'sweet','l')}`));
+D('bk-ing','Salt',"A small amount sharpens every flavour. In bread it also tightens gluten and slows yeast, so it shouldn't touch yeast directly for long.",
+ AD(220,124,`<path class="f" d="M90 30h40v70H90z"/><path d="M90 30q20-14 40 0"/><circle cx="100" cy="22" r="1.5"/><circle cx="112" cy="18" r="1.5"/><circle cx="122" cy="22" r="1.5"/>${TX(110,116,'a pinch makes sweet taste sweeter')}`));
+D('bk-ing','Room temperature',"Many recipes want butter and eggs at room temperature (about 18–21°C) so they blend smoothly and trap air instead of curdling.",
+ AD(220,124,`${THERMO(50,100,'about 20°C')}<path class="f" d="M110 80l14-10h40l14 10v20h-68z"/><ellipse class="f" cx="196" cy="84" rx="12" ry="16"/>${TX(150,118,'butter + eggs blend smoothly')}`));
+
+/* ===== Techniques ===== */
+D('bk-tec','Creaming',"Beating soft butter and sugar together until pale and fluffy. The sugar crystals cut tiny air pockets into the fat, which lift the cake.",
+ AD(220,124,`${BOWL(80,96,110)}<path class="a w" d="M80 20V60M70 60c0 10 20 10 20 0M66 60c-2 18 30 18 28 0"/>${BUB3(46,70)}${TX(170,50,'3–5 minutes','l')}${TX(170,66,'pale + fluffy','l')}`));
+D('bk-tec','Folding',"Gently mixing a light mixture (like whisked whites) into a heavier one with a spatula, cutting down and turning over to keep the air in.",
+ AD(220,124,`${BOWL(110,100,140)}<path class="a w" d="M80 40C100 80 140 80 150 50"/>${ARW(146,56,150,46,'a')}${BUB3(90,66)}${TX(110,120,'cut down, scoop up, turn the bowl')}`));
+D('bk-tec','Rubbing in',"Rubbing cold butter into flour with fingertips until it looks like breadcrumbs. Used for shortcrust pastry, scones and crumbles.",
+ AD(220,124,`${BOWL(110,100,140)}<circle class="f" cx="84" cy="70" r="3"/><circle class="f" cx="100" cy="74" r="4"/><circle class="f" cx="118" cy="70" r="3"/><circle class="f" cx="134" cy="74" r="4"/><path class="g" d="M80 30q10 20 30 14M140 30q-10 20-30 14"/>${TX(110,120,'looks like breadcrumbs')}`));
+D('bk-tec','Kneading',"Pushing, folding and turning dough to build gluten. It's ready when smooth and it stretches thin without tearing (the windowpane test).",
+ AD(220,124,`<ellipse class="f" cx="80" cy="80" rx="54" ry="22"/>${ARW(60,60,100,60,'a')}${ARW(100,50,70,40,'a')}<ellipse class="af" cx="174" cy="60" rx="26" ry="26"/>${TX(174,64,'thin','b')}${TX(80,118,'push · fold · turn')}${TX(174,104,'windowpane')}`));
+D('bk-tec','Proofing',"Letting shaped dough rise before baking. It's ready when a gentle poke springs back slowly and leaves a small dent.",
+ AD(220,124,`${LOAF(30,100,70,40)}${ARW(108,80,130,80,'a')}${LOAF(140,100,70,64,'af')}<circle class="g" cx="175" cy="52" r="4"/>${TX(65,116,'shaped')}${TX(175,116,'risen, poke springs back slowly')}`));
+D('bk-tec','Blind baking',"Baking a pastry case empty, weighed down with baking beans on paper, so the base cooks crisp before a wet filling goes in.",
+ AD(220,124,`<path class="f" d="M30 60h160l-14 40H44z"/><path d="M40 60q70-16 140 0"/><circle class="g" cx="70" cy="66" r="5"/><circle class="g" cx="90" cy="70" r="5"/><circle class="g" cx="110" cy="66" r="5"/><circle class="g" cx="130" cy="70" r="5"/><circle class="g" cx="150" cy="66" r="5"/>${TX(110,40,'paper + baking beans')}${TX(110,118,'crisp base, no soggy bottom')}`));
+D('bk-tec','Stiff peaks',"Whisked egg whites or cream that hold an upright point when the whisk is lifted. Soft peaks flop over at the tip.",
+ AD(220,124,`<path class="f" d="M20 100h80l-20-40-10-36-10 36z"/>${TX(60,118,'stiff: stands up')}<path class="f" d="M120 100h80l-20-30q-10-16-26-6q14 2 8 12z"/>${TX(160,118,'soft: tip flops')}`));
+D('bk-tec','Lamination',"Folding a slab of cold butter into dough and rolling it out again and again to make many thin layers. It gives croissants and puff pastry their flakes.",
+ AD(220,124,`<rect class="f" x="30" y="30" width="160" height="10"/><rect class="af" x="30" y="40" width="160" height="8"/><rect class="f" x="30" y="48" width="160" height="10"/><rect class="af" x="30" y="58" width="160" height="8"/><rect class="f" x="30" y="66" width="160" height="10"/><rect class="af" x="30" y="76" width="160" height="8"/><rect class="f" x="30" y="84" width="160" height="10"/>${TX(110,112,'dough / butter / dough… hundreds of layers')}`));
+D('bk-tec','Weighing ingredients',"Measuring by weight with a digital scale, not cups. A cup of flour can vary by 30 g or more depending on how it's scooped.",
+ AD(220,124,`${SCALE('250 g')}<path class="f" d="M84 60q26-30 52 0z"/>${TX(110,118,'grams are exact; cups are guesses')}`));
+D('bk-tec','Tempering',"Adding a little hot liquid to eggs while whisking, then adding the warmed eggs back, so they don't scramble. Used for custards.",
+ AD(220,124,`<path class="f" d="M30 50h50l-6 40H36z"/>${TX(55,104,'eggs')}${ARW(90,44,130,44,'a')}${TX(110,36,'hot milk, slowly')}<path class="f" d="M140 50h50l-6 40h-38z"/>${TX(165,104,'smooth custard')}`));
+
+/* ===== Doughs & Batters ===== */
+D('bk-dgh','Shortcrust pastry',"A crumbly pastry of flour, fat and a little water, roughly twice as much flour as fat. Used for tarts and pies.",
+ AD(220,124,`<path class="f" d="M30 60h160l-14 40H44z"/><path class="g d" d="M30 60h160"/>${TX(110,40,'2 parts flour : 1 part fat')}${TX(110,118,'crumbly, crisp, short')}`));
+D('bk-dgh','Puff pastry',"A laminated dough that rises into hundreds of flaky layers as water in the butter turns to steam. No yeast needed.",
+ AD(220,124,`<path class="f" d="M40 90h140v-8H40zM40 82h140v-8H40zM44 74h132v-8H44zM48 66h124v-8H48zM52 58h116v-8H52z"/>${ARW(110,44,110,24,'a')}${TX(110,18,'steam lifts the layers')}${TX(110,112,'flaky, buttery, no yeast')}`));
+D('bk-dgh','Choux pastry',"A cooked paste of water, butter, flour and eggs. In the oven, steam puffs it into hollow shells for éclairs and profiteroles.",
+ AD(220,124,`<path class="f" d="M30 96h80q0-56-40-56t-40 56z"/><path class="g d" d="M44 90q26-36 52 0"/>${TX(70,112,'hollow inside')}<rect class="f" x="128" y="70" width="70" height="26" rx="13"/>${TX(163,112,'éclair')}`));
+D('bk-dgh','Enriched dough',"A yeast dough with added butter, eggs, milk or sugar, like brioche or cinnamon rolls. It's softer and rises more slowly.",
+ AD(220,124,`${LOAF(36,100,148,60)}<path class="g" d="M70 56q10 14 0 28M110 52q10 16 0 32M150 56q10 14 0 28"/>${TX(110,118,'+ butter, eggs, milk, sugar')}`));
+D('bk-dgh','Sourdough starter',"A live mix of flour and water full of wild yeast and bacteria. It's fed regularly and used instead of packet yeast, adding a tangy flavour.",
+ AD(220,124,`<path class="f" d="M80 20h60v80q0 10-10 10H90q-10 0-10-10z"/><path class="af" d="M82 50h56v50q0 8-8 8H90q-8 0-8-8z"/>${BUB3(92,70)}${BUB3(100,92)}<path class="g d" d="M146 34h20"/>${TX(170,38,'doubled','l')}${TX(110,122,'feed: flour + water')}`));
+D('bk-dgh','Quick bread',"A bread raised by baking soda or powder instead of yeast, so there's no rising time. Banana bread and soda bread are quick breads.",
+ AD(220,124,`${LOAF(40,100,140,52)}<path class="g" d="M70 52q40-10 80 0"/>${TX(110,118,'no yeast, no waiting')}`));
+D('bk-dgh','Sponge cake',"A light cake that gets most of its lift from whisked eggs rather than raising agents. Génoise and chiffon are types of sponge.",
+ AD(220,124,`${CAKE(40,100,140,50)}${BUB3(70,80)}${BUB3(120,72)}${TX(110,118,'air whisked into eggs = lift')}`));
+D('bk-dgh','Pound cake',"A rich, dense cake traditionally made from a pound each of butter, sugar, eggs and flour. Many loaf cakes follow this 1:1:1:1 idea.",
+ AD(220,124,`${LOAF(40,96,140,46)}${TX(110,110,'1 : 1 : 1 : 1')}${TX(110,122,'butter · sugar · eggs · flour')}`));
+D('bk-dgh','Cookie dough ratios',"More butter and sugar makes cookies spread thin and crisp; more flour or an egg yolk makes them thicker and chewier.",
+ AD(220,124,`<ellipse class="f" cx="60" cy="70" rx="44" ry="10"/>${TX(60,100,'more butter: thin')}<ellipse class="f" cx="164" cy="66" rx="28" ry="16"/>${TX(164,100,'more flour: chewy')}`));
+D('bk-dgh','Batter vs dough',"Batter is pourable (pancakes, most cakes); dough is firm enough to shape by hand (bread, cookies, pastry). The flour-to-liquid ratio decides it.",
+ AD(220,124,`<path class="f" d="M30 40h60l-8 50H38z"/><path class="a" d="M60 90q0 16 10 24"/>${TX(60,30,'batter: pours')}<ellipse class="f" cx="160" cy="80" rx="40" ry="20"/>${TX(160,30,'dough: holds shape')}`));
+
+/* ===== Baking Science ===== */
+D('bk-sci','Maillard reaction',"Browning that happens when proteins and sugars meet heat above about 140°C. It creates the toasty flavour of crusts and golden cakes.",
+ AD(220,124,`${LOAF(40,100,140,60,'af')}<path class="a w" d="M50 60q60-30 120 0"/>${TX(110,22,'140°C+')}${TX(110,118,'proteins + sugars → golden crust')}`));
+D('bk-sci','Caramelisation',"Sugar alone breaking down in high heat (from about 160°C) into deep brown, bittersweet flavours. Different from the Maillard reaction.",
+ AD(220,124,`<path class="f" d="M50 60h120l-10 40H60z"/><path class="af" d="M56 70h108l-6 26H62z"/>${TX(110,42,'sugar only, 160°C+')}${TX(110,118,'white → amber → dark')}`));
+D('bk-sci','Leavening',"Anything that adds gas to make a bake rise: yeast, baking soda or powder, whisked air or steam.",
+ AD(220,124,`<rect class="f" x="20" y="40" width="40" height="30" rx="6"/>${TX(40,84,'yeast')}<rect class="f" x="70" y="40" width="40" height="30" rx="6"/>${TX(90,84,'soda/powder')}<rect class="f" x="120" y="40" width="40" height="30" rx="6"/>${TX(140,84,'air')}<rect class="f" x="170" y="40" width="40" height="30" rx="6"/>${TX(190,84,'steam')}${TX(115,112,'four ways to make it rise')}`));
+D('bk-sci','Oven spring',"The final burst of rise in the first minutes of baking, as gas expands and yeast makes a last push before the crust sets.",
+ AD(220,124,`${LOAF(30,100,70,42)}${ARW(108,80,128,80,'a')}${LOAF(136,100,70,66,'af')}${TX(65,116,'into the oven')}${TX(171,116,'first 10 minutes')}`));
+D('bk-sci','Starch gelatinisation',"Starch granules soak up liquid and swell when heated, setting the crumb and thickening sauces and custards.",
+ AD(220,124,`<circle class="f" cx="60" cy="60" r="10"/><circle class="f" cx="84" cy="66" r="8"/>${ARW(104,62,128,62,'a')}<circle class="af" cx="156" cy="58" r="20"/><circle class="af" cx="184" cy="72" r="14"/>${TX(110,112,'heat + liquid → swollen, set')}`));
+D('bk-sci','Autolyse',"Resting just flour and water for 20–60 minutes before adding salt and yeast. Gluten starts forming on its own, so you knead less.",
+ AD(220,124,`<ellipse class="f" cx="70" cy="76" rx="44" ry="20"/>${TX(70,80,'flour + water')}<circle cx="168" cy="60" r="26"/><path class="a" d="M168 60V42M168 60l12 8"/>${TX(168,104,'rest 20–60 min')}`));
+D('bk-sci','Emulsion',"A smooth blend of fat and water held together, like a cake batter. If it splits (curdles), fat and liquid separate.",
+ AD(220,124,`<circle class="f" cx="60" cy="64" r="34"/><circle class="g" cx="48" cy="56" r="3"/><circle class="g" cx="66" cy="70" r="3"/><circle class="g" cx="58" cy="78" r="3"/>${TX(60,114,'smooth')}<circle class="f" cx="160" cy="64" r="34"/><circle class="rf" cx="150" cy="50" r="10"/><circle class="rf" cx="172" cy="74" r="8"/>${TX(160,114,'split / curdled')}`));
+D('bk-sci','Carryover cooking',"Bakes keep cooking from their own heat after leaving the oven. Cheesecakes and brownies are pulled out slightly underdone for this reason.",
+ AD(220,124,`${CAKE(30,96,90,40)}${ARW(130,76,160,76,'a')}${TX(80,114,'out of the oven')}${TX(170,60,'still','l')}${TX(170,74,'cooking','l')}${TX(170,88,'inside','l')}`));
+D('bk-sci','Hydration',"The weight of water as a percentage of the flour's weight. A 70% hydration dough has 700 g water to 1 kg flour; higher means wetter and more open crumb.",
+ AD(220,124,`${SCALE('70%')}${TX(110,30,'water ÷ flour × 100')}${TX(110,48,'700 g ÷ 1000 g')}`));
+D('bk-sci',"Baker's percentage","Writing every ingredient as a percentage of the flour, which is always 100%. It makes scaling a recipe up or down easy.",
+ AD(220,124,`<rect class="af" x="20" y="30" width="180" height="16"/>${TX(110,42,'flour 100%','b')}<rect class="f" x="20" y="52" width="126" height="14"/>${TX(83,63,'water 70%')}<rect class="f" x="20" y="72" width="4" height="14"/>${TX(56,83,'salt 2%')}<rect class="f" x="20" y="92" width="2" height="14"/>${TX(56,103,'yeast 1%')}`));
+
+/* ===== Tools & Oven ===== */
+D('bk-tol','Oven thermometer',"A cheap thermometer that sits inside the oven. Home ovens often run 10–25°C off the dial, which explains many failed bakes.",
+ AD(220,124,`${OVEN(`<circle class="af" cx="110" cy="68" r="22"/><path class="a w" d="M110 68l10-12"/>`)}${TX(110,122,'dial says 180°C, oven may be 160°C')}`));
+D('bk-tol','Preheating',"Heating the oven fully to the set temperature before the bake goes in. Most ovens need 15–20 minutes, even after the light goes off.",
+ AD(220,124,`${OVEN('',`<path class="a" d="M70 90q8-12 0-24M100 90q8-12 0-24M130 90q8-12 0-24M160 90q8-12 0-24"/>`)}${TX(110,122,'wait 15–20 minutes')}`));
+D('bk-tol','Fan (convection) oven',"A fan moves hot air so food bakes faster and browns more. Lower the temperature by about 20°C from a conventional recipe.",
+ AD(220,124,`${OVEN(`<circle cx="110" cy="66" r="18"/><path class="a" d="M110 66l10-14M110 66l-16-4M110 66l6 16"/>`)}${TX(110,122,'conventional 180°C → fan 160°C')}`));
+D('bk-tol','Rack position',"Where the shelf sits changes the bake. The middle gives even heat; the top browns tops; the bottom crisps bases.",
+ AD(220,124,`${OVEN(`<path class="g" d="M56 40h50M56 60h50M56 80h50"/><rect class="af" x="64" y="52" width="34" height="8"/>`)}${TX(112,43,'top: browns','l')}${TX(112,63,'middle: even','l')}${TX(112,83,'bottom: crisp','l')}`));
+D('bk-tol','Bench scraper',"A flat metal or plastic blade for lifting, dividing and cleaning up sticky dough, and smoothing the sides of cakes.",
+ AD(220,124,`<rect class="f" x="60" y="30" width="100" height="20" rx="6"/><rect x="60" y="50" width="100" height="44"/><ellipse class="f" cx="110" cy="104" rx="70" ry="10"/>${TX(110,122,'lift · cut · scrape')}`));
+D('bk-tol','Springform pan',"A cake tin with a clip-release side, so delicate cakes like cheesecake come out without turning them over.",
+ AD(220,124,`<ellipse cx="110" cy="40" rx="70" ry="14"/><path d="M40 40v44M180 40v44"/><ellipse class="f" cx="110" cy="84" rx="70" ry="14"/><rect class="af" x="174" y="56" width="16" height="12" rx="3"/>${TX(110,118,'unclip the side, lift away')}`));
+D('bk-tol','Parchment paper',"Non-stick baking paper for lining tins and trays. Unlike wax paper, it's safe in the oven.",
+ AD(220,124,`<rect class="f" x="40" y="40" width="140" height="60" rx="4"/><path class="g" d="M40 40l20 -14h140l-20 14"/>${TX(110,74,'non-stick, oven-safe')}`));
+D('bk-tol','Cooling rack',"A wire rack that lets air under hot bakes so steam escapes instead of making the bottom soggy.",
+ AD(220,124,`${CAKE(60,70,100,36)}<path d="M30 76h160M30 76v20M190 76v20"/><path class="g" d="M50 76v10M70 76v10M90 76v10M110 76v10M130 76v10M150 76v10M170 76v10"/>${ARW(110,100,110,116,'a')}${TX(140,118,'steam escapes','l')}`));
+D('bk-tol','Doneness test',"How to tell a bake is ready: a skewer comes out clean for cakes, bread sounds hollow when tapped, or a thermometer reads about 95°C inside bread.",
+ AD(220,124,`${CAKE(30,100,90,40)}<path class="a w" d="M75 30V96"/>${TX(75,24,'skewer: clean')}${LOAF(140,100,60,40)}${TX(170,24,'bread: ~95°C')}`));
+D('bk-tol','Stand mixer vs by hand',"A stand mixer takes the hard work out of creaming, whisking and kneading, but nearly everything can be done by hand with more time.",
+ AD(220,124,`<path class="f" d="M50 20h60v18H76v20h-26z"/><path class="f" d="M50 58h80l-10 40H60z"/><path d="M100 38v20"/>${TX(90,116,'mixer: fast')}<path class="a w" d="M170 40v40M162 80c0 10 16 10 16 0"/>${TX(170,116,'hand: slower')}`));
+
+/* ===== Troubleshooting ===== */
+D('bk-fix','Cake sank in the middle',"Usually underbaked, the oven door was opened too early, or there was too much raising agent so it rose too fast and collapsed.",
+ AD(220,124,`${CAKE(40,100,140,50,'f',30)}${ARW(110,26,110,66,'r')}${TX(110,118,'underbaked · door opened · too much raising agent')}`));
+D('bk-fix','Dense, heavy cake',"Often butter and sugar weren't creamed long enough, the batter was overmixed after adding flour, or the raising agent was old.",
+ AD(220,124,`${CAKE(40,100,140,30)}<path class="g" d="M50 86h120M50 92h120"/>${TX(110,118,'cream longer · fold gently · check dates')}`));
+D('bk-fix','Dry cake',"Most often baked too long or too hot, or flour was measured by scooping cups (too much). Weigh flour and check early.",
+ AD(220,124,`${CAKE(40,90,140,44)}<path class="r" d="M60 56l10 10M90 56l10 10M130 56l10 10"/>${TX(110,112,'too long · too hot · too much flour')}`));
+D('bk-fix','Cookies spread flat',"Butter too warm, dough not chilled, too much sugar or a hot tray. Chill the dough and use a cool tray between batches.",
+ AD(220,124,`<ellipse class="f" cx="110" cy="64" rx="80" ry="10"/>${TX(110,96,'chill dough 30 min · cool trays')}`));
+D('bk-fix','Soggy bottom',"A pastry base that stays pale and wet under a filling. Blind bake the case, use a metal tin and bake on a lower shelf.",
+ AD(220,124,`<path class="f" d="M30 50h160l-14 40H44z"/><path class="rf" d="M46 86h128l-4 4H50z"/>${TX(110,40,'pale, wet base')}${TX(110,116,'blind bake · metal tin · lower shelf')}`));
+D('bk-fix','Tough pastry',"Overworked dough or too much water built too much gluten. Handle it lightly, keep it cold and rest it before rolling.",
+ AD(220,124,`<path class="f" d="M40 60h140v24H40z"/><path class="r" d="M56 72h20M100 72h20M144 72h20"/>${TX(110,108,'less water · less handling · rest it')}`));
+D('bk-fix',"Bread didn't rise","Yeast was dead (water too hot or old yeast), the room was cold, or salt touched the yeast. Test yeast in warm water first.",
+ AD(220,124,`${LOAF(60,100,100,26)}${THERMO(30,100,'')}${TX(110,40,'water too hot? old yeast? too cold?')}`));
+D('bk-fix','Cracked cheesecake',"Overbaked, too much air beaten in, or it cooled too quickly. Bake low, mix gently and cool slowly in the turned-off oven.",
+ AD(220,124,`${CAKE(40,96,140,36)}<path class="r w" d="M90 60l12 10-8 8 14 10"/>${TX(110,118,'bake low · mix gently · cool slowly')}`));
+D('bk-fix','Burnt bottoms',"Dark trays, a shelf too low or a hot oven. Use light-coloured trays lined with parchment and bake in the middle.",
+ AD(220,124,`<ellipse class="f" cx="70" cy="60" rx="24" ry="10"/><ellipse class="f" cx="150" cy="60" rx="24" ry="10"/><rect class="rf" x="30" y="70" width="160" height="8"/>${TX(110,104,'light tray · parchment · middle shelf')}`));
+D('bk-fix','Curdled batter',"Butter and eggs split into a lumpy mess, usually because eggs were cold or added too fast. Add a spoon of the flour and keep mixing.",
+ AD(220,124,`${BOWL(110,96,140)}<circle class="rf" cx="84" cy="64" r="6"/><circle class="rf" cx="110" cy="70" r="5"/><circle class="rf" cx="134" cy="64" r="6"/>${TX(110,118,'warm eggs, add slowly, add a little flour')}`));
+
+/* ================= CAD FOR ARCHITECTS (BIM, Revit, AutoCAD) ================= */
+TP='cada';
+const PLANBOX=(x,y,w,h,k='')=>`<rect class="${k}" x="${x}" y="${y}" width="${w}" height="${h}"/>`;
+const WALLS=`<path class="w" d="M30 20H190V104H30Z"/><path class="w" d="M110 20V60M110 80V104"/><path class="g" d="M110 60a20 20 0 0 1 20 20"/>`;
+const LEVEL=(y,t,x1=30,x2=170)=>`<path class="g d" d="M${x1} ${y}H${x2}"/><path class="a" d="M${x2} ${y}l8-6v12z"/>${TX(x2+12,y+3,t,'l')}`;
+const LAYERSWALL=(x,y,h,ws,ks)=>{let s='',xx=x;ws.forEach((w,i)=>{s+=`<rect class="${ks[i]||''}" x="${xx}" y="${y}" width="${w}" height="${h}"/>`;xx+=w});return s};
+const CUBE=(x,y,s,k='f')=>`<path class="${k}" d="M${x} ${y}l${s} -${s/2}l${s} ${s/2}l-${s} ${s/2}z"/><path class="${k}" d="M${x} ${y}v${s}l${s} ${s/2}v-${s}z"/><path class="${k}" d="M${x+s} ${y+s/2}v${s}l${s} -${s/2}v-${s}z"/>`;
+
+/* ===== BIM Basics ===== */
+D('ca-bim','BIM',"Building Information Modelling: one smart 3D model of a building where every element knows what it is, so plans, sections and schedules all come from the same source.",
+ AD(220,124,`${CUBE(70,40,40)}${ARW(160,50,186,34,'a')}${ARW(160,70,190,70,'a')}${ARW(160,90,186,106,'a')}${TX(196,34,'plans','l')}${TX(196,73,'sections','l')}${TX(196,110,'schedules','l')}${TX(90,118,'one model')}`));
+D('ca-bim','Parametric object',"An element defined by rules and values (parameters) such as height, width and material. Change a value and the object updates everywhere.",
+ AD(220,124,`<rect class="f" x="30" y="30" width="70" height="70"/>${TX(65,112,'door 900 wide')}${ARW(110,64,130,64,'a')}<rect class="af" x="140" y="30" width="50" height="70"/>${TX(165,112,'width = 800')}`));
+D('ca-bim','LOD (Level of Development)',"How complete and reliable a model element is, from LOD 100 (a rough mass) to LOD 400–500 (fabrication-ready or as-built).",
+ AD(220,124,`<rect class="f" x="20" y="60" width="36" height="40"/>${TX(38,116,'100')}<rect class="f" x="70" y="50" width="36" height="50"/><path d="M76 60h24M76 80h24"/>${TX(88,116,'200')}<rect class="f" x="120" y="44" width="36" height="56"/><path d="M124 52h28M124 64h28M124 76h28M124 88h28M132 44v56M144 44v56"/>${TX(138,116,'300')}<rect class="af" x="170" y="40" width="36" height="60"/>${TX(188,116,'400+')}${TX(110,24,'more detail, more reliable →')}`));
+D('ca-bim','IFC',"Industry Foundation Classes: an open file format for sharing BIM models between different software, like Revit, ArchiCAD and structural tools.",
+ AD(220,124,`<rect class="f" x="16" y="44" width="56" height="34" rx="6"/>${TX(44,65,'Revit','b')}${ARW(76,61,94,61,'a')}<rect class="af" x="98" y="44" width="40" height="34" rx="6"/>${TX(118,65,'IFC','b')}${ARW(142,61,160,61,'a')}<rect class="f" x="164" y="44" width="48" height="34" rx="6"/>${TX(188,65,'ArchiCAD','b')}${TX(110,106,'an open, shared language')}`));
+D('ca-bim','Clash detection',"Automatically finding where elements from different trades collide, like a duct running through a beam, before anything is built.",
+ AD(220,124,`<rect class="f" x="30" y="50" width="160" height="22"/>${TX(60,44,'beam')}<rect class="f" x="96" y="20" width="28" height="90"/>${TX(140,112,'duct','l')}<rect class="rf" x="96" y="50" width="28" height="22"/>${TX(110,64,'!','b')}`));
+D('ca-bim','Federated model',"Separate models from each discipline (architecture, structure, MEP) linked together into one combined model for coordination.",
+ AD(220,124,`<rect class="f" x="20" y="20" width="48" height="28" rx="4"/>${TX(44,38,'Arch')}<rect class="f" x="20" y="52" width="48" height="28" rx="4"/>${TX(44,70,'Struct')}<rect class="f" x="20" y="84" width="48" height="28" rx="4"/>${TX(44,102,'MEP')}${ARW(74,34,120,58,'a')}${ARW(74,66,120,66,'a')}${ARW(74,98,120,74,'a')}${CUBE(130,50,30,'af')}`));
+D('ca-bim','Common data environment',"A single shared online space (CDE) where the whole project team stores, reviews and approves model files and drawings.",
+ AD(220,124,`<path class="af" d="M70 70a26 26 0 0 1 10-50 34 34 0 0 1 62 8 22 22 0 0 1 4 42z"/>${TX(110,54,'CDE','b')}<circle class="f" cx="40" cy="100" r="10"/><circle class="f" cx="110" cy="104" r="10"/><circle class="f" cx="180" cy="100" r="10"/><path class="g" d="M48 92l20-18M110 94V72M172 92l-20-18"/>`));
+D('ca-bim','4D and 5D BIM',"Adding extra information to the 3D model: 4D links elements to the construction schedule (time), 5D links them to costs.",
+ AD(220,124,`${CUBE(30,40,26)}${TX(56,110,'3D: model')}<rect class="f" x="100" y="40" width="40" height="40" rx="4"/><path d="M106 50h28M106 60h28M106 70h20"/>${TX(120,110,'4D: + time')}<circle class="f" cx="180" cy="60" r="20"/>${TX(180,64,'£$','b')}${TX(180,110,'5D: + cost')}`));
+D('ca-bim','Point cloud',"Millions of measured 3D points captured by a laser scanner. Architects model existing buildings over it for accurate renovation work.",
+ AD(220,124,(()=>{let s='';for(let i=0;i<120;i++){const x=30+((i*37)%160),y=24+((i*53)%80);s+=`<circle class="${i%5?'g':''}" cx="${x}" cy="${y}" r="1.4"/>`}return s+TX(110,120,'scan → points → model')})()));
+D('ca-bim','Digital twin',"A live digital copy of a finished building, fed by real sensor data, used to run and maintain it after handover.",
+ AD(220,124,`${CUBE(30,40,28)}${TX(58,114,'real building')}<path class="a d" d="M98 64h30"/><path class="a d" d="M98 72h30"/>${CUBE(136,40,28,'af')}${TX(164,114,'live model')}`));
+
+/* ===== Revit Modelling ===== */
+D('ca-rvt','Family',"Revit's name for a group of elements with shared behaviour and parameters, like a door family with many sizes. Families can be system, loadable or in-place.",
+ AD(220,124,`<rect class="af" x="80" y="16" width="60" height="22" rx="4"/>${TX(110,31,'Door family','b')}<path class="g" d="M110 38v12M50 50h120M50 50v10M110 50v10M170 50v10"/><rect class="f" x="34" y="60" width="32" height="44"/><rect class="f" x="94" y="60" width="32" height="50"/><rect class="f" x="152" y="60" width="36" height="54"/>${TX(50,120,'762')}${TX(110,120,'838')}${TX(170,120,'914')}`));
+D('ca-rvt','System family',"Families built into the project, like walls, floors, roofs and stairs. You can't load them from a file, but you can duplicate and edit their types.",
+ AD(220,124,`${LAYERSWALL(40,30,70,[16,40,10,16],['f','af','','f'])}${TX(140,46,'walls','l')}${TX(140,62,'floors','l')}${TX(140,78,'roofs','l')}${TX(140,94,'stairs','l')}`));
+D('ca-rvt','Loadable family',"A separate .rfa file you build or download and load into the project, like furniture, doors, windows and fixtures.",
+ AD(220,124,`<path class="f" d="M30 30h44l12 12v56H30z"/>${TX(58,74,'.rfa','b')}${ARW(96,64,130,64,'a')}<rect class="f" x="140" y="40" width="52" height="48"/><rect class="af" x="152" y="56" width="16" height="32"/>${TX(166,106,'loaded')}`));
+D('ca-rvt','Type vs instance parameter',"A type parameter changes every element of that type at once (e.g. door width); an instance parameter changes only the one you selected (e.g. its mark or sill height).",
+ AD(220,124,`<rect class="af" x="20" y="36" width="24" height="44"/><rect class="af" x="54" y="36" width="24" height="44"/><rect class="af" x="88" y="36" width="24" height="44"/>${TX(66,100,'type: all change')}<rect class="f" x="140" y="36" width="24" height="44"/><rect class="af" x="174" y="36" width="24" height="44"/>${TX(170,100,'instance: one')}`));
+D('ca-rvt','Level',"A horizontal reference plane for a storey, such as Level 1 or Roof. Walls, floors and views are tied to levels, so changing a level height updates them.",
+ AD(220,124,`<rect class="f" x="40" y="40" width="90" height="70"/>${LEVEL(40,'Level 2  +3000')}${LEVEL(110,'Level 1  ±0')}`));
+D('ca-rvt','Grid',"Lettered and numbered lines that set out the building's structure. Columns and walls snap to grids, and moving a grid moves what's tied to it.",
+ AD(220,124,`<path class="g d" d="M50 24V104M110 24V104M170 24V104M30 44H190M30 84H190"/><circle class="f" cx="50" cy="16" r="8"/><circle class="f" cx="110" cy="16" r="8"/><circle class="f" cx="170" cy="16" r="8"/>${TX(50,19,'1')}${TX(110,19,'2')}${TX(170,19,'3')}<circle class="f" cx="20" cy="44" r="8"/><circle class="f" cx="20" cy="84" r="8"/>${TX(20,47,'A')}${TX(20,87,'B')}<rect class="af" x="46" y="40" width="8" height="8"/><rect class="af" x="106" y="80" width="8" height="8"/>`));
+D('ca-rvt','Compound wall',"A wall type built from layers, such as finish, insulation, structure and lining, each with its own material and thickness.",
+ AD(220,124,`${LAYERSWALL(40,24,80,[10,40,26,8],['f','af','f',''])}${TX(130,36,'finish','l')}${TX(130,56,'structure','l')}${TX(130,76,'insulation','l')}${TX(130,96,'lining','l')}`));
+D('ca-rvt','Hosted element',"An element that needs a host to exist, like a window in a wall or a light in a ceiling. Delete the host and the hosted element goes too.",
+ AD(220,124,`<rect class="f" x="30" y="30" width="160" height="70"/><rect class="af" x="84" y="44" width="52" height="36"/><path d="M110 44v36M84 62h52"/>${TX(110,118,'window lives inside the wall')}`));
+D('ca-rvt','Curtain wall',"A Revit wall type made of a grid of panels and mullions, used for glass façades. Panels can be swapped for doors or solid infill.",
+ AD(220,124,`<rect class="f" x="40" y="20" width="140" height="90"/><path class="w" d="M40 20h140v90H40zM75 20v90M110 20v90M145 20v90M40 50h140M40 80h140"/><rect class="f" x="110" y="80" width="35" height="30"/>${TX(110,122,'panels + mullions')}`));
+D('ca-rvt','In-place family',"A one-off family modelled directly in the project for a unique element, like a custom reception desk. Use sparingly; it can slow models down.",
+ AD(220,124,`<path class="af" d="M40 90q30-50 70-30t70 0v30z"/>${TX(110,112,'one-off, modelled in place')}`));
+
+/* ===== Views & Documentation ===== */
+D('ca-doc','View',"A way of looking at the one model: floor plan, ceiling plan, section, elevation, 3D or detail. Edit in any view and all the others update.",
+ AD(220,124,`${CUBE(80,30,30)}${ARW(70,60,40,40,'a')}${ARW(70,74,40,96,'a')}${ARW(150,60,180,40,'a')}${ARW(150,74,180,96,'a')}${TX(28,32,'plan')}${TX(28,112,'section')}${TX(192,32,'3D')}${TX(192,112,'elevation')}`));
+D('ca-doc','View template',"A saved set of view settings (scale, detail level, visible categories) applied to many views so drawings look consistent.",
+ AD(220,124,`<rect class="af" x="20" y="40" width="56" height="44" rx="4"/>${TX(48,66,'template','b')}${ARW(80,50,110,34,'a')}${ARW(80,62,110,62,'a')}${ARW(80,74,110,90,'a')}<rect class="f" x="116" y="22" width="40" height="24"/><rect class="f" x="116" y="50" width="40" height="24"/><rect class="f" x="116" y="78" width="40" height="24"/>${TX(110,118,'same look everywhere')}`));
+D('ca-doc','Visibility/Graphics',"The dialog (shortcut VV or VG) that controls which categories show in a view and how they look, like hiding furniture or greying out existing walls.",
+ AD(220,124,`<rect class="f" x="30" y="18" width="160" height="92" rx="6"/>${TX(110,34,'Visibility/Graphics','b')}<rect class="af" x="44" y="46" width="10" height="10"/>${TX(62,55,'Walls','l')}<rect class="af" x="44" y="66" width="10" height="10"/>${TX(62,75,'Doors','l')}<rect x="44" y="86" width="10" height="10"/>${TX(62,95,'Furniture (hidden)','l')}`));
+D('ca-doc','Sheet',"A drawing page with a title block where views are placed for printing or PDF. Views on sheets update automatically when the model changes.",
+ AD(220,124,`<rect class="f" x="20" y="14" width="180" height="100"/><rect x="28" y="22" width="80" height="60"/><rect x="116" y="22" width="76" height="40"/><rect class="af" x="140" y="90" width="52" height="18"/>${TX(166,102,'title block')}${TX(68,96,'plan')}${TX(154,76,'section')}`));
+D('ca-doc','Schedule',"A live table pulled from the model, like a door or room schedule. Change a door in the model and the schedule updates; edit the schedule and the model changes.",
+ AD(220,124,`<rect class="f" x="30" y="20" width="160" height="88"/><path d="M30 38h160M30 56h160M30 74h160M30 92h160M80 20v88M140 20v88"/>${TX(55,33,'Mark','b')}${TX(110,33,'Width','b')}${TX(165,33,'Fire','b')}${TX(55,51,'D01')}${TX(110,51,'900')}${TX(165,51,'FD30')}${TX(55,69,'D02')}${TX(110,69,'838')}${TX(165,69,'—')}`));
+D('ca-doc','Tag',"An annotation that reads information straight from an element, like a door number or room name. Change the element and the tag updates.",
+ AD(220,124,`${WALLS}<rect class="af" x="60" y="44" width="34" height="18" rx="9"/>${TX(77,57,'D01','b')}<rect class="f" x="140" y="44" width="40" height="24" rx="2"/>${TX(160,54,'Kitchen')}${TX(160,64,'12 m²')}`));
+D('ca-doc','Section box',"A 3D box that cuts away the model so you can see inside a part of the building, like a single floor or room.",
+ AD(220,124,`${CUBE(60,36,50,'f')}<path class="a d" d="M76 52l34-17 34 17-34 17zM76 52v34M144 52v34M110 69v34"/>${TX(110,120,'cut the 3D view to see inside')}`));
+D('ca-doc','Detail level',"Coarse, Medium or Fine. Controls how much of each element's build-up a view shows, like a wall drawn as one line or with all its layers.",
+ AD(220,124,`<rect class="f" x="20" y="40" width="50" height="18"/>${TX(45,80,'Coarse')}${LAYERSWALL(85,40,18,[6,30,10,4],['f','f','',''])}${TX(110,80,'Medium')}${LAYERSWALL(150,40,18,[6,24,10,4,6],['f','af','f','','f'])}${TX(175,80,'Fine')}`));
+D('ca-doc','Revision cloud',"A wavy outline drawn around a changed part of a drawing, linked to a revision number that appears in the sheet's revision table.",
+ AD(220,124,`<rect class="f" x="20" y="14" width="180" height="96"/><path class="a w" d="M60 40q8-10 16 0q8-10 16 0q8-10 16 0q10 8 0 16q10 8 0 16q-8 10-16 0q-8 10-16 0q-8 10-16 0q-10-8 0-16q-10-8 0-16"/><path class="a" d="M118 56l20-10"/><path class="af" d="M138 40l10 10-10 10-10-10z"/>${TX(138,54,'2','b')}`));
+D('ca-doc','Phases',"Revit's way of showing time: existing, demolished and new work. Phase filters colour them differently for renovation drawings.",
+ AD(220,124,`<path class="g w" d="M30 30H100V100"/>${TX(60,116,'existing')}<path class="r d w" d="M100 30H140"/>${TX(124,116,'demolished')}<path class="a w" d="M140 30H190V100"/>${TX(170,116,'new')}`));
+
+/* ===== AutoCAD Drafting ===== */
+D('ca-acd','Layers',"Named groups that control the colour, linetype and visibility of objects, such as A-WALL or A-DOOR. Turning a layer off hides everything on it.",
+ AD(220,124,`<rect class="f" x="30" y="16" width="160" height="92" rx="6"/>${['A-WALL','A-DOOR','A-GLAZ','A-FURN'].map((n,i)=>`<circle class="${i==3?'g':'af'}" cx="48" cy="${36+i*20}" r="5"/>${TX(62,40+i*20,n,'l')}${TX(170,40+i*20,i==3?'off':'on')}`).join('')}`));
+D('ca-acd','Block',"A named group of objects saved as one reusable symbol, like a door or chair. Edit the block definition and every copy updates.",
+ AD(220,124,`<path class="w" d="M30 80h40"/><path d="M30 80a40 40 0 0 1 40-40"/><path class="w" d="M70 80V40"/>${ARW(86,60,110,60,'a')}<rect class="af d" x="118" y="34" width="70" height="52"/><path class="w" d="M126 80h40M166 80V40"/><path d="M126 80a40 40 0 0 1 40-40"/>${TX(153,100,'DOOR-900')}`));
+D('ca-acd','Xref',"An external reference: another DWG file linked into yours, like a consultant's structural grid. It updates when they update their file.",
+ AD(220,124,`<rect class="f" x="20" y="30" width="80" height="64"/>${TX(60,110,'your drawing')}<rect class="af d" x="34" y="40" width="52" height="40"/>${TX(60,64,'xref')}${ARW(104,60,134,60,'a')}<path class="f" d="M140 30h44l12 12v52h-56z"/>${TX(168,110,'grid.dwg')}`));
+D('ca-acd','Model space vs paper space',"Model space is where you draw at real size (1:1). Paper space (layouts) is the printed sheet, where viewports show the model at a scale.",
+ AD(220,124,`<rect class="f" x="16" y="24" width="86" height="74"/>${WALLS.replace(/30 20H190V104H30Z/,'24 34H94V88H24Z').replace(/M110 20V60M110 80V104/,'M60 34V56M60 70V88').replace(/M110 60a20 20 0 0 1 20 20/,'M60 56a12 12 0 0 1 12 12')}${TX(59,112,'model: 1:1')}<rect class="f" x="118" y="20" width="88" height="80"/><rect class="af" x="126" y="28" width="58" height="44"/>${TX(162,112,'paper: 1:50')}`));
+D('ca-acd','Viewport',"A window in a layout (paper space) that shows part of the model at a set scale. Several viewports can show different parts or scales on one sheet.",
+ AD(220,124,`<rect class="f" x="20" y="14" width="180" height="96"/><rect class="af" x="30" y="24" width="90" height="62"/><rect class="af" x="130" y="24" width="60" height="40"/>${TX(75,100,'1:100')}${TX(160,80,'1:20')}`));
+D('ca-acd','Polyline',"A single object made of connected line and arc segments. Closed polylines can be measured for area, offset in one go and used for hatching.",
+ AD(220,124,`<path class="a w" d="M40 90V40H110A30 30 0 0 1 140 70V90Z"/><circle class="f" cx="40" cy="90" r="3"/><circle class="f" cx="40" cy="40" r="3"/><circle class="f" cx="110" cy="40" r="3"/><circle class="f" cx="140" cy="70" r="3"/><circle class="f" cx="140" cy="90" r="3"/>${TX(176,64,'one object','l')}`));
+D('ca-acd','Object snap (OSNAP)',"Snaps the cursor exactly to points on objects, like endpoints, midpoints, centres and intersections, so geometry connects precisely.",
+ AD(220,124,`<path d="M30 90H190M110 90V24"/><rect class="a w" x="104" y="84" width="12" height="12"/>${TX(110,112,'endpoint')}<path class="a w" d="M150 84l6 12h-12z"/>${TX(150,112,'midpoint')}<path class="g" d="M120 60l-10 30"/><path class="g" d="M124 56l12-12"/>`));
+D('ca-acd','Ortho and polar tracking',"Ortho locks drawing to horizontal and vertical. Polar tracking guides the cursor along set angles, like every 45°.",
+ AD(220,124,`<path class="a w" d="M40 90H120"/><path class="a w" d="M40 90V30"/>${TX(80,108,'ortho')}<path class="g d" d="M140 90l50-50"/><path class="a w" d="M140 90l30-30"/>${TX(170,108,'polar 45°')}`));
+D('ca-acd','Hatch',"A pattern or solid fill inside a closed area, used to show materials in plan and section, like insulation, concrete or brick.",
+ AD(220,124,`<rect class="f" x="30" y="30" width="60" height="70"/><path class="g" d="M30 50l20-20M30 70l40-40M30 90l60-60M40 100l50-50M60 100l30-30"/>${TX(60,116,'brick / masonry')}<rect x="130" y="30" width="60" height="70"/><path class="g" d="M130 40q8 6 16 0t16 0t16 0t12 0M130 60q8 6 16 0t16 0t16 0t12 0M130 80q8 6 16 0t16 0t16 0t12 0"/>${TX(160,116,'insulation')}`));
+D('ca-acd','Annotative scaling',"Text, dimensions and symbols set as annotative resize themselves to the viewport scale, so they print at the same height on every drawing.",
+ AD(220,124,`<rect class="f" x="20" y="30" width="80" height="60"/>${TX(60,64,'Text 2.5 mm','b')}${TX(60,104,'1:50')}<rect class="f" x="120" y="30" width="80" height="60"/>${TX(160,64,'Text 2.5 mm','b')}${TX(160,104,'1:100')}`));
+
+/* ===== Collaboration & Exchange ===== */
+D('ca-col','Worksharing',"Revit's way for several people to work in one model at once: everyone edits a local copy and syncs changes back to a central model.",
+ AD(220,124,`<rect class="af" x="84" y="20" width="52" height="34" rx="6"/>${TX(110,41,'central','b')}<circle class="f" cx="40" cy="96" r="14"/><circle class="f" cx="110" cy="100" r="14"/><circle class="f" cx="180" cy="96" r="14"/><path class="a" d="M50 86l40-30M110 86V58M170 86l-40-30"/>${TX(110,122,'sync with central')}`));
+D('ca-col','Workset',"A named group of elements in a shared model, like Exterior Shell or Interiors, so people can own parts and load only what they need.",
+ AD(220,124,`<rect class="af" x="20" y="30" width="80" height="60" rx="6"/>${TX(60,64,'Shell','b')}<rect class="f" x="120" y="30" width="80" height="60" rx="6"/>${TX(160,64,'Interiors','b')}${TX(110,112,'split the model to share the work')}`));
+D('ca-col','Linked model',"Another Revit, IFC or CAD model brought in as a reference, like the structural model. It updates when reloaded but can't be edited directly.",
+ AD(220,124,`${CUBE(30,40,30)}${TX(60,112,'your model')}<path class="a d" d="M98 64h26"/>${CUBE(130,40,30,'af')}${TX(160,112,'linked: read-only')}`));
+D('ca-col','DWG and DXF',"DWG is AutoCAD's native drawing file; DXF is a more open text version for swapping drawings between programs and machines like laser cutters.",
+ AD(220,124,`<path class="f" d="M30 30h50l12 12v58H30z"/>${TX(61,72,'.dwg','b')}<path class="f" d="M128 30h50l12 12v58h-62z"/>${TX(159,72,'.dxf','b')}${TX(61,116,'native')}${TX(159,116,'exchange')}`));
+D('ca-col','PDF set',"Sheets printed together to PDF for sharing, review and submission. Often issued as numbered sets with a revision on each sheet.",
+ AD(220,124,`<rect class="f" x="70" y="34" width="70" height="80"/><rect class="f" x="80" y="24" width="70" height="80"/><rect class="f" x="90" y="14" width="70" height="80"/>${TX(125,56,'PDF','b')}${TX(125,72,'Rev C')}`));
+D('ca-col','Coordination review',"Regular meetings where architects, engineers and contractors walk through the federated model and assign fixes for clashes and issues.",
+ AD(220,124,`${CUBE(80,26,30,'af')}<circle class="f" cx="40" cy="96" r="10"/><circle class="f" cx="80" cy="104" r="10"/><circle class="f" cx="140" cy="104" r="10"/><circle class="f" cx="180" cy="96" r="10"/>${TX(110,122,'issues → owners → fixes')}`));
+D('ca-col','BCF issue',"BIM Collaboration Format: a small file that carries a model issue (a viewpoint, a comment and who should fix it) between different BIM tools.",
+ AD(220,124,`<rect class="f" x="40" y="20" width="140" height="84" rx="6"/><rect class="f" x="50" y="30" width="56" height="40"/><rect class="rf" x="70" y="42" width="16" height="16"/>${TX(146,42,'Duct clash','b')}${TX(146,58,'Assign: MEP')}${TX(146,74,'Due: Fri')}`));
+D('ca-col','Model audit',"Checking and cleaning a model to keep it fast: purging unused families, fixing warnings and compacting the file.",
+ AD(220,124,`${CUBE(40,40,30)}<path class="a w" d="M150 60l12 12 24-26"/>${TX(110,118,'purge · fix warnings · compact')}`));
+D('ca-col','Naming conventions',"Agreed rules for naming files, views, sheets and layers so everyone can find things. Many firms follow ISO 19650 naming.",
+ AD(220,124,`<rect class="f" x="20" y="44" width="180" height="30" rx="6"/>${TX(110,63,'PRJ-ARC-ZZ-01-DR-A-1001','b')}${TX(110,98,'project · role · zone · level · type · number')}`));
+D('ca-col','Model handover',"Passing the finished model and data to the client and facilities team, often with COBie data listing equipment for maintenance.",
+ AD(220,124,`${CUBE(30,40,30,'af')}${ARW(100,60,134,60,'a')}<rect class="f" x="142" y="36" width="56" height="48" rx="4"/><path d="M150 50h40M150 62h40M150 74h28"/>${TX(110,116,'model + equipment data to the client')}`));
+
+/* ===== Other Tools & Visuals ===== */
+D('ca-viz','SketchUp',"A quick, easy 3D modelling tool loved for early massing and concept models. Its Push/Pull tool turns any flat shape into a solid.",
+ AD(220,124,`<rect class="f" x="40" y="70" width="70" height="30"/>${ARW(76,64,76,34,'a')}${CUBE(130,50,30,'af')}${TX(110,116,'push / pull a face into 3D')}`));
+D('ca-viz','Rhino',"A precise 3D modeller for complex curved forms (NURBS surfaces), widely used by architects for freeform façades and roofs.",
+ AD(220,124,`<path class="af" d="M30 90q40-80 80-40t80-20v60H30z"/><path class="g" d="M50 60v30M90 42v48M130 52v38M170 36v54"/>${TX(110,116,'smooth, freeform surfaces')}`));
+D('ca-viz','Grasshopper',"A visual programming tool inside Rhino. You connect boxes (components) with wires to generate designs from rules instead of drawing them by hand.",
+ AD(220,124,`<rect class="f" x="20" y="40" width="44" height="26" rx="6"/>${TX(42,57,'slider')}<rect class="f" x="88" y="40" width="44" height="26" rx="6"/>${TX(110,57,'divide')}<rect class="af" x="156" y="40" width="44" height="26" rx="6"/>${TX(178,57,'louvres')}<path class="a" d="M64 53C76 53 76 53 88 53M132 53C144 53 144 53 156 53"/>${TX(110,96,'rules → geometry')}`));
+D('ca-viz','Parametric design',"Designing with rules and relationships so the form updates when inputs change, like a façade whose fins rotate with the sun's angle.",
+ AD(220,124,`<circle class="af" cx="34" cy="30" r="12"/>${[0,1,2,3,4,5,6].map(i=>`<path class="a w" d="M${70+i*20} 40l${4+i*2} 60"/>`).join('')}${TX(130,118,'fins turn as the input changes')}`));
+D('ca-viz','Rendering',"Turning a 3D model into a realistic image with materials, lighting and shadows. Common tools include V-Ray, Enscape, Lumion and Twinmotion.",
+ AD(220,124,`${CUBE(24,46,24)}${ARW(84,64,110,64,'a')}<rect class="f" x="118" y="24" width="84" height="80"/><path class="f" d="M130 104V60l30-18 30 18v44z"/><circle class="af" cx="186" cy="38" r="8"/>${TX(160,118,'photo-real image')}`));
+D('ca-viz','Real-time rendering',"Rendering that updates instantly as you move, like a video game. Tools such as Enscape and Twinmotion let clients walk through the design.",
+ AD(220,124,`<rect class="f" x="30" y="20" width="160" height="84" rx="6"/><path class="f" d="M34 24h152v40H34z"/><path class="f" d="M80 100l20-40h20l20 40z"/>${TX(110,118,'walk through it live')}`));
+D('ca-viz','Massing model',"A simple block model of a building's overall size and shape, used early to test site fit, views and floor area before detail design.",
+ AD(220,124,`${CUBE(40,50,24)}${CUBE(88,40,30,'af')}${CUBE(150,60,18)}${TX(110,118,'simple blocks, early decisions')}`));
+D('ca-viz','Sun study',"A simulation of sun and shadows across a day or year, used to check daylight, overheating and how a building shades its neighbours.",
+ AD(220,124,`<path class="g d" d="M20 100Q110 0 200 100"/><circle class="af" cx="110" cy="50" r="10"/><rect class="f" x="80" y="80" width="30" height="24"/><path class="g" d="M110 104l40 0-10-24h-30z"/>${TX(110,120,'shadows across the day')}`));
+D('ca-viz','Topography',"The ground surface modelled from survey points or contours. In Revit it's a Toposolid (Toposurface in older versions) that buildings sit on and cut into.",
+ AD(220,124,`<path class="g" d="M20 90q40-30 90-20t90-20"/><path class="g" d="M20 100q40-26 90-16t90-18"/><path class="f" d="M20 110q40-20 90-12t90-16v28H20z"/><rect class="af" x="90" y="60" width="40" height="30"/>${TX(110,24,'site from contours')}`));
+D('ca-viz','ArchiCAD',"A BIM tool from Graphisoft and a main alternative to Revit, popular with smaller practices, especially in Europe. It exchanges models through IFC.",
+ AD(220,124,`<rect class="f" x="30" y="36" width="70" height="40" rx="6"/>${TX(65,60,'Revit','b')}<rect class="af" x="120" y="36" width="70" height="40" rx="6"/>${TX(155,60,'ArchiCAD','b')}${TX(110,100,'two BIM tools, linked by IFC')}`));
+
+/* ================= CAD FOR ENGINEERS (SolidWorks-style 3D CAD) ================= */
+TP='cade';
+const BLK=(x,y,w,h,d,k='f')=>`<path class="${k}" d="M${x} ${y}h${w}v${h}h-${w}z"/><path class="${k}" d="M${x} ${y}l${d} -${d}h${w}l-${d} ${d}z"/><path class="${k}" d="M${x+w} ${y}l${d} -${d}v${h}l-${d} ${d}z"/>`;
+const CYL=(cx,y,rx,h,k='f')=>`<path class="${k}" d="M${cx-rx} ${y}v${h}a${rx} ${rx/3} 0 0 0 ${2*rx} 0v-${h}"/><ellipse class="${k}" cx="${cx}" cy="${y}" rx="${rx}" ry="${rx/3}"/>`;
+const SKT=(d,k='a')=>`<path class="${k} w" d="${d}"/>`;
+const DIM=(x1,x2,y,t)=>`<path class="g" d="M${x1} ${y}H${x2}M${x1} ${y-5}v10M${x2} ${y-5}v10"/>${TX((x1+x2)/2,y-4,t)}`;
+const FCF=(x,y,sym,tol,dat)=>`<rect class="f" x="${x}" y="${y}" width="24" height="20"/><rect x="${x+24}" y="${y}" width="40" height="20"/>${dat?`<rect x="${x+64}" y="${y}" width="20" height="20"/>`:''}${TX(x+12,y+14,sym,'b')}${TX(x+44,y+14,tol)}${dat?TX(x+74,y+14,dat,'b'):''}`;
+
+/* ===== Sketching ===== */
+D('ce-sk','Sketch',"A 2D profile drawn on a plane or flat face. Almost every 3D feature starts as a sketch that is then extruded, revolved or swept.",
+ AD(220,124,`<path class="g" d="M20 100l40-30h150l-40 30z"/>${SKT('M70 90l20-14h50l-20 14z')}${TX(110,118,'2D shape on a plane')}`));
+D('ce-sk','Sketch plane',"The flat surface a sketch is drawn on: one of the three default planes (Front, Top, Right) or any flat face of the part.",
+ AD(220,124,`<path class="af" d="M40 80l40-20h80l-40 20z"/><path class="f" d="M80 20v40l40 20V40z"/><path class="g" d="M60 30v60l40 20V50z"/>${TX(186,62,'Top','l')}${TX(124,30,'Front','l')}${TX(34,24,'Right','l')}`));
+D('ce-sk','Sketch relations',"Rules that lock sketch geometry, like horizontal, vertical, parallel, tangent, coincident and equal. They capture how the shape should behave.",
+ AD(220,124,`${SKT('M40 90H120')}${SKT('M120 90A30 30 0 0 0 120 30')}<rect class="f" x="70" y="96" width="16" height="12" rx="2"/>${TX(78,105,'—')}<rect class="f" x="140" y="60" width="16" height="12" rx="2"/>${TX(148,69,'⊥')}${TX(110,24,'horizontal · tangent · equal')}`));
+D('ce-sk','Fully defined sketch',"A sketch where every line's size and position is fixed by dimensions and relations. In SolidWorks it turns black; under-defined lines stay blue.",
+ AD(220,124,`<rect class="w" x="20" y="40" width="70" height="46" style="stroke:#1F7AE0"/>${TX(55,104,'blue: can still move')}<rect class="w" x="130" y="40" width="70" height="46"/>${DIM(130,200,30,'70')}${TX(165,104,'black: fully defined')}`));
+D('ce-sk','Over-defined sketch',"A sketch with conflicting or duplicate dimensions or relations. SolidWorks shows it in red or yellow and the feature won't rebuild until it's fixed.",
+ AD(220,124,`<rect class="r w" x="60" y="40" width="100" height="46"/>${DIM(60,160,30,'100')}${DIM(60,160,104,'95 ✕')}`));
+D('ce-sk','Smart Dimension',"SolidWorks' dimension tool: click geometry and it guesses the right dimension type (length, diameter, angle). Dimensions drive the shape.",
+ AD(220,124,`<circle class="a w" cx="70" cy="64" r="28"/><path class="g" d="M50 44l40 40"/>${TX(110,40,'Ø56','l')}${SKT('M130 90L190 90M130 90L178 50')}${TX(168,82,'40°')}`));
+D('ce-sk','Construction geometry',"Reference lines and circles drawn in a sketch (shown dashed) to help position other geometry. They don't become part of the 3D feature.",
+ AD(220,124,`<path class="g d" d="M30 64H190M110 20V108"/><circle class="a w" cx="70" cy="64" r="16"/><circle class="a w" cx="150" cy="64" r="16"/>${TX(110,120,'dashed centrelines guide placement')}`));
+D('ce-sk','Mirror entities',"Copies sketch geometry across a centreline, keeping both sides symmetric. Change one side and the mirrored side follows.",
+ AD(220,124,`<path class="g d" d="M110 16V108"/>${SKT('M110 30H60L50 60L70 90H110')}${SKT('M110 30H160L170 60L150 90H110','g')}${TX(110,120,'symmetric about the centreline')}`));
+D('ce-sk','Convert entities',"Projects existing edges of the model onto the current sketch, so the new sketch follows them and updates if they change.",
+ AD(220,124,`${BLK(40,50,90,50,20)}<path class="a w" d="M60 30h90"/>${TX(110,118,'reuse edges in a new sketch')}`));
+D('ce-sk','Origin',"The fixed 0,0,0 point of the part. Anchoring the first sketch to the origin makes the whole model predictable and easier to edit.",
+ AD(220,124,`<path class="a w" d="M110 70H170M110 70V20M110 70l-36 24"/>${TX(176,74,'X','l')}${TX(110,14,'Y')}${TX(66,104,'Z')}<circle class="af" cx="110" cy="70" r="5"/>`));
+
+/* ===== Features ===== */
+D('ce-ft','Extrude',"Pulls a 2D sketch straight out to a set depth to make a solid. Extruded Boss adds material; Extruded Cut removes it.",
+ AD(220,124,`${SKT('M30 90h50l-14 10H16z')}${ARW(90,90,120,90,'a')}${BLK(130,70,50,30,14)}${TX(110,118,'sketch → solid')}`));
+D('ce-ft','Revolve',"Spins a sketch around an axis to make round parts, like shafts, bottles and pulleys.",
+ AD(220,124,`<path class="g d" d="M40 16V108"/>${SKT('M40 30H60V50H74V90H40')}${ARW(90,60,116,60,'a')}${CYL(160,44,30,46,'af')}${TX(110,120,'profile + axis → round part')}`));
+D('ce-ft','Sweep',"Moves a profile along a path to make shapes like pipes, handles and springs.",
+ AD(220,124,`<path class="g d" d="M30 100C60 20 140 110 190 30"/><circle class="a w" cx="30" cy="100" r="8"/><path class="af" d="M24 96C56 14 142 104 186 26l8 8C146 116 64 28 38 102z"/>${TX(110,120,'profile follows a path')}`));
+D('ce-ft','Loft',"Blends between two or more different profiles to make a smooth transition, like a duct from square to round.",
+ AD(220,124,`<rect class="a w" x="30" y="40" width="40" height="40"/><circle class="a w" cx="170" cy="60" r="18"/><path class="af" d="M70 40C110 40 130 42 170 42V78C130 78 110 80 70 80z"/>${TX(110,112,'square → round')}`));
+D('ce-ft','Fillet',"Rounds an edge with a set radius. Fillets remove sharp edges for safety and strength, and are usually added late in the model.",
+ AD(220,124,`${BLK(30,50,70,50,16,'f')}${TX(64,118,'sharp')}<path class="f" d="M130 100V60a10 10 0 0 1 10-10h50v50z"/><path class="a w" d="M130 60a10 10 0 0 1 10-10"/>${TX(160,118,'R10 fillet')}`));
+D('ce-ft','Chamfer',"Cuts a flat angled bevel on an edge, often 45°, to ease assembly or remove sharp corners.",
+ AD(220,124,`<path class="f" d="M50 100V64l14-14h86v50z"/><path class="a w" d="M50 64l14-14"/>${TX(110,118,'1 × 45° chamfer')}`));
+D('ce-ft','Shell',"Hollows out a solid, leaving walls of a set thickness and removing chosen faces. Used for enclosures, boxes and cases.",
+ AD(220,124,`<path class="f" d="M40 40h140v60H40z"/><path d="M50 40v50h120V40" fill="var(--paper)"/>${DIM(170,180,30,'2 mm')}${TX(110,118,'hollow with even walls')}`));
+D('ce-ft','Hole Wizard',"Creates standard holes, like counterbores, countersinks and tapped threads, sized to real fastener standards.",
+ AD(220,124,`<rect class="f" x="30" y="40" width="160" height="50"/><path d="M60 40v14h14v36h12V54h14V40" fill="var(--paper)"/><path d="M140 40l10 12v38h12V52l10-12" fill="var(--paper)"/>${TX(80,108,'counterbore')}${TX(156,108,'countersink')}`));
+D('ce-ft','Pattern',"Repeats a feature in a line (linear pattern) or around an axis (circular pattern). Change the original and every copy updates.",
+ AD(220,124,`<rect class="f" x="20" y="44" width="90" height="36"/>${[0,1,2,3].map(i=>`<circle class="af" cx="${34+i*20}" cy="62" r="6"/>`).join('')}${TX(65,100,'linear')}<circle class="f" cx="160" cy="62" r="34"/>${[0,1,2,3,4,5].map(i=>`<circle class="af" cx="${160+22*Math.cos(i*Math.PI/3)}" cy="${62+22*Math.sin(i*Math.PI/3)}" r="5"/>`).join('')}${TX(160,112,'circular')}`));
+D('ce-ft','Draft',"A slight taper added to faces so a moulded or cast part can be pulled out of its mould, typically 1–3°.",
+ AD(220,124,`<path class="f" d="M70 100l10-70h60l10 70z"/><path class="g d" d="M80 30V100M140 30V100"/>${TX(160,60,'2°','l')}${TX(110,118,'taper to release from the mould')}`));
+
+/* ===== Parts & Design Intent ===== */
+D('ce-pt','Parametric modelling',"Building models from features driven by dimensions and relations, so changing one number updates the whole part predictably.",
+ AD(220,124,`${BLK(30,60,60,40,14)}${TX(60,118,'length 60')}${ARW(110,80,130,80,'a')}${BLK(140,60,90*0.6+10,40,14,'af')}${TX(176,118,'length 80')}`));
+D('ce-pt','Design intent',"How a part should behave when it changes, like a hole that must stay centred. Good sketches and relations capture the intent, not just the shape.",
+ AD(220,124,`<rect class="f" x="30" y="40" width="70" height="44"/><circle class="af" cx="65" cy="62" r="8"/><rect class="f" x="120" y="40" width="80" height="44"/><circle class="af" cx="160" cy="62" r="8"/>${TX(110,108,'hole stays centred when width changes')}`));
+D('ce-pt','FeatureManager tree',"The list down the side of the screen showing every feature in the order it was built. You edit, reorder or suppress features there.",
+ AD(220,124,`<rect class="f" x="40" y="14" width="140" height="98" rx="6"/>${['Origin','Sketch1','Boss-Extrude1','Cut-Extrude1','Fillet1'].map((t,i)=>`<rect class="${i==2?'af':''}" x="52" y="${24+i*17}" width="10" height="10"/>`+TX(70,33+i*17,t,'l')).join('')}`));
+D('ce-pt','Rollback bar',"A line in the feature tree you drag up to temporarily rewind the model, so you can insert features earlier in the history.",
+ AD(220,124,`<rect class="f" x="40" y="14" width="140" height="98" rx="6"/>${TX(56,34,'Sketch1','l')}${TX(56,52,'Boss-Extrude1','l')}<path class="a w" d="M48 62h124"/>${TX(56,80,'Cut-Extrude1','l')}${TX(56,98,'Fillet1','l')}<path class="g" d="M52 74h110M52 92h110" style="opacity:.3"/>`));
+D('ce-pt','Configurations',"Several versions of one part in a single file, like the same bolt in different lengths, each with its own dimensions.",
+ AD(220,124,`${[0,1,2].map(i=>`<rect class="${i==1?'af':'f'}" x="${40+i*50}" y="${30}" width="16" height="${40+i*14}"/><rect class="f" x="${34+i*50}" y="22" width="28" height="10"/>${TX(48+i*50,112,['M6×40','M6×55','M6×70'][i])}`).join('')}`));
+D('ce-pt','Equations',"Formulas that link dimensions, like hole spacing = width ÷ 4, so related sizes stay in step automatically.",
+ AD(220,124,`<rect class="f" x="30" y="40" width="160" height="40" rx="6"/>${TX(110,64,'"Spacing" = "Width" / 4','b')}`));
+D('ce-pt','Reference geometry',"Extra planes, axes and points you create to build features where no face exists, like a plane at an angle or offset from another.",
+ AD(220,124,`${BLK(40,60,80,40,16)}<path class="af" d="M120 40l40-20v60l-40 20z"/>${TX(170,40,'offset plane','l')}`));
+D('ce-pt','Material and mass properties',"Assigning a material (like 6061 aluminium) lets the software calculate weight, centre of mass and volume for the part.",
+ AD(220,124,`${BLK(40,60,80,40,16,'af')}<rect class="f" x="136" y="30" width="82" height="62" rx="6"/>${TX(177,50,'Al 6061','b')}${TX(177,66,'mass 0.42 kg')}${TX(177,82,'vol. 155 cm³')}`));
+D('ce-pt','Suppress feature',"Temporarily turning off a feature so it's ignored in the model without deleting it. Handy for simpler versions or troubleshooting.",
+ AD(220,124,`${BLK(40,60,100,40,16)}<circle class="g d" cx="90" cy="80" r="10"/>${TX(176,70,'Hole1','l')}${TX(176,84,'(suppressed)','l')}`));
+D('ce-pt','Rebuild error',"When a change breaks a later feature, for example a fillet whose edge no longer exists. The tree shows a red or yellow warning to fix.",
+ AD(220,124,`<rect class="f" x="40" y="20" width="140" height="84" rx="6"/>${TX(56,44,'Sketch1','l')}${TX(56,62,'Boss-Extrude1','l')}<circle class="rf" cx="54" cy="78" r="6"/>${TX(66,82,'Fillet1: edge missing','l')}`));
+
+/* ===== Assemblies ===== */
+D('ce-as','Assembly',"A file that brings parts together and positions them with mates, like a gearbox made of shafts, gears and a housing.",
+ AD(220,124,`${BLK(30,70,100,30,14)}${CYL(80,40,14,40,'af')}${CYL(150,56,20,30)}${TX(110,118,'parts + mates = assembly')}`));
+D('ce-as','Mates',"Rules that position parts relative to each other, like coincident faces, concentric holes, a set distance or an angle.",
+ AD(220,124,`<circle class="f" cx="60" cy="60" r="26"/><circle class="a w" cx="60" cy="60" r="10"/>${CYL(160,30,10,60,'af')}<path class="a d" d="M70 60h80"/>${TX(110,108,'concentric: pin in hole')}`));
+D('ce-as','Degrees of freedom',"The ways a part can still move: three slides and three rotations. Each mate removes some until the part is fully fixed or moves as intended.",
+ AD(220,124,`${BLK(80,60,50,30,12)}${ARW(105,60,105,26,'a')}${ARW(130,75,170,75,'a')}${ARW(90,90,66,106,'a')}<path class="g" d="M150 40a14 6 0 1 0 6 8"/>${TX(110,120,'3 moves + 3 turns = 6')}`));
+D('ce-as','Fixed component',"The part an assembly is built around, usually the first one inserted. It's locked in place so everything else mates to it.",
+ AD(220,124,`${BLK(40,60,120,40,16,'af')}${TX(100,84,'(f) Base','b')}${TX(110,118,'anchored, never moves')}`));
+D('ce-as','Interference detection',"Checks an assembly for parts that overlap in space, like a bolt that's too long for its hole, before anything is made.",
+ AD(220,124,`<rect class="f" x="30" y="50" width="160" height="30"/><rect class="f" x="96" y="20" width="28" height="80"/><rect class="rf" x="96" y="50" width="28" height="30"/>${TX(110,116,'overlap found: 2.4 mm³')}`));
+D('ce-as','Exploded view',"A view that pulls parts apart along their assembly direction to show how they fit together, used in manuals and drawings.",
+ AD(220,124,`${CYL(110,16,20,12)}<path class="g d" d="M110 30v12"/>${CYL(110,46,30,10,'af')}<path class="g d" d="M110 58v12"/>${CYL(110,74,40,16)}`));
+D('ce-as','Subassembly',"A smaller assembly used as one component inside a bigger one, like a wheel unit inside a whole cart.",
+ AD(220,124,`<rect class="f" x="30" y="30" width="160" height="70" rx="6"/><rect class="af" x="50" y="50" width="56" height="34" rx="4"/>${TX(78,71,'wheel unit')}${TX(150,71,'cart')}`));
+D('ce-as','Bill of materials (BOM)',"A table listing every part in an assembly with item numbers, quantities and part numbers. It's linked to balloons on the drawing.",
+ AD(220,124,`<rect class="f" x="30" y="20" width="160" height="80"/><path d="M30 38h160M30 58h160M30 78h160M60 20v80M150 20v80"/>${TX(45,33,'#','b')}${TX(105,33,'Part','b')}${TX(170,33,'Qty','b')}${TX(45,52,'1')}${TX(105,52,'Housing')}${TX(170,52,'1')}${TX(45,72,'2')}${TX(105,72,'M6 bolt')}${TX(170,72,'4')}`));
+D('ce-as','Top-down vs bottom-up',"Bottom-up builds parts separately then assembles them. Top-down designs parts inside the assembly so they reference each other.",
+ AD(220,124,`${[0,1,2].map(i=>`<rect class="f" x="${20+i*24}" y="80" width="18" height="18"/>`).join('')}${ARW(50,76,50,50,'a')}<rect class="af" x="30" y="24" width="40" height="24"/>${TX(50,114,'bottom-up')}<rect class="af" x="140" y="24" width="56" height="24"/>${ARW(168,52,168,76,'a')}${[0,1,2].map(i=>`<rect class="f" x="${136+i*24}" y="80" width="18" height="18"/>`).join('')}${TX(168,114,'top-down')}`));
+D('ce-as','Motion study',"Animates an assembly with motors, springs or gravity to check how mechanisms move and whether parts collide.",
+ AD(220,124,`<circle class="f" cx="70" cy="64" r="30"/><path class="a w" d="M70 64l20-20"/><path class="f" d="M90 44l80 30"/><path class="a" d="M40 30a40 40 0 0 1 50-10"/>${ARW(86,20,92,22,'a')}${TX(110,118,'crank and link in motion')}`));
+
+/* ===== Drawings & Tolerances ===== */
+D('ce-dr','Standard 3 views',"The front, top and side views generated automatically from the 3D model, placed on a drawing sheet and kept in sync with it.",
+ AD(220,124,`<rect class="f" x="30" y="60" width="60" height="40"/>${TX(60,114,'front')}<rect class="f" x="30" y="14" width="60" height="32"/>${TX(60,10,'top')}<rect class="f" x="110" y="60" width="32" height="40"/>${TX(126,114,'right')}`));
+D('ce-dr','First vs third angle projection',"Two ways to arrange views. Third angle (US) puts the top view above the front; first angle (Europe, ISO) puts it below. A symbol on the sheet says which.",
+ AD(220,124,`<path class="f" d="M30 50l40-10v40l-40-10z"/><circle class="f" cx="96" cy="60" r="20"/><circle cx="96" cy="60" r="10"/>${TX(70,104,'projection symbol')}<path class="g d" d="M140 20V100"/>${TX(176,50,'3rd: US','l')}${TX(176,70,'1st: ISO','l')}`));
+D('ce-dr','Section view',"A view that slices through a part along a cutting line to show internal details, with cut faces hatched.",
+ AD(220,124,`<rect class="f" x="20" y="40" width="70" height="44"/><circle cx="55" cy="62" r="10"/><path class="a d" d="M10 62H100"/>${TX(16,56,'A')}${TX(96,56,'A')}<rect class="f" x="130" y="40" width="70" height="44"/><rect x="155" y="40" width="20" height="44" fill="var(--paper)"/><path class="g" d="M130 50l10-10M130 70l25-25M140 84l15-15M175 60l20-20M175 84l25-25"/>${TX(165,104,'SECTION A-A')}`));
+D('ce-dr','Detail view',"A circled, enlarged view of a small area, like a groove or thread, drawn at a bigger scale on the same sheet.",
+ AD(220,124,`<rect class="f" x="20" y="50" width="80" height="40"/><circle class="a" cx="90" cy="54" r="12"/>${TX(104,46,'B','l')}<circle class="a" cx="160" cy="62" r="40"/><path class="f" d="M124 62h40v-24" />${TX(160,116,'DETAIL B  2:1')}`));
+D('ce-dr','Tolerance',"How much a size may vary and still be acceptable, like 25 ±0.1 mm. Tighter tolerances cost more to make.",
+ AD(220,124,`<rect class="f" x="40" y="50" width="140" height="30"/>${DIM(40,180,40,'25 ±0.1')}${TX(110,104,'24.9 to 25.1 is OK')}`));
+D('ce-dr','GD&T',"Geometric Dimensioning and Tolerancing: symbols that control form, orientation and position (like flatness or true position), not just size.",
+ AD(220,124,`${FCF(30,30,'⌖','Ø0.2','A')}${FCF(30,70,'⏥','0.05','')}${TX(150,44,'position','l')}${TX(150,84,'flatness','l')}`));
+D('ce-dr','Datum',"A reference feature, labelled A, B or C, that other measurements and tolerances are taken from, like a machined base face.",
+ AD(220,124,`<rect class="f" x="40" y="40" width="140" height="44"/><path class="w" d="M40 84h140"/><path class="af" d="M104 84l6 10 6-10z"/><rect class="f" x="100" y="94" width="20" height="16"/>${TX(110,106,'A','b')}`));
+D('ce-dr','Feature control frame',"The box in GD&T that reads left to right: the symbol, the tolerance zone, then the datums it's measured from.",
+ AD(220,124,`${FCF(56,44,'⌖','Ø0.1','A')}<path class="g" d="M68 64v14M100 64v30M130 64v14"/>${TX(68,88,'symbol')}${TX(100,104,'tolerance')}${TX(134,88,'datum')}`));
+D('ce-dr','Surface finish',"How smooth a surface must be, given as Ra roughness in micrometres, like Ra 1.6. Lower numbers mean smoother and costlier.",
+ AD(220,124,`<path class="w" d="M50 90l10 16 30-50h50"/>${TX(116,50,'Ra 1.6','b')}<path class="g" d="M20 100q10-6 20 0t20 0t20 0t20 0t20 0t20 0t20 0t20 0"/>`));
+D('ce-dr','Title block',"The box on a drawing with the part name, number, material, scale, revision, author and the projection symbol.",
+ AD(220,124,`<rect class="f" x="20" y="14" width="180" height="96"/><rect class="af" x="100" y="70" width="96" height="36"/><path class="g" d="M100 82h96M100 94h96M148 70v36"/>${TX(124,80,'BRACKET')}${TX(172,80,'Rev B')}${TX(124,92,'Al 6061')}${TX(172,92,'1:2')}`));
+
+/* ===== Making & Simulation ===== */
+D('ce-mk','FEA (simulation)',"Finite element analysis: splitting a part into many small elements to predict stress, bending and safety under real loads.",
+ AD(220,124,(()=>{let s='';for(let i=0;i<8;i++)for(let j=0;j<3;j++)s+=`<rect class="${i<2?'rf':i<4?'af':'f'}" x="${30+i*20}" y="${44+j*14}" width="20" height="14"/>`;return s+ARW(190,30,190,44,'r')+TX(110,110,'stress shown by colour')})()));
+D('ce-mk','Von Mises stress',"A single combined stress value used to judge whether ductile metals will yield. It's compared against the material's yield strength.",
+ AD(220,124,`<rect class="f" x="30" y="40" width="20" height="60"/><rect class="af" x="60" y="60" width="20" height="40"/><rect class="rf" x="90" y="30" width="20" height="70"/><path class="r d" d="M24 44H130"/>${TX(160,48,'yield limit','l')}`));
+D('ce-mk','Factor of safety',"Material strength divided by the stress in the part. A factor of 2 means it can take twice the expected load before failing.",
+ AD(220,124,`<rect class="f" x="30" y="40" width="160" height="40" rx="6"/>${TX(110,64,'FoS = strength ÷ stress','b')}${TX(110,104,'≥ 2 is a common target')}`));
+D('ce-mk','Mesh',"The network of small elements a simulation splits the part into. A finer mesh is more accurate but slower to solve.",
+ AD(220,124,`<path class="f" d="M40 30h140v70H40z"/><path class="g" d="M40 30l35 35-35 35M75 65h70M145 65l35-35M145 65l35 35M75 65l35-35 35 35M75 65l35 35 35-35M110 30v70"/>${TX(110,118,'finer mesh = slower, more accurate')}`));
+D('ce-mk','Sheet metal',"A modelling mode for parts made by bending thin sheet. It tracks bends so the part can be unfolded into a flat pattern for cutting.",
+ AD(220,124,`<path class="f w" d="M30 40v40h50"/><path class="a" d="M30 80a10 10 0 0 0 10 10"/>${ARW(96,64,120,64,'a')}<rect class="af" x="130" y="54" width="70" height="20"/><path class="g d" d="M150 54v20"/>${TX(165,90,'flat pattern')}`));
+D('ce-mk','K-factor',"A number (usually 0.3–0.5) describing where the neutral layer sits in a bend. It decides how long the flat blank must be.",
+ AD(220,124,`<path class="f" d="M40 30v50a20 20 0 0 0 20 20h120v-14H60a6 6 0 0 1-6-6V30z"/><path class="a d" d="M47 30v50a13 13 0 0 0 13 13h120"/>${TX(130,80,'neutral axis','l')}`));
+D('ce-mk','STEP file',"A neutral 3D file format (.step/.stp) for sending solid models between different CAD systems without losing accuracy.",
+ AD(220,124,`<rect class="f" x="16" y="44" width="56" height="34" rx="6"/>${TX(44,65,'SolidWorks')}${ARW(76,61,94,61,'a')}<rect class="af" x="98" y="44" width="40" height="34" rx="6"/>${TX(118,65,'.step','b')}${ARW(142,61,160,61,'a')}<rect class="f" x="164" y="44" width="48" height="34" rx="6"/>${TX(188,65,'Fusion')}`));
+D('ce-mk','STL for 3D printing',"A mesh file of triangles describing a part's surface. Slicers turn it into layers for 3D printing; it loses the feature history.",
+ AD(220,124,`<path class="f" d="M60 90l50-60 50 60z"/><path class="g" d="M110 30v60M60 90l50-30 50 30"/>${TX(110,112,'triangles only, no features')}`));
+D('ce-mk','CAM and toolpaths',"Computer-aided manufacturing: software that turns the model into CNC machine paths, choosing tools, speeds and cut order.",
+ AD(220,124,`<rect class="f" x="30" y="60" width="160" height="40"/><path class="a w d" d="M40 60V44H70V60M80 60V44H110V60M120 60V44H150V60"/><rect class="f" x="160" y="14" width="10" height="30"/>${TX(110,116,'model → toolpath → CNC')}`));
+D('ce-mk','Design for manufacture',"Shaping parts so they're easy and cheap to make: standard hole sizes, even wall thickness, enough draft and no impossible tool access.",
+ AD(220,124,`${TX(110,22,'standard sizes · even walls')}${TX(110,38,'draft · tool access')}<path class="a w" d="M40 80l14 14 26-30"/><path class="f" d="M100 80h80v20h-80z"/>`));
+
 /* ---------- Flashdecks app ---------- */
 (function(){
 const CATS={
@@ -3171,7 +3596,16 @@ const CATS={
   'ch-op':['Openings','#059669','chess'], 'ch-end':['Endgames','#D97706','chess'], 'ch-not':['Notation & Terms','#7C3AED','chess'],
   /* UX/UI interviews */
   'iv-you':['About You','#DB2777','ivw'], 'iv-prc':['Process & Methods','#2563EB','ivw'], 'iv-port':['Portfolio & Case Studies','#7C3AED','ivw'],
-  'iv-col':['Collaboration','#059669','ivw'], 'iv-chl':['Design Challenges','#D97706','ivw'], 'iv-ask':['Questions to Ask','#0EA5E9','ivw']
+  'iv-col':['Collaboration','#059669','ivw'], 'iv-chl':['Design Challenges','#D97706','ivw'], 'iv-ask':['Questions to Ask','#0EA5E9','ivw'],
+  /* home baking */
+  'bk-ing':['Ingredients','#D97706','bake'], 'bk-tec':['Techniques','#2563EB','bake'], 'bk-dgh':['Doughs & Batters','#B45309','bake'],
+  'bk-sci':['Baking Science','#7C3AED','bake'], 'bk-tol':['Tools & Oven','#475569','bake'], 'bk-fix':['Troubleshooting','#DC2626','bake'],
+  /* CAD for architects */
+  'ca-bim':['BIM Basics','#0369A1','cada'], 'ca-rvt':['Revit Modelling','#2563EB','cada'], 'ca-doc':['Views & Documentation','#7C3AED','cada'],
+  'ca-acd':['AutoCAD Drafting','#DC2626','cada'], 'ca-col':['Collaboration & Exchange','#059669','cada'], 'ca-viz':['Other Tools & Visuals','#D97706','cada'],
+  /* CAD for engineers */
+  'ce-sk':['Sketching','#2563EB','cade'], 'ce-ft':['Features','#059669','cade'], 'ce-pt':['Parts & Design Intent','#7C3AED','cade'],
+  'ce-as':['Assemblies','#D97706','cade'], 'ce-dr':['Drawings & Tolerances','#DC2626','cade'], 'ce-mk':['Making & Simulation','#0369A1','cade']
 };
 Object.values(CATS).forEach(c=>{if(!c[2])c[2]='ux'});
 const TOPICS={
@@ -3179,8 +3613,13 @@ const TOPICS={
   swe:{n:'Software Engineering',s:'Software',c:'var(--green)',i:'code',d:'How software is built and shipped'},
   arch:{n:'Architecture',s:'Architecture',c:'var(--green)',i:'arch',d:'Buildings, structure and styles'},
   chess:{n:'Chess',s:'Chess',c:'var(--green)',i:'pawn',d:'Rules, tactics and strategy'},
-  ivw:{n:'UX/UI Interviews',s:'Interviews',c:'var(--green)',i:'chat',d:'Common questions, strong answers',qa:true}
+  ivw:{n:'UX/UI Interviews',s:'Interviews',c:'var(--green)',i:'chat',d:'Common questions, strong answers',qa:true},
+  cada:{n:'CAD for Architects',s:'CAD Arch',c:'var(--green)',i:'arch',d:'BIM, Revit and AutoCAD essentials'},
+  cade:{n:'CAD for Engineers',s:'CAD Eng',c:'var(--green)',i:'code',d:'3D parts, assemblies and drawings'},
+  bake:{n:'Home Baking',s:'Baking',c:'var(--green)',i:'cards',d:'Techniques, ingredients and fixes'}
 };
+/* groups for the All decks list */
+const GROUPS=[['Design & tech',['ux','swe','ivw']],['Architecture & engineering',['arch','cada','cade']],['Games',['chess']],['Food',['bake']]];
 const col=c=>CATS[c][1];
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -3615,7 +4054,7 @@ function openDetail(id){
 }
 
 /* ---------- home: decks dashboard ---------- */
-const TKEYS=Object.keys(TOPICS);
+const TKEYS=GROUPS.flatMap(g=>g[1]).filter(k=>TOPICS[k]);
 const ringSVG2=(p,c,lab)=>{const r=22,C=2*Math.PI*r;return `<span class="hring" style="--c:${c}"><svg width="52" height="52" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="${r}" class="t"/><circle cx="26" cy="26" r="${r}" class="v" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-p)}" transform="rotate(-90 26 26)"/></svg><b>${lab}</b></span>`};
 /* ---------- home: swipe through decks (Figma: My preferred Home · B alt) ---------- */
 function renderHome(enter,dir){
@@ -3655,8 +4094,8 @@ function renderHomeDesk(){
   </section>`;
 }
 function jumpDeck(i){if(i===S.hpos)return;const d=i>S.hpos?1:-1;S.hpos=i;SFX.play('flip');buzz(8);renderHome(true,d>0?'fwd':'back')}
-function allDecksHTML(){return `<div class="shead"><h3>All decks</h3><button class="link" data-act="close">Done</button></div><div class="adl">${TKEYS.map((tp,i)=>{const T=TOPICS[tp],all=topicTerms(tp),k=all.filter(t=>S.known.has(t.id)).length,st=S.visited.has(tp)||k>0,due=dueIn(tp);
-  return `<button class="adr" data-hpick="${i}"><span><b>${esc(T.n)}</b><small>${st?`${k} of ${all.length} ${T.qa?'answered':'known'}`:`New · ${all.length} ${T.qa?'questions':'cards'}`}${due?` · ${due} to review`:''}${k?`<span class="mini"><i style="width:${Math.max(3,k/all.length*100)}%"></i></span>`:''}</small></span>${i===S.hpos?`<span class="ck">${I(P.check,20,2.6)}</span>`:I(P.chev,18,2)}</button>`}).join('')}</div>`}
+function allDecksHTML(){return `<div class="shead"><h3>All decks</h3><button class="link" data-act="close">Done</button></div><div class="adl">${GROUPS.map(([gn,ks])=>`<p class="adg">${gn}</p>`+ks.map(tp=>{const i=TKEYS.indexOf(tp);const T=TOPICS[tp],all=topicTerms(tp),k=all.filter(t=>S.known.has(t.id)).length,st=S.visited.has(tp)||k>0,due=dueIn(tp);
+  return `<button class="adr" data-hpick="${i}"><span><b>${esc(T.n)}</b><small>${st?`${k} of ${all.length} ${T.qa?'answered':'known'}`:`New · ${all.length} ${T.qa?'questions':'cards'}`}${due?` · ${due} to review`:''}${k?`<span class="mini"><i style="width:${Math.max(3,k/all.length*100)}%"></i></span>`:''}</small></span>${i===S.hpos?`<span class="ck">${I(P.check,20,2.6)}</span>`:I(P.chev,18,2)}</button>`}).join('')).join('')}</div>`}
 function goalHTML(){const n=dayCount(),g=S.goal,p=Math.min(1,n/g),st=dayStreak();
   return `<button class="goal gut" data-act="goal" aria-label="Daily goal: ${Math.min(n,g)} of ${g} cards today. Tap to change."><span class="gl-t">${I(P.target,16,2)}<b>${n>=g?'Goal done':'Today'}</b><em>${Math.min(n,g)} / ${g} cards</em>${st?`<span class="gl-s">${st} day${st===1?'':'s'} in a row</span>`:''}</span><span class="gl-bar"><i style="width:${p*100}%"></i></span></button>`}
 function fitHome(){
@@ -3951,8 +4390,9 @@ function maybeInstall(){
 }
 
 /* ---------- version, What's new, update banner ---------- */
-const APP_VERSION='2.8';
+const APP_VERSION='2.9';
 const CHANGELOG=[ // newest first; the first line is the update banner's note
+  ['2.9','Oct 21, 2026','Three new decks: Home Baking, CAD for Architects and CAD for Engineers, plus All decks now grouped by topic.'],
   ['2.8','Oct 21, 2026','Notifications: choose daily reminders and/or updates and check-ins, and hear about new versions as soon as they land.'],
   ['2.7','Oct 21, 2026','Clearer navigation: pick a deck on Home, then Study, Quiz and Search inside it, with the deck name always at the top.'],
   ['2.6','Oct 21, 2026','Background music now starts on your first tap and keeps playing with the silent switch on.'],
