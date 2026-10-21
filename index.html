@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>UX Lexicon</title>
-<meta name="description" content="Learn 336 UX terms and UI elements, one flashcard at a time. Free, no sign-up, made for your phone.">
+<title>Flashdecks</title>
+<meta name="description" content="Flashcards for UX & UI design, software engineering, architecture, chess and design interviews. Free, no sign-up, made for your phone.">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="UX Lexicon">
-<meta property="og:title" content="UX Lexicon: learn UX terms, one card at a time">
-<meta property="og:description" content="336 design terms, each with a little drawing. Free, no sign-up, made for your phone.">
+<meta property="og:site_name" content="Flashdecks">
+<meta property="og:title" content="Flashdecks: learn anything, one card at a time">
+<meta property="og:description" content="UX & UI, software, architecture, chess and interview decks, with little drawings. Free, no sign-up.">
 <meta property="og:url" content="https://dvn019.github.io/ux-lexicon/">
 <meta property="og:image" content="https://dvn019.github.io/ux-lexicon/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="UX Lexicon app on two phones: a flashcard for Usability, front and back">
+<meta property="og:image:alt" content="Flashdecks app on two phones showing flashcards">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://dvn019.github.io/ux-lexicon/og-image.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="UX Lexicon">
+<meta name="apple-mobile-web-app-title" content="Flashdecks">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
@@ -470,6 +470,39 @@ input.fb{height:50px;border-radius:99px;padding:0 18px}
 .fbsend{margin-top:20px}
 .fbsend:disabled{opacity:.6}
 .privacy{margin:18px 0 0;font-size:13px;line-height:1.5;color:var(--ink-3)}
+
+/* home dashboard */
+.v-home .big{padding-bottom:14px}
+.tico{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:none;color:var(--c);background:color-mix(in srgb,var(--c) 13%,transparent)}
+.dhero{border:1px solid var(--line-2);border-radius:22px;padding:16px;background:var(--paper);box-shadow:var(--shadow-card)}
+.hrow{display:flex;align-items:center;gap:12px}
+.hl{flex:1;min-width:0}.hl small{display:block;font-size:13px;color:var(--ink-2);font-weight:500}.hl b{display:block;font-size:19px;font-weight:600;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hn{text-align:right;font-variant-numeric:tabular-nums}.hn b{display:block;font-size:22px;font-weight:600;letter-spacing:-.02em}.hn small{font-size:13px;color:var(--ink-2)}
+.tbar{display:block;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.tbar i{display:block;height:100%;border-radius:3px;background:var(--c);min-width:0;transition:width .6s cubic-bezier(.3,1.2,.5,1)}
+.tbar.lg{height:8px;margin:16px 0}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.tile{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;padding:14px;border:1px solid var(--line-2);border-radius:20px;background:var(--paper);transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+.tile:active{transform:scale(.97)}
+.tile .tico{margin-bottom:10px}
+.tile b{font-size:15px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+.tile small{font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.tile .tbar{width:100%;margin-top:auto;height:5px}
+.tile small{margin-bottom:10px}
+.pcard.lv{display:flex;align-items:center;gap:14px;margin-top:10px;padding:14px 16px}
+.pcard.lv>div{flex:1;min-width:0}.pcard.lv .pname{margin-top:0;font-size:17px}.pcard.lv .xprow{margin:4px 0 10px;font-size:13px;color:var(--ink-2)}.pcard.lv .xprow span:last-child{font-weight:500}
+.aiwarn{margin:8px 0 0;font-size:11.5px;line-height:1.45;color:var(--ink-3)}
+/* interview (question) cards */
+.term.hero.qtn{font-size:clamp(26px,8.2vw,32px);line-height:1.12;letter-spacing:-.03em}
+.bterm.qb{margin:10px 0 12px;font-size:20px;line-height:1.25}
+.def.ans p{margin:0 0 12px}.def.ans ul{margin:0 0 12px;padding-left:20px}.def.ans li{margin:0 0 6px}
+.detail p+p{margin-top:10px}.detail ul{color:var(--ink-2);padding-left:20px;margin:10px 0 0}.detail li{margin-bottom:6px}
+.thumb .tq{position:absolute;inset:0;display:grid;place-items:center;color:var(--c);background:color-mix(in srgb,var(--c) 10%,var(--stage))}
+.endq{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding-top:56px}
+.endq .tico{width:60px;height:60px;border-radius:18px}
+.endq h2{margin:8px 0 0;font-size:24px;font-weight:600;letter-spacing:-.03em;text-wrap:balance}
+.endq p{margin:0;color:var(--ink-2);max-width:32ch}
+.endq .row{display:flex;flex-direction:column;gap:10px;width:100%;max-width:280px;margin-top:12px}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
@@ -1313,26 +1346,47 @@ input.fb{height:50px;border-radius:99px;padding:0 18px}
 .mkbd{font-family:var(--body)}
 .vis{color:var(--ink-2)}
 
+/* extra decks */
+.mcodeb{display:flex;flex-direction:column;background:#1C1C21;color:#E7E7EA;border-radius:10px;padding:10px 13px;font:500 10.5px/1.6 ui-monospace,"SF Mono",Menlo,Consolas,monospace;white-space:pre;text-align:left;box-shadow:0 6px 16px rgba(0,0,0,.18)}
+.mcodeb b{color:#7EE2A8;font-weight:600}.mcodeb i{color:#FFC978;font-style:normal}.mcodeb u{color:#8E8E99;text-decoration:none}
+.marc{display:block;overflow:visible;flex:none}
+.marc path,.marc line,.marc rect,.marc circle,.marc ellipse,.marc polyline,.marc polygon{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.marc .f{fill:var(--m-fill)}.marc .g{stroke:var(--ink-3)}.marc .a{stroke:var(--green)}.marc .af{fill:color-mix(in srgb,var(--green) 18%,transparent);stroke:var(--green)}
+.marc .d{stroke-dasharray:4 3}.marc .t{stroke-width:1}.marc .w{stroke-width:2.6}.marc .r{stroke:var(--bad)}.marc .rf{fill:color-mix(in srgb,var(--bad) 15%,transparent);stroke:var(--bad)}
+.marc .sky{fill:color-mix(in srgb,var(--blue) 14%,transparent);stroke:none}.marc .sun{fill:#F5B83D;stroke:none}
+.marc text{fill:var(--ink-2);stroke:none;font:500 9px var(--body);text-anchor:middle}
+.marc text.l{text-anchor:start}.marc text.b{fill:var(--ink);font-weight:650}
+.mboard{display:block;overflow:visible;flex:none}
+.mboard .l{fill:#FFFFFF}.mboard .d{fill:#B7C0CE}.mboard .bd{fill:none;stroke:#9AA4B4;stroke-width:1}
+.mboard .hg{fill:#9FE0BC}.mboard .hr{fill:#F6A9AC}.mboard .hb{fill:#A9CBF6}.mboard .hy{fill:#F6DF8F}
+.mboard text{text-anchor:middle;font-family:"Apple Symbols","Segoe UI Symbol","Noto Sans Symbols 2","DejaVu Sans",serif}
+.mboard .pw{fill:#fff;stroke:#1d1d22;stroke-width:.9;paint-order:stroke}.mboard .pb{fill:#1d1d22}
+.mboard .cl{font:600 7.5px var(--body);fill:var(--ink-3)}
+.mboard .ar line{stroke-linecap:round;opacity:.8}.mboard .ar path{opacity:.8}
+.mboard .ar.g line{stroke:#0E9F5B}.mboard .ar.g path{fill:#0E9F5B}.mboard .ar.r line{stroke:#E5484D}.mboard .ar.r path{fill:#E5484D}.mboard .ar.b line{stroke:#1F7AE0}.mboard .ar.b path{fill:#1F7AE0}
+:root[data-theme="dark"] .mboard .l{fill:#4A5060}:root[data-theme="dark"] .mboard .d{fill:#2E3340}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .mboard .l{fill:#5A6172}:root:not([data-theme="light"]) .mboard .d{fill:#363C4A}}
+
 </style>
 <div class="app" id="app">
   <header class="bar gut">
     <span class="mark" aria-hidden="true"><i></i><i></i></span>
-    <h1>UX Lexicon</h1>
+    <h1>Flashdecks</h1>
     <button class="lvl" id="lvl" type="button"></button>
   </header>
   <main class="main" id="main"></main>
   <nav class="tabbar" role="tablist" aria-label="Sections">
+    <button class="tab" role="tab" data-tab="home" aria-label="Home"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5L12 4l8 6.5V19a1.5 1.5 0 01-1.5 1.5h-4V15h-5v5.5h-4A1.5 1.5 0 014 19z"/></svg><span>Home</span></button>
     <button class="tab" role="tab" data-tab="study" aria-label="Study"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="12" height="14" rx="2.5"/><path d="M8 3.5h9.5A2.5 2.5 0 0120 6v11"/></svg><span>Study</span></button>
     <button class="tab" role="tab" data-tab="quiz" aria-label="Quiz"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 014.9.6c0 1.7-2.5 2.1-2.5 3.6M12 17v.2"/></svg><span>Quiz</span></button>
     <button class="tab" role="tab" data-tab="browse" aria-label="Browse"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span>Browse</span></button>
-    <button class="tab" role="tab" data-tab="progress" aria-label="Progress"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 5v8l-8 5-8-5V8z"/><path d="M12 8l3.5 2v4L12 16l-3.5-2v-4z"/></svg><span>Progress</span></button>
   </nav>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </div>
 <aside class="desk" aria-label="About this app">
   <span class="mark" aria-hidden="true"><i></i><i></i></span>
   <h2>Best on your phone</h2>
-  <p>UX Lexicon is made for quick sessions on the go. Scan to open it on your phone, then Add to Home Screen.</p>
+  <p>Flashdecks is made for quick sessions on the go. Scan to open it on your phone, then Add to Home Screen.</p>
   <div class="qr" id="qr" hidden></div>
   <h3>Keyboard shortcuts</h3>
   <ul class="keys">
@@ -1486,9 +1540,37 @@ const RING=(p,lab='')=>{const c=2*Math.PI*26;return `<span class="mring2"><svg w
 const SVG=(w,h,inner,k='')=>`<svg class="msvg ${k}" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${inner}</svg>`;
 const MRL=(inner,w,h,st='')=>`<div class="mrel" style="width:${w}px;height:${h}px;${st}">${inner}</div>`;
 
+/* ---------- helpers for the extra decks ---------- */
+// code block: <b>keyword</b> <i>"string"</i> <u>// comment</u>
+const CODE=(...ls)=>`<div class="mcodeb">${ls.map(l=>`<span>${l||' '}</span>`).join('')}</div>`;
+// line drawing (architecture): classes f=filled, g=grey, a=accent, af=accent fill, d=dashed
+const AD=(w,h,inner,st="")=>`<svg class="marc" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="${st}">${inner}</svg>`;
+const ARW=(x1,y1,x2,y2,k='a')=>{const a=Math.atan2(y2-y1,x2-x1),s=6,p=(d)=>`${x2-s*Math.cos(a+d)},${y2-s*Math.sin(a+d)}`;return `<path class="${k}" d="M${x1} ${y1}L${x2} ${y2}M${p(.5)}L${x2} ${y2}L${p(-.5)}"/>`};
+const TX=(x,y,t,k='')=>`<text x="${x}" y="${y}" class="${k}">${t}</text>`;
+// chess board from FEN rows. o = {f:[0,7] files, r:[1,8] ranks, hl:{e4:'g'|'r'|'b'}, ar:[['e2','e4','g']], s:size}
+const PCS={k:'♚',q:'♛',r:'♜',b:'♝',n:'♞',p:'♟'};
+const BOARD=(fen,o={})=>{
+  const rows=fen.split('/').map(r=>r.replace(/\d/g,d=>'.'.repeat(+d)));
+  const [f0,f1]=o.f||[0,7],[r0,r1]=o.r||[1,8],nf=f1-f0+1,nr=r1-r0+1;
+  const s=o.s||Math.min(30,Math.floor(170/nr),Math.floor(260/nf)),W=nf*s,H=nr*s;
+  const sq=n=>[n.charCodeAt(0)-97,+n[1]], cx=f=>(f-f0)*s+s/2, cy=r=>(r1-r)*s+s/2;
+  let g='';
+  for(let r=r1;r>=r0;r--)for(let f=f0;f<=f1;f++){
+    const x=(f-f0)*s,y=(r1-r)*s,nm=String.fromCharCode(97+f)+r,h=o.hl&&o.hl[nm];
+    g+=`<rect x="${x}" y="${y}" width="${s}" height="${s}" class="${(f+r)%2?'l':'d'}${h?' h'+h:''}"/>`;
+    const p=rows[8-r]&&rows[8-r][f]; if(p&&p!=='.'){const w=p===p.toUpperCase();
+      g+=`<text x="${x+s/2}" y="${y+s*.8}" font-size="${s*.86}" class="${w?'pw':'pb'}">${PCS[p.toLowerCase()]}&#xFE0E;</text>`}
+  }
+  (o.ar||[]).forEach(([a,b,k])=>{const [fa,ra]=sq(a),[fb,rb]=sq(b),x1=cx(fa),y1=cy(ra),x2=cx(fb),y2=cy(rb),an=Math.atan2(y2-y1,x2-x1),hd=s*.34;
+    const ex=x2-Math.cos(an)*s*.18,ey=y2-Math.sin(an)*s*.18;
+    g+=`<g class="ar ${k||'g'}"><line x1="${x1}" y1="${y1}" x2="${ex-Math.cos(an)*hd*.6}" y2="${ey-Math.sin(an)*hd*.6}" stroke-width="${s*.16}"/><path d="M${ex} ${ey}L${ex-hd*Math.cos(an-.55)} ${ey-hd*Math.sin(an-.55)}L${ex-hd*Math.cos(an+.55)} ${ey-hd*Math.sin(an+.55)}Z"/></g>`});
+  let lab='';if(o.lab!==false){for(let f=f0;f<=f1;f++)lab+=`<text x="${(f-f0)*s+s/2}" y="${H+9}" class="cl">${String.fromCharCode(97+f)}</text>`;for(let r=r0;r<=r1;r++)lab+=`<text x="-5" y="${(r1-r)*s+s/2+3}" class="cl">${r}</text>`}
+  return `<svg class="mboard" width="${W+10}" height="${H+12}" viewBox="-10 0 ${W+10} ${H+12}">${g}<rect class="bd" x="0" y="0" width="${W}" height="${H}"/>${lab}</svg>`};
+
 /* ---------- Terms: [category, term, definition, visual] ---------- */
 const DATA=[];
-const D=(c,t,d,v)=>DATA.push({c,t,d,v});
+let TP='ux'; // topic of the cards that follow
+const D=(c,t,d,v='')=>DATA.push({c,t,d,v,tp:TP});
 
 /* ===== Foundations ===== */
 D('fnd','User experience (UX)',"Everything a person feels, thinks and does while using a product, from the first look to the last tap.",
@@ -2187,20 +2269,682 @@ D('a11','Plain language',"Simple, clear wording most people understand on first 
 D('a11','Assistive technology',"Tools that help people with disabilities use devices, like screen readers, switch controls and magnifiers.",
  R([['vol','Screen reader'],['search','Magnifier'],['mic','Voice control']].map(([n,l])=>KC(CIRC(ic(n==='mic'?'chat':n,15))+T(l,'tiny'),4)).join(''),12));
 
-/* ---------- UX Lexicon app ---------- */
+/* ================= SOFTWARE ENGINEERING ================= */
+TP='swe';
+const SRV=(t='Server')=>KC(`<span class="mbx p">${ic('menu',12)}</span>`+T(t,'help'),3);
+
+/* ===== Fundamentals ===== */
+D('sw-fnd','Algorithm',"A clear, step-by-step set of instructions for solving a problem or finishing a task.",
+ FL('Input','Steps','Output'));
+D('sw-fnd','Variable',"A named container that stores a value your program can read and change later.",
+ KC(CODE('<b>let</b> score = 10','score = score + 5','<u>// score is now 15</u>')));
+D('sw-fnd','Function',"A reusable block of code that takes inputs, does one job and often returns a result.",
+ R(BX('2, 3')+AR()+BX('add( )','p')+AR()+BX('5'),5));
+D('sw-fnd','Loop',"Code that repeats the same steps until a condition says stop.",
+ KC(CODE('<b>for</b> (i = 1; i <= 3; i++) {','  print(i)','}')+T('1   2   3','mono big'),10));
+D('sw-fnd','Conditional (if / else)',"Code that picks a path depending on whether something is true or false.",
+ KC(BX('Logged in?','p')+R(KC(T('yes','help ok')+BX('Dashboard'),4)+KC(T('no','help')+BX('Sign in'),4),26),8));
+D('sw-fnd','Array',"An ordered list of values, each reached by its position (index), which starts at 0.",
+ R(['Ada','Bo','Cy','Di'].map((x,i)=>KC(BX(x)+T(i,'help'),4)).join(''),5));
+D('sw-fnd','Object',"A bundle of related data stored as named properties, like a user's name and age.",
+ CODE('user = {','  name: <i>"Ada"</i>,','  age: 36,','  admin: <b>true</b>','}'));
+D('sw-fnd','Data type',"The kind of value something is, such as a number, text (a string) or true/false (a boolean).",
+ TBL(['Value','Type'],[['42','number'],['"hello"','string'],['true','boolean']]));
+D('sw-fnd','Bug',"A mistake in code that makes a program behave in a way nobody intended.",
+ KC(ALERT('bad','TypeError: name is undefined')+T('the app crashed on tap','help'),8));
+D('sw-fnd','Debugging',"Finding out why a program misbehaves, then fixing the real cause.",
+ STEPS(['Repeat it','Find cause','Fix','Re-test'],2));
+D('sw-fnd','Recursion',"When a function solves a problem by calling itself on a smaller piece of the same problem.",
+ CODE('<b>function</b> countdown(n) {','  <b>if</b> (n === 0) <b>return</b>','  print(n)','  countdown(n - 1)','}'));
+D('sw-fnd','Big O notation',"A way to describe how an algorithm's time or memory grows as its input gets bigger.",
+ KC(BARS([10,26,52,92],['','','',''],70,24)+R(T('O(1)','tiny')+T('O(log n)','tiny')+T('O(n)','tiny')+T('O(n²)','tiny'),9),6));
+D('sw-fnd','Compiler',"A program that translates the code people write into instructions a computer can run.",
+ R(CODE('print(<i>"hi"</i>)')+AR()+BX('Compiler','p')+AR()+T('0110 1001','mono'),5));
+
+/* ===== Web & APIs ===== */
+D('sw-web','Frontend',"The part of an app people see and touch, running in their browser or on their phone.",
+ KC(WN(K(L(60,'d')+IM(120,34)+B('Buy now','sm'),6),'width:160px')+T('what users see','help'),6));
+D('sw-web','Backend',"The behind-the-scenes part that stores data, runs the rules and answers the frontend.",
+ KC(FL('App','Server','Database')+T('what users never see','help'),8));
+D('sw-web','API',"A set of rules that lets one piece of software ask another for data or actions.",
+ R(BX('Your app')+K(T('request →','help')+T('← response','help'),6,'align-items:center')+BX('Weather API','p'),8));
+D('sw-web','REST API',"A common style of web API where URLs name things and HTTP methods say what to do with them.",
+ TBL(['Method','Does'],[['GET','read'],['POST','create'],['PUT','update'],['DELETE','remove']]));
+D('sw-web','HTTP',"The set of rules browsers and servers use to send requests and responses across the web.",
+ K(T('→ GET /users/7','code')+T('← 200 OK  { "name": "Ada" }','code'),8));
+D('sw-web','Status code',"A three-digit number a server sends back to say how a request went.",
+ TBL(['Code','Means'],[['200','OK'],['404','Not found'],['500','Server error']]));
+D('sw-web','JSON',"A lightweight text format for sending data, written as names and values inside curly braces.",
+ CODE('{','  <i>"id"</i>: 7,','  <i>"name"</i>: <i>"Ada"</i>,','  <i>"tags"</i>: [<i>"admin"</i>]','}'));
+D('sw-web','Endpoint',"One specific URL in an API that you call to get or change one kind of data.",
+ KC(T('api.shop.com/<b>orders/42</b>','code')+T('one endpoint = one door into the API','help'),8));
+D('sw-web','Authentication',"Checking who someone is, usually with a password, a code or a passkey.",
+ C(K(T('Who are you?','lbl')+IN('ada@mail.com','sm v w')+IN('••••••••','sm v w')+B('Log in','sm full'),6),'padding:10px'));
+D('sw-web','Authorization',"Checking what a signed-in person is allowed to do.",
+ TBL(['Role','Read','Edit','Delete'],[['Admin','✓','✓','✓'],['Editor','✓','✓','–'],['Viewer','✓','–','–']]));
+D('sw-web','Cookie',"A small piece of data a website saves in your browser so it can remember you next time.",
+ R(BX('Website')+AR()+KC(BX('session = a9f3')+T('saved in browser','help'),4),6));
+D('sw-web','Webhook',"An automatic message one app sends to another the moment something happens.",
+ R(KC(BX('Payment done','ok')+T('event','help'),4)+AR()+KC(BX('POST → your app','p')+T('instant','help'),4),6));
+D('sw-web','Responsive design',"Building pages whose layout adapts to fit any screen, from phones to big monitors.",
+ R(C(K(IM(90,30)+L(80)+L(60),5),'padding:7px')+C(K(IM(36,30)+L(34)+L(24),5),'padding:7px'),12));
+
+/* ===== Data & Storage ===== */
+D('sw-dat','Database',"An organized store of data that a program can save to, search and update.",
+ KC(TBL(['id','name','city'],[['1','Ada','Lagos'],['2','Alan','London']])+T('rows = records','help'),6));
+D('sw-dat','SQL',"A language for asking a database questions, like 'give me every user in Lagos'.",
+ CODE('<b>SELECT</b> name','<b>FROM</b> users','<b>WHERE</b> city = <i>\'Lagos\'</i>'));
+D('sw-dat','NoSQL',"Databases that store data as flexible documents or key-value pairs instead of fixed tables.",
+ CODE('{ name: <i>"Ada"</i>,','  orders: [12, 19],','  prefs: { theme: <i>"dark"</i> } }'));
+D('sw-dat','Primary key',"A column that gives every row in a table its own unique ID.",
+ TBL(['id 🔑','email'],[['1','ada@mail.com'],['2','alan@mail.com']]));
+D('sw-dat','Foreign key',"A column that points to a row in another table, linking the two together.",
+ R(TBL(['order','user_id'],[['#10','<b>1</b>']])+AR()+TBL(['id','name'],[['<b>1</b>','Ada']]),6));
+D('sw-dat','Index',"An extra lookup structure that helps a database find rows fast, like the index at the back of a book.",
+ R(K(T('Find "Ada"','lbl')+T('without index: check every row','help')+T('with index: jump straight there','help ok'),5),0));
+D('sw-dat','Query',"A request for specific data from a database.",
+ R(BX('Who ordered today?')+AR()+BX('3 rows','p'),6));
+D('sw-dat','Cache',"A fast, temporary copy of data kept close by so it doesn't have to be fetched again.",
+ KC(R(BX('App')+AR()+BX('Cache ⚡','p')+T('miss','help')+AR()+BX('Database'),4)+T('hit = instant answer','help ok'),8));
+D('sw-dat','CRUD',"The four basic things you do with data: Create, Read, Update and Delete.",
+ R(['Create','Read','Update','Delete'].map((x,i)=>BX(x,i===1?'p':'')).join(''),4));
+D('sw-dat','Backup',"A saved copy of data that you can restore if the original is lost or damaged.",
+ R(BX('Live data')+AR()+KC(BX('Copy · 02:00')+BX('Copy · yesterday'),4),8));
+D('sw-dat','Database migration',"A scripted, step-by-step change to a database's structure, like adding a new column.",
+ R(TBL(['id','name'],[['1','Ada']])+AR()+TBL(['id','name','<b>phone</b>'],[['1','Ada','–']]),6));
+D('sw-dat','Schema',"The blueprint of a database: which tables exist, their columns and the type of each column.",
+ TBL(['column','type'],[['id','integer'],['email','text'],['joined','date']]));
+
+/* ===== Systems & Architecture ===== */
+D('sw-sys','Client–server model',"A setup where many clients (apps, browsers) ask one central server for data and services.",
+ R(K(BX('Phone')+BX('Laptop')+BX('Tablet'),5)+AR()+SRV(),10));
+D('sw-sys','Server',"A computer that runs software whose job is to answer requests from other computers.",
+ KC(R(SRV('Server'),0)+T('always on · waiting for requests','help'),6));
+D('sw-sys','Cloud computing',"Renting computing power and storage over the internet instead of owning the machines.",
+ KC(BX('☁︎  AWS · Azure · Google Cloud','p')+R(BX('servers')+BX('storage')+BX('databases'),5),8));
+D('sw-sys','Microservices',"Building an app as many small, separate services that each do one job and talk over APIs.",
+ R(['Users','Orders','Payments','Email'].map(x=>BX(x)).join(''),5));
+D('sw-sys','Monolith',"An app built and deployed as one single unit, with all its parts in the same codebase.",
+ KC(C(K(T('Users · Orders · Payments · Email','lbl'),0),'padding:16px 14px')+T('one app, one deploy','help'),6));
+D('sw-sys','Load balancer',"A traffic director that spreads incoming requests across several servers.",
+ R(BX('Users')+AR()+BX('Load balancer','p')+K(BX('Server 1')+BX('Server 2')+BX('Server 3'),4),6));
+D('sw-sys','Scalability',"How well a system keeps working as more and more people use it.",
+ R(KC(BARS([20,40,70,95],[],60,14)+T('users','help'),4)+KC(T('response time stays fast','help ok'),4),14));
+D('sw-sys','Latency',"The delay between asking for something and getting the first response back.",
+ R(BX('Tap')+T('⏱ 120 ms','mono big')+BX('Result'),10));
+D('sw-sys','CDN',"A network of servers around the world that delivers files from the location nearest to each user.",
+ KC(R(BX('Lagos')+BX('London')+BX('Tokyo'),5)+T('the closest copy answers','help'),8));
+D('sw-sys','Message queue',"A waiting line for tasks, so they can be handled one by one, even later or by other services.",
+ R(BX('App')+AR()+R(['job','job','job'].map(x=>BX(x)).join(''),2)+AR()+BX('Worker','p'),5));
+D('sw-sys','Container (Docker)',"A packaged app with everything it needs, so it runs the same way on any machine.",
+ KC(C(K(T('📦 app + libraries + settings','lbl'),0),'padding:14px')+T('runs the same everywhere','help'),6));
+D('sw-sys','Serverless',"Running code in the cloud without managing any servers; you pay only when it actually runs.",
+ R(BX('Upload photo')+AR()+BX('ƒ resize()','p')+AR()+BX('Done'),5));
+
+/* ===== Process & Tools ===== */
+D('sw-prc','Version control',"A system that records every change to code, so you can see history and undo mistakes.",
+ STEPS(['v1','v2','v3','v4'],3));
+D('sw-prc','Git',"The most popular version control tool, used to track changes and collaborate on code.",
+ CODE('git add .','git commit -m <i>"Fix login"</i>','git push'));
+D('sw-prc','Commit',"A saved snapshot of code changes in Git, with a short message describing what changed.",
+ K(R(T('a91f3c','mono')+T('Fix login button on mobile','lbl'),8)+R(T('7b2e10','mono')+T('Add dark mode','lbl'),8),6));
+D('sw-prc','Branch',"A separate line of work in Git where you can change code without affecting the main version.",
+ AD(200,70,`<path d="M10 22H190"/><path class="a" d="M50 22C70 22 70 52 90 52H150"/><circle class="f" cx="10" cy="22" r="5"/><circle class="f" cx="50" cy="22" r="5"/><circle class="f" cx="130" cy="22" r="5"/><circle class="af" cx="100" cy="52" r="5"/><circle class="af" cx="150" cy="52" r="5"/>${TX(185,14,'main')}${TX(158,66,'feature')}`));
+D('sw-prc','Pull request',"A request to merge your branch into the main code, where teammates review it first.",
+ C(K(T('Add dark mode #42','lbl')+R(PILL('2 approvals')+PILL('checks passed'),5)+B('Merge','sm ok'),7),'padding:10px'));
+D('sw-prc','Merge conflict',"When two changes edit the same lines and Git needs a person to decide what to keep.",
+ CODE('<u>&lt;&lt;&lt;&lt;&lt;&lt;&lt; yours</u>','color = <i>"green"</i>','<u>=======</u>','color = <i>"blue"</i>','<u>&gt;&gt;&gt;&gt;&gt;&gt;&gt; theirs</u>'));
+D('sw-prc','Code review',"Teammates reading each other's code to catch problems early and share knowledge.",
+ K(T('line 24','mono')+BUB('Could this crash if the list is empty?','l')+BUB('Good catch, fixed!','r'),6));
+D('sw-prc','CI/CD',"Automatically testing and releasing code every time someone pushes a change.",
+ FL('Push','Build','Test','Deploy'));
+D('sw-prc','Deployment',"Putting a new version of software live so people can use it.",
+ R(BX('v2.3 ready')+AR()+KC(BX('Live 🚀','ok')+T('users get it','help'),4),6));
+D('sw-prc','Agile',"Working in short cycles, shipping small pieces often and adjusting based on feedback.",
+ CYC(['Plan','Build','Review'],T('2-week sprint','help')));
+D('sw-prc','Technical debt',"The future cost of shortcuts taken today, paid back later as extra work.",
+ R(KC(BX('Quick fix now')+T('fast today','help ok'),4)+AR()+KC(BX('Harder changes later')+T('slow tomorrow','help'),4),6));
+D('sw-prc','Open source',"Software whose code is public, so anyone can read it, use it and help improve it.",
+ KC(R(AV(1,24)+AV(2,24)+AV(3,24)+AV(4,24)+AV(5,24),-6)+T('anyone can contribute','help'),8));
+
+/* ===== Quality & Security ===== */
+D('sw-qa','Unit test',"A small automated test that checks one piece of code does what it should.",
+ CODE('test(<i>"adds numbers"</i>, () => {','  expect(add(2, 3)).toBe(5)','})','<b>✓ passed</b>'));
+D('sw-qa','Integration test',"A test that checks several parts of a system work correctly together.",
+ KC(FL('Form','API','Database')+T('✓ all three work together','help ok'),8));
+D('sw-qa','End-to-end test',"A test that runs a full user journey, from opening the app to finishing a task.",
+ STEPS(['Open','Log in','Add item','Pay'],4));
+D('sw-qa','Refactoring',"Improving the structure of code without changing what it does.",
+ R(CODE('if (a == true) {','  return true','} else {','  return false','}')+AR()+CODE('return a'),6));
+D('sw-qa','Encryption',"Scrambling data so only someone with the right key can read it.",
+ R(BX('Hello')+AR()+BX('x9#Lq!2','p')+AR()+BX('Hello'),5));
+D('sw-qa','HTTPS',"The secure version of HTTP that encrypts everything sent between a browser and a server.",
+ IN(ic('lock',11)+'https://bank.com','v w2'));
+D('sw-qa','Hashing',"Turning data into a fixed scrambled string that can't be reversed; used to store passwords safely.",
+ R(BX('password123')+AR()+T('ef92b7…a3c1','code'),6));
+D('sw-qa','SQL injection',"An attack where someone types database commands into a form field to trick the database.",
+ K(T('Username','lbl')+IN(`' OR 1=1 --`,'e v w')+T('never trust raw input','err'),5));
+D('sw-qa','Two-factor authentication (2FA)',"Signing in with two proofs, such as a password plus a code sent to your phone.",
+ R(KC(IN('••••••','sm v')+T('1. password','help'),4)+T('+','big')+KC(T('482 913','mono big')+T('2. phone code','help'),4),10));
+D('sw-qa','Logging',"Recording what a program does as it runs, so problems can be traced later.",
+ CODE('<u>09:41:02</u> INFO  user 7 logged in','<u>09:41:05</u> WARN  slow query 2.1s','<u>09:41:09</u> <b>ERROR</b> payment failed'));
+D('sw-qa','Environment variable',"A setting kept outside the code, like an API key, that can differ per machine or stage.",
+ CODE('<u># .env (never shared)</u>','API_KEY=sk_live_••••','DB_URL=postgres://…'));
+
+/* ================= ARCHITECTURE (BUILDINGS) ================= */
+TP='arch';
+const GR=(y=112,x1=14,x2=206)=>`<path class="g" d="M${x1} ${y}H${x2}"/>`;
+const WINS=(x,y,cols,rows,w=14,h=16,gx=10,gy=12,k='f')=>{let s='';for(let r=0;r<rows;r++)for(let c=0;c<cols;c++)s+=`<rect class="${k}" x="${x+c*(w+gx)}" y="${y+r*(h+gy)}" width="${w}" height="${h}"/>`;return s};
+const COLS=(x,y,n,gap,h,w=8)=>{let s='';for(let i=0;i<n;i++)s+=`<rect class="f" x="${x+i*gap}" y="${y}" width="${w}" height="${h}"/>`;return s};
+const LOADS=(x1,x2,y,n=4)=>{let s='';for(let i=0;i<n;i++){const x=x1+(x2-x1)*i/(n-1);s+=ARW(x,y-18,x,y-3)}return s};
+
+/* ===== Building Elements ===== */
+D('ar-el','Foundation',"The part of a building below ground that spreads its weight safely into the soil.",
+ AD(220,124,`<rect class="f" x="92" y="8" width="36" height="58"/><path class="g d" d="M14 66H206"/>${TX(34,61,'ground')}<rect class="af" x="70" y="66" width="80" height="20"/>${ARW(80,92,80,112)}${ARW(110,92,110,114)}${ARW(140,92,140,112)}${TX(110,122,'weight spread into soil')}`));
+D('ar-el','Column',"A vertical post that carries weight from above down to the ground.",
+ AD(220,124,`<rect x="86" y="10" width="48" height="8" class="f"/><path d="M92 18h36l-4 6H96z"/><rect class="f" x="98" y="24" width="24" height="76"/><path class="g t" d="M104 26v72M110 26v72M116 26v72"/><rect x="92" y="100" width="36" height="8" class="f"/>${GR(112,50,170)}${TX(160,22,'capital','l')}${TX(160,64,'shaft','l')}${TX(160,106,'base','l')}`));
+D('ar-el','Beam',"A horizontal structural member that carries loads across a gap and passes them to its supports.",
+ AD(220,124,`${LOADS(50,170,40,5)}<rect class="af" x="30" y="40" width="160" height="14"/><rect class="f" x="36" y="54" width="14" height="58"/><rect class="f" x="170" y="54" width="14" height="58"/>${GR()}${TX(110,72,'beam')}`));
+D('ar-el','Lintel',"A short beam over a door or window opening that holds up the wall above it.",
+ AD(220,124,`<path class="f" d="M30 14H190V112H30Z"/><rect class="af" x="72" y="44" width="76" height="12"/><rect x="82" y="56" width="56" height="56" fill="var(--paper)"/>${TX(110,38,'lintel')}${TX(110,90,'opening')}`));
+D('ar-el','Arch',"A curved structure that spans an opening by pushing its load outwards and down into its supports.",
+ AD(220,124,`<path class="f" d="M40 112V58A70 70 0 0 1 180 58V112H150V62A40 40 0 0 0 70 62V112Z"/><path class="t" d="M70 62L42 52M78 42L56 26M95 27L84 6M125 27L136 6M142 42L164 26M150 62L178 52"/><path class="af" d="M102 22L118 22L121 2L99 2Z"/>${TX(110,-3,'keystone')}${GR()}`));
+D('ar-el','Vault',"An arched ceiling or roof, like a long arch stretched into a tunnel shape.",
+ AD(220,124,`<path class="f" d="M30 112V60A50 50 0 0 1 130 60V112"/><path d="M130 60A50 50 0 0 0 30 60"/><path class="g" d="M80 10L150 -6M130 60L196 44M30 60L100 44"/><path class="g" d="M196 44V96M100 44A50 50 0 0 1 196 44"/><path class="g d" d="M130 112L196 96"/>${GR(112,14,140)}${TX(110,122,'barrel vault')}`));
+D('ar-el','Dome',"A rounded roof shaped like half a sphere, often sitting on a circular base called a drum.",
+ AD(220,124,`<path class="f" d="M55 64A55 55 0 0 1 165 64Z"/><path class="g t" d="M110 9V64M84 16C76 32 74 48 75 64M136 16C144 32 146 48 145 64"/><rect class="f" x="48" y="64" width="124" height="20"/><rect class="f" x="36" y="84" width="148" height="28"/><path d="M106 9V2h8v7"/>${TX(196,60,'dome','l')}${TX(196,78,'drum','l')}`));
+D('ar-el','Facade',"The outside face of a building, usually the main front that people see from the street.",
+ AD(220,124,`<rect class="f" x="40" y="10" width="140" height="102"/>${WINS(54,22,4,3,18,16,12,12,'')}<rect class="af" x="96" y="86" width="28" height="26"/>${GR()}`));
+D('ar-el','Pediment',"The triangular gable on top of a row of columns, typical of Greek and Roman temples.",
+ AD(220,124,`<path class="af" d="M30 42L110 8L190 42Z"/><rect class="f" x="30" y="42" width="160" height="10"/>${COLS(42,52,6,26,52,10)}<rect class="f" x="24" y="104" width="172" height="8"/>`));
+D('ar-el','Cornice',"A decorative ledge that sticks out along the top of a wall or building.",
+ AD(220,124,`<rect class="f" x="44" y="30" width="132" height="82"/><path class="af" d="M34 18H186V24H180V30H40V24H34Z"/>${WINS(60,46,3,2,22,18,22,14,'')}${TX(110,12,'cornice')}`));
+D('ar-el','Buttress',"A thick block of masonry built against a wall to brace it and stop it pushing outwards.",
+ AD(220,124,`<rect class="f" x="60" y="10" width="20" height="102"/><path class="af" d="M80 112V40H96V70H112V112Z"/>${ARW(46,44,58,44,'r')}${TX(30,48,'push')}${TX(140,90,'buttress','l')}${GR()}`));
+D('ar-el','Flying buttress',"An arched brace that leaps from an outer pier to a tall wall, letting Gothic churches have huge windows.",
+ AD(220,124,`<rect class="f" x="40" y="10" width="16" height="102"/><path class="af" d="M56 40C90 40 120 52 140 76L140 86C120 62 92 50 56 52Z"/><rect class="f" x="140" y="30" width="22" height="82"/><path d="M140 30L151 14L162 30"/><rect x="20" y="30" width="12" height="40" class="sky"/>${TX(26,82,'glass')}${GR()}`));
+D('ar-el','Atrium',"A large open space inside a building, several floors high and usually lit from a glass roof.",
+ AD(220,124,`<path d="M30 112V26H190V112"/><path class="sky" d="M80 26L110 10L140 26Z"/><path class="a" d="M80 26L110 10L140 26"/><path d="M30 54H80M30 82H80M140 54H190M140 82H190"/><path class="g d" d="M80 26V112M140 26V112"/>${TX(110,72,'open to sky')}${GR()}`));
+D('ar-el','Clerestory',"A row of high windows above eye level that brings daylight deep into a room.",
+ AD(220,124,`<path class="f" d="M30 112V60H90V34H190V112Z"/><rect class="sky" x="92" y="40" width="96" height="14"/><path class="a" d="M92 40H188V54H92Z"/>${ARW(60,16,96,46,'a')}${ARW(80,8,116,40,'a')}<circle class="sun" cx="40" cy="12" r="8"/>${GR()}`));
+D('ar-el','Staircase',"A set of steps between floors, made of treads you step on and risers between them.",
+ AD(220,124,`<path class="f" d="M40 112V96H66V80H92V64H118V48H144V32H170V112Z"/>${TX(79,75,'tread')}<path class="a" d="M92 64V80"/>${TX(110,86,'riser','l')}${GR()}`));
+D('ar-el','Courtyard',"An open-air space surrounded by a building's walls, bringing in light, air and calm.",
+ AD(220,124,`<path class="f" d="M40 10H180V114H40Z"/><rect x="72" y="36" width="76" height="52" fill="var(--paper)"/><circle class="af" cx="110" cy="62" r="10"/>${TX(110,30,'open to the sky')}`));
+
+/* ===== Structure ===== */
+D('ar-st','Load-bearing wall',"A wall that holds up the floors and roof above it, not just a divider.",
+ AD(220,124,`${LOADS(56,164,28,4)}<rect class="f" x="40" y="28" width="140" height="8"/><rect class="af" x="44" y="36" width="16" height="76"/><rect class="af" x="160" y="36" width="16" height="76"/>${ARW(52,80,52,106)}${ARW(168,80,168,106)}${GR()}`));
+D('ar-st','Frame structure',"A skeleton of columns and beams that carries the weight, so walls can be light or even glass.",
+ AD(220,124,`${(()=>{let s='';[24,56,88].forEach(y=>s+=`<rect class="af" x="36" y="${y}" width="148" height="6"/>`);[36,92,148].forEach(x=>s+=`<rect class="f" x="${x}" y="24" width="8" height="88"/>`);return s})()}<path class="sky" d="M44 30H92V56H44Z"/>${GR()}${TX(196,30,'beams','l')}${TX(196,100,'columns','l')}`));
+D('ar-st','Truss',"A rigid framework of triangles that spans long distances using little material.",
+ AD(220,124,`<path class="af w" d="M20 80H200L110 30Z"/><path d="M50 80L65 55M80 80L80 47M80 47L110 80M110 30V80M110 80L140 47M140 47V80M140 80L155 55M65 55L80 80"/><path class="f" d="M14 80l8 12h-16zM206 80l8 12h-16z"/>${TX(110,108,'triangles stay rigid')}`));
+D('ar-st','Cantilever',"A beam or floor that sticks out with support at only one end.",
+ AD(220,124,`<rect class="f" x="30" y="10" width="40" height="102"/><rect class="af" x="70" y="40" width="120" height="14"/>${LOADS(150,186,40,2)}<path class="g d" d="M190 54V112"/>${TX(140,74,'no support here')}${GR()}`));
+D('ar-st','Post and lintel',"The simplest structure: two upright posts with a horizontal beam laid across the top.",
+ AD(220,124,`<rect class="af" x="50" y="26" width="120" height="18"/><rect class="f" x="58" y="44" width="20" height="68"/><rect class="f" x="142" y="44" width="20" height="68"/>${GR(112,30,190)}${TX(110,72,'like Stonehenge')}`));
+D('ar-st','Compression and tension',"Compression squeezes a material together; tension pulls it apart. Structures balance both.",
+ AD(220,124,`<rect class="f" x="30" y="40" width="60" height="22"/>${ARW(10,51,28,51,'r')}${ARW(110,51,92,51,'r')}${TX(60,84,'compression')}<rect class="f" x="140" y="40" width="50" height="22"/>${ARW(140,51,124,51)}${ARW(190,51,208,51)}${TX(165,84,'tension')}`));
+D('ar-st','Span',"The distance between two supports that a beam, arch or roof has to bridge.",
+ AD(220,124,`<rect class="f" x="30" y="40" width="160" height="12"/><rect class="f" x="36" y="52" width="12" height="60"/><rect class="f" x="172" y="52" width="12" height="60"/><path class="a" d="M48 80H172M48 74v12M172 74v12"/>${TX(110,96,'span')}${GR()}`));
+D('ar-st','Dead load',"The permanent weight of the building itself: walls, floors, roof and fixed equipment.",
+ AD(220,124,`<path class="f" d="M50 30L110 8L170 30V112H50Z"/>${ARW(110,40,110,98,'w a')}${TX(140,70,'its own weight','l')}${GR()}`));
+D('ar-st','Live load',"Weight that comes and goes, like people, furniture, cars or snow.",
+ AD(220,124,`<rect class="f" x="30" y="70" width="160" height="10"/><rect class="f" x="36" y="80" width="10" height="32"/><rect class="f" x="174" y="80" width="10" height="32"/><circle class="af" cx="70" cy="42" r="6"/><path class="a" d="M70 48V64M64 70l6-6 6 6"/><circle class="af" cx="110" cy="42" r="6"/><path class="a" d="M110 48V64M104 70l6-6 6 6"/><rect class="g" x="136" y="50" width="34" height="20"/>${GR()}`));
+D('ar-st','Lateral load',"Sideways force on a building, mainly from wind and earthquakes.",
+ AD(220,124,`<rect class="f" x="90" y="14" width="50" height="98"/>${ARW(30,30,82,30,'r')}${ARW(30,56,82,56,'r')}${ARW(30,82,82,82,'r')}${TX(40,20,'wind')}${GR()}`));
+D('ar-st','Shear wall',"A stiff wall, often concrete, that stops a building from swaying or racking sideways.",
+ AD(220,124,`<rect class="f" x="60" y="16" width="100" height="96"/><path class="af" d="M60 16H90V112H60Z"/>${ARW(20,40,56,40,'r')}${TX(75,64,'stiff')}${GR()}`));
+D('ar-st','Expansion joint',"A planned gap between parts of a building so it can expand and shrink with heat without cracking.",
+ AD(220,124,`<rect class="f" x="20" y="40" width="88" height="40"/><rect class="f" x="114" y="40" width="88" height="40"/><path class="a d" d="M111 30V90"/>${ARW(80,60,104,60,'g')}${ARW(142,60,118,60,'g')}${TX(111,104,'room to move')}`));
+
+/* ===== Styles & Movements ===== */
+D('ar-sty','Classical architecture',"The style of ancient Greece and Rome: columns, symmetry, pediments and strict proportions.",
+ AD(220,124,`<path class="f" d="M30 40L110 10L190 40Z"/><rect class="f" x="30" y="40" width="160" height="10"/>${COLS(40,50,6,28,52,12)}<rect class="f" x="22" y="102" width="176" height="10"/>`));
+D('ar-sty','Gothic architecture',"A medieval church style with pointed arches, ribbed vaults, flying buttresses and tall stained-glass windows.",
+ AD(220,124,`<path class="f" d="M60 112V48L72 20L84 48V112"/><path class="f" d="M136 112V48L148 20L160 48V112"/><path class="f" d="M84 112V60H136V112"/><path class="af" d="M98 112V82Q110 56 122 82V112"/><circle class="a" cx="110" cy="70" r="0"/><path class="g" d="M72 20V6M148 20V6"/><path class="sky" d="M66 60Q72 46 78 60V84H66Z"/><path class="sky" d="M142 60Q148 46 154 60V84H142Z"/>`));
+D('ar-sty','Renaissance architecture',"A 15th–16th century revival of Roman ideas in Italy, focused on balance, geometry and grand domes.",
+ AD(220,124,`<path class="f" d="M80 52A30 30 0 0 1 140 52Z"/><path d="M106 22V14h8v8"/><rect class="f" x="70" y="52" width="80" height="12"/><rect class="f" x="30" y="64" width="160" height="48"/>${COLS(44,70,5,32,40,8)}<path class="af" d="M100 112V90A10 10 0 0 1 120 90V112"/>`));
+D('ar-sty','Baroque architecture',"A 17th-century style full of drama: sweeping curves, rich decoration and theatrical light.",
+ AD(220,124,`<path class="f" d="M30 112V60Q60 40 80 54Q110 20 140 54Q160 40 190 60V112Z"/><path class="af" d="M96 112V86Q110 66 124 86V112"/><path d="M60 60q10-12 20 0M140 60q10-12 20 0"/><ellipse class="sky" cx="110" cy="56" rx="10" ry="8"/>`));
+D('ar-sty','Art Deco',"A bold 1920s–30s style of stepped shapes, zigzags and glamorous geometric ornament.",
+ AD(220,124,`<path class="f" d="M70 112V50H80V36H92V22H104V6H116V22H128V36H140V50H150V112Z"/><path class="a" d="M110 8V112M96 112V40M124 112V40"/><path class="g" d="M84 60l6-6 6 6 6-6 6 6 6-6 6 6 6-6 6 6"/>`));
+D('ar-sty','Bauhaus',"An influential German design school (1919–1933) known for simple, functional buildings with flat roofs and lots of glass.",
+ AD(220,124,`<rect class="f" x="30" y="40" width="80" height="72"/><rect class="sky" x="110" y="24" width="80" height="88"/><path class="a" d="M110 24H190V112H110ZM110 46H190M110 68H190M110 90H190M136 24V112M163 24V112"/>${WINS(42,52,2,2,20,14,16,14,'')}`));
+D('ar-sty','Modernism',"A 20th-century movement that rejected ornament for clean lines, open plans and modern materials like concrete and glass.",
+ AD(220,124,`<rect class="f" x="40" y="34" width="140" height="38"/><path class="sky" d="M52 46H168V60H52Z"/><path class="a" d="M52 46H168V60H52Z"/>${COLS(54,72,5,28,40,4)}${GR()}${TX(110,26,'raised on slim columns')}`));
+D('ar-sty','International Style',"The global form of modernism from the 1930s: rectangular, flat-roofed, glass-and-steel buildings.",
+ AD(220,124,`<rect class="sky" x="76" y="8" width="68" height="104"/><path class="a" d="M76 8H144V112H76Z"/>${(()=>{let s='';for(let y=18;y<112;y+=10)s+=`<path class="g t" d="M76 ${y}H144"/>`;for(let x=93;x<144;x+=17)s+=`<path class="g t" d="M${x} 8V112"/>`;return s})()}${GR()}`));
+D('ar-sty','Brutalism',"A mid-century style of massive, chunky forms in raw, exposed concrete.",
+ AD(220,124,`<rect class="f w" x="30" y="56" width="160" height="56"/><rect class="f w" x="56" y="22" width="108" height="34"/><rect class="f w" x="84" y="8" width="52" height="14"/>${WINS(44,70,6,1,10,20,14,0,'')}<path class="g t" d="M64 30v20M80 30v20M96 30v20M112 30v20M128 30v20M144 30v20"/>`));
+D('ar-sty','Postmodernism',"A 1970s–80s reaction to modernism that brought back colour, wit and playful historical references.",
+ AD(220,124,`<rect class="f" x="60" y="40" width="100" height="72"/><path class="af" d="M60 40L100 14V40M160 40L120 14V40"/><circle class="a" cx="110" cy="30" r="8"/><path class="af" d="M96 112V84A14 14 0 0 1 124 84V112"/>${TX(110,8,'broken pediment')}`));
+D('ar-sty','Deconstructivism',"A style that looks deliberately fragmented, with tilted walls, sharp angles and shapes that seem to collide.",
+ AD(220,124,`<path class="f" d="M40 112L56 40L110 30L104 112Z"/><path class="af" d="M96 112L120 20L180 48L164 112Z"/><path class="f" d="M70 60L150 10L170 26L86 78Z"/>`));
+D('ar-sty','High-tech architecture',"A late-20th-century style that shows off structure and building services, like exposed steel and pipes, as decoration.",
+ AD(220,124,`<rect class="sky" x="40" y="30" width="140" height="82"/><path d="M40 30H180V112H40Z"/><path class="a" d="M40 30L80 112M80 30L40 112M140 30L180 112M180 30L140 112"/><path class="r" d="M100 8V112M110 8V112M120 8V112"/>${GR()}`));
+D('ar-sty','Vernacular architecture',"Traditional building made by local people with local materials, shaped by climate and culture.",
+ AD(220,124,`<path class="af" d="M40 62L110 14L180 62Z"/><path class="g t" d="M60 56L110 22M80 60L110 30M160 56L110 22M140 60L110 30"/><rect class="f" x="56" y="62" width="108" height="50"/><path d="M100 112V84h20v28"/>${GR()}`));
+D('ar-sty','Parametric architecture',"Design driven by computer algorithms, producing flowing, curving forms that would be hard to draw by hand.",
+ AD(220,124,`<path class="f" d="M20 112C40 40 80 20 110 40C140 60 170 20 200 50V112Z"/>${(()=>{let s='';for(let i=0;i<8;i++){const x=34+i*22;s+=`<path class="g t" d="M${x} 112C${x+4} 80 ${x+10} 60 ${x+14} ${48+((i%3)*4)}"/>`}return s})()}`));
+
+/* ===== Drawings & Space ===== */
+D('ar-dr','Floor plan',"A drawing of a building seen from above, as if sliced horizontally about a metre off the floor.",
+ AD(220,124,`<path class="w" d="M30 10H190V114H30Z"/><path class="w" d="M110 10V54M110 74V114M30 62H80M100 62H110"/><path class="a" d="M80 62A20 20 0 0 1 100 62"/><path class="sky" d="M60 10h30v4H60zM140 10h30v4h-30z"/>${TX(70,40,'Bedroom')}${TX(150,64,'Living')}${TX(70,92,'Kitchen')}`));
+D('ar-dr','Section',"A drawing that slices vertically through a building to show floors, ceilings and heights.",
+ AD(220,124,`<path class="w" d="M30 112V40L110 8L190 40V112"/><path class="w" d="M30 76H190"/><path class="g d" d="M14 112H206"/>${TX(110,60,'upper floor')}${TX(110,96,'ground floor')}<path class="a" d="M200 76V112M196 76h8M196 112h8"/>${TX(212,98,'3m','l')}`));
+D('ar-dr','Elevation',"A flat, straight-on drawing of one side of a building, with no perspective.",
+ AD(220,124,`<rect class="f" x="40" y="30" width="140" height="82"/><path class="f" d="M34 30L110 6L186 30Z"/>${WINS(56,44,4,2,16,18,16,14,'sky')}${WINS(56,44,4,2,16,18,16,14,'a')}${GR()}${TX(110,122,'south elevation')}`));
+D('ar-dr','Site plan',"A drawing showing the whole plot from above: the building, roads, landscape and surroundings.",
+ AD(220,124,`<path class="g d" d="M20 10H200V114H20Z"/><rect class="f w" x="70" y="34" width="70" height="44"/><path class="g" d="M20 100H200"/>${TX(110,112,'road')}<circle class="af" cx="40" cy="30" r="8"/><circle class="af" cx="176" cy="40" r="10"/><circle class="af" cx="168" cy="76" r="7"/>${TX(196,22,'N ↑','l')}`));
+D('ar-dr','Axonometric drawing',"A 3D drawing where parallel lines stay parallel and nothing shrinks with distance, so it can be measured.",
+ AD(220,124,`<path class="f" d="M60 50L110 25L160 50L110 75Z"/><path class="f" d="M60 50V100L110 125V75Z"/><path class="af" d="M160 50V100L110 125V75Z"/>`));
+D('ar-dr','Perspective drawing',"A drawing that shows a building the way the eye sees it, with lines meeting at vanishing points.",
+ AD(220,124,`<path class="g d" d="M10 50H210"/><path class="f" d="M50 20L120 40V90L50 116Z"/><path class="af" d="M120 40L170 46V82L120 90Z"/><path class="g t" d="M50 20L200 50M50 116L200 50M120 40L10 50M120 90L10 50"/>`));
+D('ar-dr','Scale',"The ratio between a drawing and real life; at 1:100, 1 cm on paper equals 1 m on site.",
+ AD(220,124,`<path d="M20 60H200"/>${(()=>{let s='';for(let i=0;i<=6;i++){const x=20+i*30;s+=`<path d="M${x} 54V66"/>${TX(x,82,i+'m')}`;if(i<6&&i%2===0)s+=`<rect class="af" x="${x}" y="56" width="30" height="8"/>`}return s})()}${TX(110,40,'1:100')}`));
+D('ar-dr','Massing',"The overall 3D shape and volume of a building, before details like windows are added.",
+ AD(220,124,`<path class="f" d="M30 112V60H90V112Z"/><path class="af" d="M90 112V24H140V112Z"/><path class="f" d="M140 112V76H190V112Z"/>${GR()}`));
+D('ar-dr','Circulation',"How people move through a building: corridors, stairs, lifts and the routes between rooms.",
+ AD(220,124,`<path class="w" d="M30 10H190V114H30Z"/><path d="M30 50H90V114M130 10V74H190"/><path class="a d w" d="M50 114V30H150V96H190"/>${ARW(150,96,184,96)}`));
+D('ar-dr','Open plan',"A layout with few interior walls, so living, kitchen and dining flow together as one space.",
+ AD(220,124,`<path class="w" d="M30 10H190V114H30Z"/><rect class="f" x="44" y="22" width="40" height="14"/><rect class="f" x="130" y="80" width="48" height="22"/><circle class="f" cx="100" cy="76" r="14"/>${TX(64,50,'kitchen')}${TX(100,104,'dining')}${TX(154,70,'living')}`));
+D('ar-dr','Double-height space',"A room whose ceiling rises through two floors, creating drama and extra light.",
+ AD(220,124,`<path class="w" d="M30 112V10H190V112"/><path class="w" d="M30 60H100"/><path class="sky" d="M150 18H182V104H150Z"/><path class="a" d="M150 18H182V104H150Z"/><path class="g d" d="M100 60V112"/>${TX(80,40,'two storeys tall')}`));
+D('ar-dr','Threshold',"The point of passing from one space to another, like a doorway between street and home.",
+ AD(220,124,`<path class="w" d="M110 14V44M110 82V112"/><path class="af" d="M104 44H116V82H104Z"/>${TX(60,66,'outside')}${TX(160,66,'inside')}${ARW(70,90,150,90)}`));
+
+/* ===== Materials & Climate ===== */
+D('ar-mat','Reinforced concrete',"Concrete with steel bars inside: the concrete resists squeezing and the steel resists stretching.",
+ AD(220,124,`<rect class="f" x="30" y="40" width="160" height="40"/>${(()=>{let s='';[50,70].forEach(y=>s+=`<path class="a w" d="M38 ${y}H182"/>`);for(let x=40;x<190;x+=14)s+=`<circle class="g" cx="${x+(x%3)}" cy="${48+(x%5)*5}" r="1.4"/>`;return s})()}${TX(110,100,'steel bars inside concrete')}`));
+D('ar-mat','Structural steel',"Strong steel beams and columns, often I-shaped, used to frame tall or wide-span buildings.",
+ AD(220,124,`<path class="af" d="M80 20H140V30H116V90H140V100H80V90H104V30H80Z"/>${TX(110,116,'I-beam cross-section')}`));
+D('ar-mat','Timber and CLT',"Wood used as structure; cross-laminated timber (CLT) glues layers crosswise into strong panels.",
+ AD(220,124,`${[0,1,2,3,4].map(i=>`<rect class="${i%2?'af':'f'}" x="40" y="${30+i*12}" width="140" height="12"/>`).join('')}${(()=>{let s='';for(let x=50;x<180;x+=16)s+=`<path class="g t" d="M${x} 42V54M${x} 66V78"/>`;return s})()}${TX(110,104,'layers glued crosswise')}`));
+D('ar-mat','Brick bond',"The pattern bricks are laid in, overlapping joints so the wall is strong.",
+ AD(220,124,`${(()=>{let s='';for(let r=0;r<6;r++){const off=r%2?-20:0;for(let c=0;c<5;c++)s+=`<rect class="${(r+c)%3?'f':'af'}" x="${30+off+c*40}" y="${16+r*16}" width="38" height="14"/>`}return s})()}`));
+D('ar-mat','Curtain wall',"A thin outer skin of glass and metal hung on the building's frame, carrying no floor loads.",
+ AD(220,124,`<rect class="sky" x="50" y="10" width="120" height="102"/>${(()=>{let s='<path class="a" d="M50 10H170V112H50Z"/>';for(let x=80;x<170;x+=30)s+=`<path class="a" d="M${x} 10V112"/>`;for(let y=36;y<112;y+=26)s+=`<path class="a" d="M50 ${y}H170"/>`;return s})()}${GR()}`));
+D('ar-mat','Passive design',"Designing a building to stay comfortable using sun, shade and breeze instead of machines.",
+ AD(220,124,`<circle class="sun" cx="30" cy="20" r="10"/><path class="f" d="M70 112V50L130 24L190 50V112Z"/><path class="af" d="M64 56L130 28"/>${ARW(46,30,90,58,'a')}${ARW(20,90,64,90,'g')}${ARW(196,90,214,90,'g')}${TX(160,90,'')}${GR()}`));
+D('ar-mat','Cross ventilation',"Placing openings on opposite sides so breeze flows straight through and cools the space.",
+ AD(220,124,`<path class="w" d="M40 112V30H180V112"/><path class="sky" d="M40 60h4v24h-4zM176 60h4v24h-4z"/>${ARW(10,72,80,72,'a')}${ARW(90,70,140,70,'a')}${ARW(150,72,210,72,'a')}${GR()}`));
+D('ar-mat','Stack effect',"Warm air rises and escapes through high openings, pulling cooler air in down low.",
+ AD(220,124,`<path class="w" d="M50 112V40L110 10L170 40V112"/><path class="sky" d="M100 14h20v6h-20z"/>${ARW(20,100,60,100,'a')}${ARW(110,96,110,28,'r')}${ARW(110,12,110,0,'r')}${TX(140,70,'warm air rises','l')}${GR()}`));
+D('ar-mat','Thermal mass',"Heavy materials like stone or concrete that soak up heat by day and release it slowly at night.",
+ AD(220,124,`<rect class="af w" x="90" y="20" width="40" height="92"/><circle class="sun" cx="40" cy="26" r="9"/>${ARW(52,34,86,54,'r')}${ARW(134,70,170,70,'r')}${TX(60,96,'day: absorbs')}${TX(170,96,'night: releases')}`));
+D('ar-mat','Brise-soleil',"Fixed fins or louvres on a facade that block harsh sun while letting light and views through.",
+ AD(220,124,`<rect class="sky" x="90" y="16" width="60" height="96"/><path class="a" d="M90 16H150V112H90Z"/>${[24,40,56,72,88].map(y=>`<path class="w" d="M150 ${y}L184 ${y+6}"/>`).join('')}<circle class="sun" cx="196" cy="10" r="8"/>${ARW(192,18,160,36,'r')}`));
+D('ar-mat','Green roof',"A roof covered with plants that insulates, absorbs rain and supports wildlife.",
+ AD(220,124,`<rect class="f" x="40" y="54" width="140" height="58"/><path class="af" d="M36 46H184V54H36Z"/>${(()=>{let s='';for(let x=44;x<184;x+=12)s+=`<path class="a" d="M${x} 46q2-10 6-12M${x+4} 46q-2-8-5-10"/>`;return s})()}${GR()}`));
+D('ar-mat','Daylighting',"Planning windows and openings so natural light reaches deep into a building.",
+ AD(220,124,`<path class="w" d="M30 112V30H190V112"/><path class="sky" d="M30 40h4v40h-4z"/><circle class="sun" cx="12" cy="14" r="8"/>${ARW(18,24,120,100,'a')}${ARW(18,30,70,100,'a')}<path class="g d" d="M30 100H190"/>${GR()}`));
+D('ar-mat','Building orientation',"Which way a building faces, chosen to catch winter sun, avoid summer heat and use the wind.",
+ AD(220,124,`<circle class="g" cx="110" cy="62" r="50"/><rect class="af" x="80" y="48" width="60" height="28"/><circle class="sun" cx="110" cy="122" r="7"/>${TX(110,8,'N')}${TX(170,66,'E')}${TX(48,66,'W')}${TX(110,108,'midday sun (northern hemisphere)')}`));
+
+/* ===== Design Principles ===== */
+D('ar-pr','Form follows function',"The idea that a building's shape should come from what it needs to do. Credited to Louis Sullivan.",
+ KC(FL('Function','Form')+T('purpose shapes the design','help'),8));
+D('ar-pr','Less is more',"The modernist idea that simplicity and restraint make stronger architecture. Associated with Mies van der Rohe.",
+ R(AD(80,80,`<path class="f" d="M10 70V30L40 10L70 30V70Z"/><path class="g t" d="M20 40h8v10h-8zM52 40h8v10h-8zM34 54h12v16H34zM10 30h60M40 10v20M24 22l16-8 16 8"/>`)+AR()+AD(80,80,`<rect class="f" x="10" y="20" width="60" height="50"/><path class="sky" d="M20 30h40v20H20z"/>`),8));
+D('ar-pr','Proportion',"The size relationship between parts of a building and the whole, which makes it feel balanced.",
+ AD(220,124,`<rect class="f" x="40" y="20" width="140" height="86"/><rect class="af" x="60" y="40" width="40" height="66"/><rect class="sky" x="120" y="40" width="40" height="40"/><path class="a" d="M120 40h40v40h-40z"/>${TX(80,16,'1 : 1.6')}`));
+D('ar-pr','Golden ratio',"A proportion of about 1 : 1.618, long believed to look naturally pleasing.",
+ AD(220,124,`<rect class="f" x="30" y="16" width="160" height="99"/><path d="M129 16V115M129 54H190M152 54V115M129 92H152"/><path class="a" d="M30 115A99 99 0 0 1 129 16A61 61 0 0 1 190 77A38 38 0 0 1 152 115"/>`));
+D('ar-pr','Symmetry',"Balance where one side of a building mirrors the other across a central line.",
+ AD(220,124,`<path class="f" d="M40 112V50L110 14L180 50V112Z"/><path class="a d" d="M110 4V120"/>${WINS(56,62,2,2,16,14,10,12,'')}${WINS(138,62,2,2,16,14,10,12,'')}`));
+D('ar-pr','Rhythm',"A repeating pattern of elements, like windows or columns, that leads the eye along a building.",
+ AD(220,124,`<rect class="f" x="20" y="30" width="180" height="82"/>${(()=>{let s='';for(let i=0;i<9;i++)s+=`<rect class="${i%2?'af':'sky'}" x="${28+i*19}" y="${i%2?50:40}" width="12" height="${i%2?40:60}"/>`;return s})()}`));
+D('ar-pr','Hierarchy',"Making the most important parts of a building stand out through size, position or decoration.",
+ AD(220,124,`<rect class="f" x="30" y="64" width="50" height="48"/><rect class="f" x="140" y="64" width="50" height="48"/><path class="af w" d="M80 112V30L110 10L140 30V112Z"/>${TX(110,72,'entrance')}`));
+D('ar-pr','Human scale',"Designing spaces that relate to the size of the human body, so people feel comfortable, not dwarfed.",
+ AD(220,124,`<path class="w" d="M30 112V40H190V112"/><circle class="af" cx="80" cy="74" r="5"/><path class="a" d="M80 79V96M74 112l6-16 6 16M72 86h16"/><path class="sky" d="M120 66h40v46h-40z"/><path class="g d" d="M30 64H190"/>${TX(160,58,'sized to people')}`));
+D('ar-pr','Sense of place (genius loci)',"The unique spirit of a location that good architecture responds to and strengthens.",
+ AD(220,124,`<path class="af" d="M10 112C50 70 80 60 110 80C140 60 170 50 210 90V112Z"/><path class="f" d="M90 90V70L110 58L130 70V90Z"/><circle class="sun" cx="180" cy="22" r="9"/>`));
+D('ar-pr','Context',"The surroundings a building sits in: neighbouring buildings, streets, climate, history and people.",
+ AD(220,124,`<rect class="g" x="20" y="50" width="40" height="62"/><rect class="g" x="160" y="40" width="40" height="72"/><rect class="af" x="80" y="46" width="60" height="66"/>${GR()}${TX(110,40,'new fits its neighbours')}`));
+D('ar-pr','Design brief',"The client's written list of needs, budget and goals that a building design must answer.",
+ C(K(T('Brief: family house','lbl')+CB(1,'3 bedrooms')+CB(1,'Garden view')+CB(0,'Budget ₦60m')+CB(0,'Done by June'),6),'padding:12px 14px'));
+D('ar-pr','Architectural promenade',"Designing a building as a journey, revealing spaces and views one after another as you walk through. A Le Corbusier idea.",
+ AD(220,124,`<path class="w" d="M20 112H80V80H140V48H200"/><path class="a d" d="M30 104C60 100 70 90 90 72S130 50 150 40S190 30 200 30"/>${ARW(186,32,204,28)}<circle class="sun" cx="60" cy="30" r="6"/>`));
+
+/* ================= CHESS ================= */
+TP='chess';
+// POS({e4:'K', d5:'p'}) -> FEN rows (white = capitals)
+const POS=m=>{const b=Array.from({length:8},()=>Array(8).fill('.'));Object.entries(m).forEach(([s,p])=>{b[8-(+s[1])][s.charCodeAt(0)-97]=p});return b.map(r=>r.join('').replace(/\.+/g,x=>x.length)).join('/')};
+const MID={f:[1,6],r:[2,7]};
+const ALLSQ=(f,sqs,k='g')=>Object.fromEntries(sqs.map(s=>[s,k]));
+const START='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
+
+/* ===== Pieces & Rules ===== */
+D('ch-pc','King',"The most important piece. It moves one square in any direction, and if it is trapped in checkmate the game is over.",
+ BOARD(POS({d4:'K'}),{f:[1,5],r:[2,6],hl:ALLSQ(0,['c3','c4','c5','d3','d5','e3','e4','e5'])}));
+D('ch-pc','Queen',"The most powerful piece. It moves any number of squares in a straight line or along a diagonal.",
+ BOARD(POS({d4:'Q'}),{ar:[['d4','d8'],['d4','h4'],['d4','h8'],['d4','a1'],['d4','a4'],['d4','g1']],s:19}));
+D('ch-pc','Rook',"A piece that moves any number of squares straight along a row (rank) or column (file).",
+ BOARD(POS({d4:'R'}),{ar:[['d4','d8'],['d4','d1'],['d4','a4'],['d4','h4']],s:19}));
+D('ch-pc','Bishop',"A piece that moves any number of squares diagonally, so it always stays on squares of one colour.",
+ BOARD(POS({d4:'B'}),{ar:[['d4','h8'],['d4','a7'],['d4','a1'],['d4','g1']],s:19}));
+D('ch-pc','Knight',"A piece that moves in an L-shape (two squares one way, one square sideways) and is the only piece that can jump over others.",
+ BOARD(POS({d4:'N',c4:'P',d5:'p',e3:'P'}),{f:[1,5],r:[2,6],hl:ALLSQ(0,['b3','b5','c2','c6','e2','e6','f3','f5'])}));
+D('ch-pc','Pawn',"Moves one square forward (two on its first move) but captures one square diagonally forward.",
+ BOARD(POS({e4:'P',d5:'p'}),{f:[2,6],r:[3,6],ar:[['e4','e5','g'],['e4','d5','r']]}));
+D('ch-pc','Check',"When a king is under attack. The player must get out of check straight away.",
+ BOARD(POS({e8:'k',e1:'R',g1:'K'}),{f:[2,7],r:[1,8],hl:{e8:'r'},ar:[['e1','e7','r']],s:17}));
+D('ch-pc','Checkmate',"When a king is in check and has no legal way to escape. The game ends and that side loses.",
+ BOARD(POS({h8:'k',g7:'Q',g6:'K'}),{f:[4,7],r:[5,8],hl:{h8:'r'}}));
+D('ch-pc','Stalemate',"When the player to move is not in check but has no legal moves. The game is a draw.",
+ BOARD(POS({a8:'k',b6:'Q',c6:'K'}),{f:[0,3],r:[5,8],hl:{a8:'y'}}));
+D('ch-pc','Castling',"A special move where the king moves two squares towards a rook and the rook jumps to the king's other side.",
+ BOARD(POS({e1:'K',h1:'R',f2:'P',g2:'P',h2:'P'}),{f:[3,7],r:[1,3],ar:[['e1','g1','g'],['h1','f1','b']]}));
+D('ch-pc','En passant',"A special pawn capture: if a pawn moves two squares and lands beside an enemy pawn, that pawn can capture it as if it had moved one.",
+ BOARD(POS({e5:'P',d5:'p'}),{f:[2,6],r:[4,7],hl:{d5:'r',d7:'y'},ar:[['e5','d6','g']]}));
+D('ch-pc','Promotion',"When a pawn reaches the far side of the board it becomes another piece, almost always a queen.",
+ BOARD(POS({e7:'P'}),{f:[2,6],r:[6,8],hl:{e8:'g'},ar:[['e7','e8','g']]}));
+D('ch-pc','Piece values',"A rough guide to what pieces are worth, used to judge trades: pawn 1, knight 3, bishop 3, rook 5, queen 9.",
+ TBL(['Piece','Value'],[['Pawn','1'],['Knight · Bishop','3'],['Rook','5'],['Queen','9']]));
+
+/* ===== Tactics ===== */
+D('ch-tac','Fork',"One piece attacking two or more enemy pieces at the same time, so the opponent can only save one.",
+ BOARD(POS({c7:'N',e8:'k',a8:'r'}),{f:[0,5],r:[5,8],ar:[['c7','e8','r'],['c7','a8','r']]}));
+D('ch-tac','Pin',"An attack on a piece that can't move without exposing a more valuable piece (often the king) behind it.",
+ BOARD(POS({b5:'B',c6:'n',e8:'k'}),{f:[0,5],r:[4,8],hl:{c6:'y'},ar:[['b5','d7','r']]}));
+D('ch-tac','Skewer',"Like a reverse pin: a valuable piece is attacked and, when it moves away, the piece behind it is captured.",
+ BOARD(POS({a4:'R',d4:'k',h4:'q'}),{f:[0,7],r:[3,5],ar:[['a4','c4','r']],hl:{h4:'y'}}));
+D('ch-tac','Discovered attack',"Moving one piece out of the way to reveal an attack by another piece behind it.",
+ BOARD(POS({b2:'B',d4:'N',h8:'q'}),{ar:[['d4','f5','b'],['b2','g7','r']],s:18}));
+D('ch-tac','Double check',"When two pieces give check at once. The only way out is to move the king.",
+ BOARD(POS({e1:'R',e4:'N',e8:'k'}),{f:[2,7],r:[1,8],ar:[['e4','f6','b'],['e1','e7','r']],hl:{e8:'r'},s:17}));
+D('ch-tac','Sacrifice',"Deliberately giving up material to gain something bigger, like an attack on the king.",
+ BOARD(POS({d3:'B',g8:'k',f7:'p',g7:'p',h7:'p'}),{f:[2,7],r:[2,8],ar:[['d3','h7','r']],s:17}));
+D('ch-tac','Removing the defender',"Capturing or chasing away the piece that protects something, so you can then win it.",
+ BOARD(POS({g5:'B',f6:'n',d3:'Q',g8:'k',h7:'p',g7:'p',f7:'p'}),{f:[2,7],r:[2,8],ar:[['g5','f6','r'],['d3','h7','b']],s:17}));
+D('ch-tac','Back-rank mate',"Checkmate by a rook or queen on the back row when the king is boxed in by its own pawns.",
+ BOARD(POS({e8:'R',g8:'k',f7:'p',g7:'p',h7:'p'}),{f:[3,7],r:[5,8],hl:{g8:'r'}}));
+D('ch-tac','Smothered mate',"Checkmate by a knight when the king is completely surrounded by its own pieces.",
+ BOARD(POS({f7:'N',h8:'k',g8:'r',g7:'p',h7:'p'}),{f:[4,7],r:[5,8],hl:{h8:'r'}}));
+D('ch-tac','Hanging piece',"A piece that is attacked and not defended, so it can simply be taken for free.",
+ BOARD(POS({c3:'B',f6:'n',g8:'k'}),{f:[1,7],r:[2,8],hl:{f6:'r'},ar:[['c3','e5','r']],s:17}));
+D('ch-tac','In-between move (zwischenzug)',"Instead of making the expected reply, playing a stronger move first, often a check, then returning to it.",
+ KC(R(BX('Expected: recapture')+T('→','big')+BX('First: give check!','p'),6)+T('then recapture with a better position','help'),8));
+D('ch-tac','Overloading',"When one defending piece has too many jobs, so attacking one of them makes it drop the other.",
+ KC(R(BX('Defends rook')+BX('Defends mate'),8)+T('one defender, two jobs: one will fail','help'),8));
+
+/* ===== Strategy ===== */
+D('ch-str','Control the centre',"Placing pawns and pieces to control the four middle squares, which gives pieces more room and options.",
+ BOARD(START.replace('PPPPPPPP','PPP2PPP').replace('8/8/8/8','8/8/3PP3/8'),{hl:{d4:'g',e4:'g',d5:'g',e5:'g'},s:18}));
+D('ch-str','Development',"Bringing knights and bishops off the back row early so they can join the game.",
+ BOARD('r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R',{hl:{c4:'g',c3:'g',f3:'g'},s:18}));
+D('ch-str','King safety',"Keeping your king sheltered, usually by castling and keeping a wall of pawns in front of it.",
+ BOARD(POS({g1:'K',f1:'R',f2:'P',g2:'P',h2:'P'}),{f:[3,7],r:[1,4],hl:{f2:'g',g2:'g',h2:'g'}}));
+D('ch-str','Open file',"A column with no pawns on it. Rooks love open files because they can travel along them freely.",
+ BOARD(POS({d1:'R',a2:'P',b2:'P',c2:'P',e3:'P',f2:'P',a7:'p',b7:'p',c7:'p',e6:'p',f7:'p'}),{f:[0,5],r:[1,8],hl:{d2:'g',d3:'g',d4:'g',d5:'g',d6:'g',d7:'g',d8:'g'},s:17}));
+D('ch-str','Pawn structure',"The pattern of both sides' pawns. Because pawns can't move back, it shapes the whole game plan.",
+ BOARD(POS({a2:'P',b2:'P',c3:'P',d4:'P',e3:'P',f2:'P',g2:'P',h2:'P',a7:'p',b7:'p',c6:'p',d5:'p',e6:'p',f7:'p',g7:'p',h7:'p'}),{s:18}));
+D('ch-str','Passed pawn',"A pawn with no enemy pawns in front of it or on the files beside it, so nothing stops it but pieces.",
+ BOARD(POS({d5:'P',a7:'p',b6:'p',g7:'p',h6:'p'}),{hl:{d6:'g',d7:'g',d8:'g'},ar:[['d5','d8','g']],s:18}));
+D('ch-str','Isolated pawn',"A pawn with no friendly pawns on the files next to it, so it can't be defended by another pawn.",
+ BOARD(POS({a2:'P',b2:'P',d4:'P',f2:'P',g2:'P',h2:'P'}),{r:[1,5],hl:{d4:'y'}}));
+D('ch-str','Doubled pawns',"Two pawns of the same colour stacked on the same file, usually a weakness.",
+ BOARD(POS({a2:'P',c2:'P',c3:'P',d4:'P',e3:'P',f2:'P'}),{f:[0,6],r:[1,5],hl:{c2:'y',c3:'y'}}));
+D('ch-str','Outpost',"A strong square, usually in enemy territory, protected by your pawn and safe from enemy pawns.",
+ BOARD(POS({d5:'N',e4:'P',b6:'p',f7:'p',g6:'p'}),{f:[1,6],r:[3,8],hl:{d5:'g'}}));
+D('ch-str','Bishop pair',"Having both bishops while your opponent doesn't; together they cover squares of both colours.",
+ BOARD(POS({c4:'B',d3:'B'}),{ar:[['c4','g8','b'],['d3','h7','b'],['c4','a6','b'],['d3','b1','b']],s:18}));
+D('ch-str','Initiative',"Being the one making threats, so your opponent is busy reacting instead of following their own plan.",
+ KC(R(BX('Your threat','p')+AR()+BX('They defend')+AR()+BX('New threat','p'),4)+T('keep them on the back foot','help'),8));
+D('ch-str','Space advantage',"Having pawns further up the board, giving your pieces more room to move than your opponent's.",
+ BOARD(POS({c4:'P',d5:'P',e4:'P',c7:'p',d6:'p',e5:'p'}),{f:[0,7],r:[2,8],hl:{c3:'g',d3:'g',e3:'g',c2:'g',d4:'g'},s:17}));
+
+/* ===== Openings ===== */
+D('ch-op','Opening principles',"The first-moves rules of thumb: control the centre, develop your pieces, castle early and don't move the same piece twice.",
+ K(CB(1,'Control the centre')+CB(1,'Develop knights and bishops')+CB(1,'Castle early')+CB(1,'Connect your rooks'),8));
+D('ch-op','Italian Game',"An opening that starts 1.e4 e5 2.Nf3 Nc6 3.Bc4, aiming the bishop at Black's weak f7 square.",
+ BOARD('r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R',{hl:{c4:'g'},ar:[['c4','f7','r']],s:18}));
+D('ch-op','Ruy Lopez (Spanish)',"One of the oldest openings: 1.e4 e5 2.Nf3 Nc6 3.Bb5, putting pressure on the knight that defends e5.",
+ BOARD('r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R',{hl:{b5:'g'},s:18}));
+D('ch-op','Sicilian Defence',"Black's sharp reply 1.e4 c5, fighting for the centre from the side. The most popular answer to 1.e4.",
+ BOARD('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR',{hl:{c5:'g'},s:18}));
+D('ch-op','French Defence',"A solid defence starting 1.e4 e6 2.d4 d5, building a strong pawn chain to challenge White's centre.",
+ BOARD('rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/8/PPP2PPP/RNBQKBNR',{hl:{e6:'g',d5:'g'},s:18}));
+D('ch-op','Caro-Kann Defence',"A solid defence starting 1.e4 c6 2.d4 d5, known for giving Black a sturdy, safe position.",
+ BOARD('rnbqkbnr/pp2pppp/2p5/3p4/3PP3/8/PPP2PPP/RNBQKBNR',{hl:{c6:'g',d5:'g'},s:18}));
+D('ch-op',"Queen's Gambit","White offers a pawn with 1.d4 d5 2.c4 to pull Black's d-pawn away from the centre.",
+ BOARD('rnbqkbnr/ppp1pppp/8/3p4/2PP4/8/PP2PPPP/RNBQKBNR',{hl:{c4:'g'},ar:[['d5','c4','r']],s:18}));
+D('ch-op',"King's Indian Defence","Black lets White build a big centre, then fianchettoes a bishop on g7 and counter-attacks later.",
+ BOARD('rnbq1rk1/ppp1ppbp/3p1np1/8/2PPP3/2N5/PP3PPP/R1BQKBNR',{hl:{g7:'g'},s:18}));
+D('ch-op','London System',"A calm, easy-to-learn setup for White with d4, Bf4, e3 and Nf3, played against almost anything.",
+ BOARD('rnbqkb1r/ppp1pppp/5n2/3p4/3P1B2/4PN2/PPP2PPP/RN1QKB1R',{hl:{d4:'g',f4:'g',e3:'g',f3:'g'},s:18}));
+D('ch-op','English Opening',"White starts with 1.c4, controlling the centre from the side and keeping things flexible.",
+ BOARD('rnbqkbnr/pppppppp/8/8/2P5/8/PP1PPPPP/RNBQKBNR',{hl:{c4:'g'},s:18}));
+D('ch-op','Gambit',"An opening where one side offers a pawn (or more) early in return for faster development or attack.",
+ BOARD('rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR',{hl:{f4:'y'},ar:[['e5','f4','r']],s:18}));
+D('ch-op',"Scholar's mate","A four-move trap: queen and bishop team up on f7 for checkmate (1.e4 e5 2.Bc4 Nc6 3.Qh5 Nf6?? 4.Qxf7#).",
+ BOARD('r1bqkb1r/pppp1Qpp/2n2n2/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR',{hl:{f7:'r',e8:'r'},s:18}));
+D('ch-op','Fianchetto',"Developing a bishop to the long diagonal by moving the knight's pawn one square (g3/Bg2 or b3/Bb2).",
+ BOARD(POS({g2:'B',g3:'P',f2:'P',h2:'P',g1:'K'}),{f:[2,7],r:[1,6],ar:[['g2','c6','b']]}));
+
+/* ===== Endgames ===== */
+D('ch-end','Endgame',"The final phase of a game, when few pieces are left and kings become active fighters.",
+ BOARD(POS({e4:'K',d6:'k',c3:'P',h5:'p'}),{s:18}));
+D('ch-end','Active king',"In the endgame the king should march to the centre and help, instead of hiding.",
+ BOARD(POS({g1:'K',b6:'p',f6:'p'}),{ar:[['g1','e3','g'],['e3','d4','g']],hl:{d4:'g'},s:18}));
+D('ch-end','Opposition',"When the kings face each other with one square between them; the side NOT to move holds the opposition.",
+ BOARD(POS({e4:'K',e6:'k',e3:'P'}),{f:[2,6],r:[2,7],hl:{e5:'y'}}));
+D('ch-end','Rule of the square',"A quick way to tell if a king can catch a passed pawn: draw a square from the pawn to its promotion row.",
+ BOARD(POS({b4:'P',e5:'k'}),{hl:Object.fromEntries(['b','c','d','e','f'].flatMap(f=>[4,5,6,7,8].map(r=>f+r)).map(s=>[s,'b'])),s:18}));
+D('ch-end','King and queen checkmate',"The basic mate every player learns: queen and king work together to push the lone king to the edge.",
+ BOARD(POS({a8:'k',a7:'Q',b6:'K'}),{f:[0,3],r:[5,8],hl:{a8:'r'}}));
+D('ch-end','Ladder mate',"Two rooks (or rook and queen) take turns checking, walking the enemy king to the edge like climbing a ladder.",
+ BOARD(POS({h8:'k',a7:'R',b8:'R',d3:'K'}),{f:[0,7],r:[5,8],hl:{h8:'r'},ar:[['a7','h7','g']]}));
+D('ch-end','Lucena position',"A key winning rook endgame: the king shelters in front of its pawn and the rook 'builds a bridge' to block checks.",
+ K(T('1. King hides in front of its pawn','lbl')+T('2. Rook moves to the 4th rank','lbl')+T('3. Rook blocks the checks: the bridge','lbl')+T('the classic winning method','help'),7));
+D('ch-end','Philidor position',"A key drawing defence in rook endgames: keep your rook on the third row, then check from behind once the pawn advances.",
+ K(T('1. Rook guards the 3rd rank','lbl')+T('2. Pawn steps forward','lbl')+T('3. Rook checks from behind','lbl')+T('the classic drawing method','help'),7));
+D('ch-end','Zugzwang',"A position where any move you make will worsen your position, but you have to move.",
+ KC(BX('Your move…','p')+T('every legal move makes things worse','help'),8));
+D('ch-end','Rook behind the passed pawn',"Rooks work best behind passed pawns, yours or your opponent's, pushing or chasing them from behind.",
+ BOARD(POS({a6:'P',a1:'R',g2:'K',g7:'k'}),{f:[0,7],r:[1,8],ar:[['a1','a5','g']],s:17}));
+D('ch-end','Insufficient material',"A draw because neither side has enough pieces left to deliver checkmate.",
+ TBL(['Pieces left','Result'],[['King vs king','Draw'],['King + knight vs king','Draw'],['King + bishop vs king','Draw']]));
+
+/* ===== Notation & Terms ===== */
+D('ch-not','Algebraic notation',"The standard way to record moves: the piece letter plus the square it moves to, like Nf3 (knight to f3).",
+ TBL(['Write','Means'],[['e4','pawn to e4'],['Nf3','knight to f3'],['Bxc6','bishop takes on c6']]));
+D('ch-not','Rank and file',"Ranks are the rows (numbered 1–8); files are the columns (lettered a–h).",
+ BOARD(POS({}),{hl:{a4:'b',b4:'b',c4:'b',d4:'b',e4:'b',f4:'b',g4:'b',h4:'b',e1:'g',e2:'g',e3:'g',e5:'g',e6:'g',e7:'g',e8:'g'},s:18}));
+D('ch-not','Chess symbols',"Short marks used in notation: + check, # checkmate, x capture, O-O castle short, O-O-O castle long.",
+ TBL(['Mark','Means'],[['+','check'],['#','checkmate'],['x','capture'],['O-O','castle kingside']]));
+D('ch-not','Annotation marks',"Symbols commentators add to judge moves: ! good, !! brilliant, ? mistake, ?? blunder, ?! dubious.",
+ R(['!!','!','?!','?','??'].map((m,i)=>KC(T(m,'mono big')+T(['brilliant','good','dubious','mistake','blunder'][i],'tiny'),3)).join(''),12));
+D('ch-not','Tempo',"A single move as a unit of time. Gaining a tempo means making progress while forcing your opponent to react.",
+ R(BX('Develop + attack','p')+AR()+BX('They must respond'),6));
+D('ch-not','Blunder',"A very bad move that throws away material or the game.",
+ KC(T('Qd4??','mono big')+T('hangs the queen for nothing','err'),6));
+D('ch-not','Elo rating',"A number that measures playing strength; beating stronger players raises it more.",
+ TBL(['Rating','Level'],[['800','beginner'],['1500','club player'],['2500+','grandmaster level']]));
+D('ch-not','Threefold repetition',"A player can claim a draw when the same position appears three times with the same player to move.",
+ R(['1','2','3'].map(n=>KC(BX('same position')+T('×'+n,'help'),4)).join(''),5));
+D('ch-not','Fifty-move rule',"A player can claim a draw if 50 moves by each side pass with no capture and no pawn move.",
+ KC(T('50 moves each','mono big')+T('no captures · no pawn moves → draw','help'),6));
+D('ch-not','Touch-move rule',"In over-the-board games, if you deliberately touch one of your pieces you must move it.",
+ KC(BX('You touched it','p')+T('you must move it','help'),6));
+D('ch-not','Time control',"How much time each player gets. Blitz is about 3–5 minutes each, rapid 10–60 minutes, classical longer.",
+ TBL(['Format','Time each'],[['Bullet','under 3 min'],['Blitz','3–5 min'],['Rapid','10–60 min']]));
+D('ch-not','Grandmaster (GM)',"The highest lifetime title awarded by FIDE, the world chess federation.",
+ R(['GM','IM','FM'].map((t,i)=>BX(t,i?'':'p')).join(''),6));
+
+/* ================= UX/UI INTERVIEWS (question → model answer) ================= */
+TP='ivw';
+const Q=(c,q,a)=>D(c,q,a,'');
+
+/* ===== About You ===== */
+Q('iv-you','Tell me about yourself.',
+"Give a 60–90 second story, not your whole CV.\n\n- Who you are: your role and years of experience\n- What you focus on: the kind of products and problems you love\n- One proud result, with a number if you have one\n- Why this role is the natural next step\n\nTip: end on why you're excited about them, so it flows into the conversation.");
+Q('iv-you','Why do you want to work here?',
+"Show you've done your homework and that the fit goes both ways.\n\n- Something specific about their product or users that you admire\n- A problem they're facing that matches your skills\n- How the team, culture or stage fits how you work best\n\nTip: avoid generic praise. Name a feature, a launch or a value from their own site.");
+Q('iv-you','Why are you leaving your current role?',
+"Stay positive and forward-looking. Never criticise your current employer.\n\n- Focus on what you're moving towards: more ownership, a new domain, bigger impact\n- Mention what you've achieved and learned where you are\n- Link it back to what this role offers\n\nExample: \"I've grown a lot shipping features end to end, and now I want to work on a product at a larger scale.\"");
+Q('iv-you','What is your biggest strength as a designer?',
+"Pick one strength that matters for this role and prove it with a story.\n\n- Name it clearly: for example, turning messy problems into simple flows\n- Give a real example of when it made a difference\n- Share the result: a metric, user feedback or a team win\n\nTip: one strength with evidence beats a list of adjectives.");
+Q('iv-you','What is your biggest weakness?',
+"Choose a real but manageable weakness, and show how you're working on it.\n\n- Be honest: for example, over-polishing visuals too early\n- Explain the impact it had\n- Describe the habit you've built to manage it, like time-boxing exploration\n\nAvoid fake weaknesses like \"I'm a perfectionist\" with no follow-up.");
+Q('iv-you','Where do you see yourself in five years?',
+"Show ambition that fits the company, without sounding like you'll leave soon.\n\n- The skills you want to deepen: research, systems, leadership\n- The kind of impact you want: owning a product area, mentoring others\n- How this role is a step on that path\n\nIt's fine not to know a job title. Talk about growth and impact.");
+Q('iv-you','How do you stay up to date with design?',
+"Show curiosity with specific habits, not vague claims.\n\n- Sources you actually use: newsletters, podcasts, communities\n- How you practise: side projects, redesign challenges, new tools\n- Something recent you learned and applied at work\n\nTip: name one trend you're sceptical about too. It shows judgement.");
+Q('iv-you','What does good design mean to you?',
+"Give a clear point of view in a sentence, then back it up.\n\n- For example: good design solves a real problem so simply that people don't notice the design\n- Mention usefulness, usability, accessibility and craft\n- Give an everyday product you admire and why\n\nTip: connect your answer to the company's users.");
+Q('iv-you','Which product do you admire, and why?',
+"Pick a product you genuinely use and go beyond \"it looks nice.\"\n\n- The problem it solves and who for\n- One specific design decision that works well\n- One thing you'd improve, and how you'd test it\n\nThis shows taste, critical thinking and a design-thinking habit.");
+Q('iv-you','Why did you become a UX/UI designer?',
+"Tell a short, genuine story about what pulled you in.\n\n- The moment or project that sparked it\n- What keeps you motivated: solving problems for real people\n- How your background (even a different field) makes you a better designer\n\nTip: career changers, turn your past into a strength, like architecture training in space and people.");
+
+/* ===== Process & Methods ===== */
+Q('iv-prc','Walk me through your design process.',
+"Show a flexible process, not a rigid recipe.\n\n- Understand: goals, users, constraints, success metrics\n- Research: talk to users, review data, look at competitors\n- Define: frame the problem and prioritise\n- Ideate and design: sketch, wireframe, then high fidelity\n- Test and iterate: usability tests, then ship and measure\n\nTip: say how you adapt it to deadlines, with a real example.");
+Q('iv-prc','How do you start a new project?',
+"Start by understanding before designing.\n\n- Meet stakeholders to learn the goal, scope and constraints\n- Agree on how success will be measured\n- Gather what's already known: research, analytics, support tickets\n- Identify the biggest unknowns and plan how to answer them\n\nTip: mention writing a short brief or problem statement everyone agrees on.");
+Q('iv-prc','How do you do user research with little time or budget?',
+"Show you can still learn fast and cheaply.\n\n- Guerrilla tests: 5 quick sessions with real or close-to-real users\n- Use existing data: analytics, reviews, support tickets, sales calls\n- Remote unmoderated tests or short surveys\n- Test the riskiest assumption first\n\nTip: \"Five users find most of the big usability problems\" is a well-known rule of thumb.");
+Q('iv-prc','How do you decide which features to prioritise?',
+"Balance user value, business value and effort.\n\n- Tie each idea to a user problem and a business goal\n- Use a simple framework: impact vs effort, or RICE\n- Involve engineering early for effort estimates\n- Start with the smallest version that tests the idea\n\nTip: give an example where you cut scope and still hit the goal.");
+Q('iv-prc','How do you measure whether a design was successful?',
+"Agree on success before designing, then check after launch.\n\n- Behaviour metrics: task success, conversion, retention, time on task\n- Attitude metrics: satisfaction, NPS, user quotes\n- Qualitative checks: usability tests and interviews\n- Compare against a baseline, or run an A/B test\n\nTip: share a real before-and-after number if you have one.");
+Q('iv-prc','How do you run a usability test?',
+"Show you can plan, run and act on a test.\n\n- Define what you want to learn and pick realistic tasks\n- Recruit around 5 people who match your users\n- Ask them to think aloud; don't lead or help\n- Note where they struggle and how often\n- Turn findings into prioritised fixes and share them\n\nTip: mention one surprising thing a test taught you.");
+Q('iv-prc','What is the difference between UX and UI?',
+"Keep it simple and show they work together.\n\n- UX (user experience) is the whole experience: the problem, flows, structure and how it feels to use\n- UI (user interface) is what people see and touch: layout, type, colour, components\n- Good UI on a bad UX still fails, and a great flow can be ruined by a confusing UI\n\nAnalogy: UX is the route; UI is the road signs and surface.");
+Q('iv-prc','How do you design for accessibility?',
+"Treat accessibility as part of the job, not an extra.\n\n- Colour contrast that meets WCAG AA\n- Text that scales; touch targets at least 44px\n- Never rely on colour alone to show meaning\n- Labels for screen readers and full keyboard support\n- Test with real assistive tech when possible\n\nTip: mention a time accessibility improved the product for everyone.");
+Q('iv-prc','How do you work with a design system?',
+"Show you use it, improve it and know when to break it.\n\n- Start from existing components and tokens for speed and consistency\n- Spot gaps and propose new components with clear guidance\n- Work with engineering so design and code stay in sync\n- Only break the system on purpose, and document why\n\nTip: mention a component you created or improved.");
+Q('iv-prc','When would you choose low-fidelity over high-fidelity designs?',
+"Match fidelity to the question you're trying to answer.\n\n- Low fidelity (sketches, wireframes): early ideas, flows, fast feedback, cheap to throw away\n- High fidelity: visual details, final usability checks, handoff\n- Moving to high fidelity too early makes people comment on colours instead of the idea\n\nTip: say you often test flows in low fidelity first.");
+Q('iv-prc','How do you handle a project with unclear requirements?',
+"Show that you create clarity instead of waiting for it.\n\n- Ask questions to find the real goal behind the request\n- Write down assumptions and get them confirmed\n- Make quick, rough concepts to make the conversation concrete\n- Agree on a small first step and a check-in point\n\nTip: ambiguity is normal; your job is to reduce it.");
+Q('iv-prc','How do you use data in your design decisions?',
+"Use data to inform decisions, not to replace judgement.\n\n- Quantitative data shows what is happening (drop-offs, clicks)\n- Qualitative research shows why it happens\n- Combine both before deciding, then measure after launch\n\nExample: analytics showed a 40% drop at checkout; interviews revealed surprise fees; showing costs earlier fixed it.");
+
+/* ===== Portfolio & Case Studies ===== */
+Q('iv-port','Walk me through a project you are proud of.',
+"Tell it as a story with a clear structure (problem → process → result).\n\n- Context: the product, users and your role\n- Problem: what was wrong and why it mattered\n- Process: key research insights and design decisions\n- Result: what changed, ideally with numbers\n- Reflection: what you'd do differently\n\nTip: keep it to about 5 minutes and let them ask follow-ups.");
+Q('iv-port','What was your role on this project?',
+"Be clear and honest about what you personally did.\n\n- Say \"I\" for your work and \"we\" for team work\n- Name the people you worked with: PM, engineers, researchers\n- Highlight decisions you drove and influence you had\n\nTip: interviewers check this to see your real level of ownership.");
+Q('iv-port','What would you do differently if you did this project again?',
+"Show self-awareness and growth.\n\n- One honest thing that didn't go well: for example, testing too late\n- What it cost the project\n- What you now do differently on new projects\n\nAvoid saying \"nothing.\" Reflection is a sign of seniority.");
+Q('iv-port','Tell me about a design that failed.',
+"Own it, explain what you learned, and show you recovered.\n\n- What you designed and what you expected\n- What actually happened: the data or feedback\n- Why it failed: a wrong assumption, rushed research\n- What you changed next and the result\n\nTip: interviewers care more about learning than about the failure.");
+Q('iv-port','How did your research change the design?',
+"Connect insight to decision clearly.\n\n- The key finding, with a quote or number\n- The design before, and what you changed because of it\n- The impact of that change\n\nExample: \"Users didn't trust the price, so we showed the total up front and checkout completion rose.\"");
+Q('iv-port','How did you handle constraints on this project?',
+"Show you can design well within limits.\n\n- Name the constraint: time, budget, tech, legal or brand\n- How you adapted: phased the scope, reused components, simplified\n- What you protected for users despite the limits\n\nTip: constraints often lead to better, simpler designs. Say so.");
+Q('iv-port','How do you present your work to stakeholders?',
+"Lead with the problem and the outcome, not the pixels.\n\n- Start with the goal and the user problem\n- Show the key decisions and why you made them\n- Bring evidence: research, data, test results\n- Ask for specific feedback, not \"any thoughts?\"\n\nTip: tailor the depth; executives want impact, engineers want detail.");
+Q('iv-port','Show me an example of your visual design skills.',
+"Pick work that shows craft and reasoning.\n\n- Talk through hierarchy, spacing, type and colour choices\n- Explain how the visuals support the user's goal\n- Mention how it works across screen sizes, themes and states\n\nTip: show one before-and-after polish story.");
+Q('iv-port','How do you decide what goes in your portfolio?',
+"Quality and relevance over quantity.\n\n- 3–4 strong case studies, each showing different skills\n- Projects that match the role you're applying for\n- Clear problem, process and outcome in every case study\n- Short, skimmable pages with strong visuals\n\nTip: one deep case study beats five galleries of screens.");
+Q('iv-port','How do you handle work under a non-disclosure agreement (NDA)?',
+"Respect the NDA and still show your thinking.\n\n- Remove names, data and confidential screens\n- Recreate key screens with dummy content, or describe the process\n- Offer to walk through it verbally in the interview\n\nTip: never share confidential work without permission, even in a private interview.");
+
+/* ===== Collaboration ===== */
+Q('iv-col','How do you work with developers?',
+"Show partnership from the start, not just handoff at the end.\n\n- Involve engineers early to check feasibility and effort\n- Share clear specs: states, edge cases, spacing, tokens\n- Be available during the build and review it before release\n- Be open to technical trade-offs\n\nTip: mention a time an engineer's idea improved your design.");
+Q('iv-col','How do you work with product managers?',
+"Show you're aligned on goals while bringing the user's voice.\n\n- Agree on the problem, goals and success metrics together\n- Share research early so decisions are based on evidence\n- Discuss trade-offs openly: scope, time, quality\n\nTip: PMs own the \"what and why\"; designers shape the \"how,\" and both overlap a lot.");
+Q('iv-col','How do you handle disagreement about a design?',
+"Stay curious, use evidence, and focus on the user.\n\n- Listen first and understand their concern\n- Bring data, research or principles, not opinions\n- Suggest a test when it's genuinely unclear\n- Disagree and commit once a decision is made\n\nTip: give a real example with a calm, respectful outcome.");
+Q('iv-col','How do you take feedback on your work?',
+"Show you welcome it and know how to use it.\n\n- Separate the work from yourself\n- Ask questions to find the problem behind the suggestion\n- Thank people, then decide what to act on based on goals\n- Close the loop: show what changed\n\nTip: \"Feedback about what's not working is gold; solutions are optional.\"");
+Q('iv-col','How do you give feedback to other designers?',
+"Be kind, specific and useful.\n\n- Start with the goal of the design\n- Point to specific moments: \"this button is easy to miss\"\n- Explain why it matters for users\n- Ask questions instead of dictating\n\nTip: mention design critiques you've run or joined.");
+Q('iv-col','How do you handle tight deadlines?',
+"Show calm prioritisation, not heroics.\n\n- Clarify what really has to ship now\n- Cut scope rather than quality on the core flow\n- Reuse patterns and components\n- Communicate risks early and plan follow-up improvements\n\nTip: give an example where you shipped a smaller version on time.");
+Q('iv-col','How do you advocate for users when the business disagrees?',
+"Speak the business's language.\n\n- Frame user problems as business risks: churn, support costs, lost sales\n- Bring evidence: quotes, clips, numbers\n- Offer options with trade-offs, not ultimatums\n- Propose a small test to settle it\n\nTip: good advocacy is persuasion, not stubbornness.");
+Q('iv-col','Tell me about a time you worked with a difficult stakeholder.',
+"Use the STAR format: Situation, Task, Action, Result.\n\n- Situation: who it was and the tension, kept neutral\n- Task: what needed to happen\n- Action: how you built trust, by listening, involving them and showing evidence\n- Result: the outcome and the better relationship\n\nTip: never paint the other person as the villain.");
+Q('iv-col','How do you work in a remote team?',
+"Show clear communication habits.\n\n- Over-communicate decisions in writing\n- Share work early in shared files or recorded walkthroughs\n- Use async updates and keep meetings focused\n- Make time for informal connection\n\nTip: name the tools you use: Figma comments, Loom, Slack, Notion.");
+Q('iv-col','How do you onboard into a new product quickly?',
+"Show a learning plan.\n\n- Use the product yourself as a new user\n- Read past research, analytics and support tickets\n- Meet key people across product, engineering, support and sales\n- Ship a small improvement early to learn the process\n\nTip: a 30-60-90 day mindset impresses hiring managers.");
+
+/* ===== Design Challenges ===== */
+Q('iv-chl','How would you approach a whiteboard design challenge?',
+"Think out loud and follow a clear structure.\n\n- Clarify: who the user is, the goal, constraints, the platform\n- Define: pick one key problem to focus on\n- Explore: sketch a few quick ideas\n- Decide: choose one and explain why\n- Detail: the main flow and screens\n- Reflect: how you'd test and measure it\n\nTip: ask questions first; jumping to screens is the most common mistake.");
+Q('iv-chl','Design an alarm clock app for a person who is blind.',
+"Start with questions and the user's real needs.\n\n- Clarify: phone or device, voice assistants, the main daily routine\n- Key needs: setting alarms without seeing the screen, confirming they're set\n- Ideas: voice set-up, strong haptic patterns, full screen-reader labels, simple large gestures\n- Edge cases: snoozing, a dead battery, multiple alarms\n- Test with blind users and accessibility experts\n\nTip: show empathy and practicality, not flashy visuals.");
+Q('iv-chl','How would you improve the checkout of an online store?',
+"Find the problem before proposing fixes.\n\n- Ask what the data shows: where do people drop off?\n- Common issues: surprise costs, forced sign-up, long forms, few payment options\n- Ideas: guest checkout, show the total early, autofill, progress steps, trust signals\n- Measure: checkout completion rate, time to complete\n\nTip: in Nigeria and many markets, offering bank transfer and pay-on-delivery can matter a lot.");
+Q('iv-chl','Redesign a product you use every day.',
+"Pick something simple and show your thinking, not just new visuals.\n\n- The product and who uses it\n- One real pain point you've noticed, and evidence others have it too\n- Two or three ideas, then your chosen solution\n- How you'd test it and what metric should move\n\nTip: respect the original team's constraints; they likely had reasons.");
+Q('iv-chl','How would you design onboarding for a new app?',
+"Get people to value fast, with as little friction as possible.\n\n- Define the \"aha moment\": the first time the app proves useful\n- Remove steps: delay sign-up, ask only essential questions\n- Show, don't tell: interactive first tasks beat long tutorial screens\n- Personalise gently based on the user's goal\n- Measure: activation rate and day-7 retention");
+Q('iv-chl','Users are dropping off at sign-up. What do you do?',
+"Investigate, form hypotheses, then test.\n\n- Look at the funnel: which step loses the most people?\n- Watch session recordings or run quick tests\n- Hypotheses: too many fields, unclear value, errors, slow codes\n- Fix the biggest one first: fewer fields, social sign-in, clearer errors\n- A/B test and measure completion\n\nTip: say you'd check for a technical bug first; it's often the cause.");
+Q('iv-chl','How would you design for a market with slow internet and low-end phones?',
+"Design for real-world conditions.\n\n- Lightweight pages: fewer images, compressed assets\n- Offline support and saving progress\n- Clear loading states and retry options\n- Big touch targets and simple flows for small screens\n- Low data use, and SMS or USSD fallbacks where relevant\n\nTip: test on an actual low-end device with a throttled network.");
+Q('iv-chl','How would you design a dashboard for busy managers?',
+"Start from the decisions they need to make.\n\n- Ask: what do they check daily, and what makes them act?\n- Show the few key numbers first, with trends and context\n- Highlight what needs attention: alerts and exceptions\n- Let them drill down for detail\n- Keep it scannable: clear hierarchy, sensible charts, minimal clutter\n\nTip: \"A dashboard should answer a question, not display every metric.\"");
+Q('iv-chl','How would you improve the experience of a banking app?',
+"Focus on trust, clarity and speed.\n\n- Research the top tasks: checking balance, transfers, bills\n- Make the top tasks one or two taps away\n- Clear confirmations and receipts build trust\n- Strong but low-friction security: biometrics, clear fraud alerts\n- Helpful errors when transfers fail, and what happens to the money\n\nTip: mention measuring task success and support-call volume.");
+Q('iv-chl','You have one week to improve an app. What do you do?',
+"Show prioritisation and speed.\n\n- Day 1: understand goals, data and the biggest complaints\n- Day 2: quick research, a few calls or tests\n- Day 3–4: design solutions for the highest-impact issue\n- Day 5: test with users and refine\n- Hand over a clear plan for the next steps\n\nTip: one well-solved problem beats ten half-solved ones.");
+
+/* ===== Questions to Ask ===== */
+Q('iv-ask','What questions should you ask about the team?',
+"Good questions to understand how you'd work.\n\n- How is the design team structured, and who would I work with most?\n- How do designers, PMs and engineers make decisions together?\n- How is design feedback and critique run?\n\nTip: asking good questions shows you're interviewing them too.");
+Q('iv-ask','What questions should you ask about the product?',
+"Show curiosity about the users and the challenges.\n\n- Who are your most important users, and what do they struggle with?\n- What's the biggest product challenge for the next year?\n- How do you learn from users today?\n\nTip: refer to something you noticed while using their product.");
+Q('iv-ask','What questions should you ask about success in the role?',
+"Find out what's expected and how you'll be judged.\n\n- What would success look like in the first 3 to 6 months?\n- What's the biggest problem you'd want this person to solve?\n- How is design impact measured here?");
+Q('iv-ask','What questions should you ask about growth?',
+"Show you plan to grow with them.\n\n- How do designers grow here: is there a career path or levels?\n- Is there budget or time for learning and conferences?\n- Who would mentor me, or who would I mentor?");
+Q('iv-ask','What questions should you ask about design maturity?',
+"Learn how much the company values design.\n\n- At what stage does design get involved in projects?\n- Do you have a design system, and who maintains it?\n- How often do you run user research?\n\nTip: the answers tell you how much influence you'll really have.");
+Q('iv-ask','What should you ask at the end of the interview?',
+"Close strongly and clarify next steps.\n\n- Is there anything about my experience you'd like me to clarify?\n- What are the next steps, and when can I expect to hear back?\n\nThen thank them, and send a short thank-you note within 24 hours.");
+Q('iv-ask','What questions should you avoid asking early on?',
+"Some topics are better saved for later stages.\n\n- Leading with salary, perks or time off before showing interest in the work\n- Questions answered on their website's front page\n- Anything negative about other candidates or companies\n\nTip: salary is important; raise it with the recruiter at the right stage, not with the first interviewer.");
+
+/* ---------- Flashdecks app ---------- */
 (function(){
 const CATS={
   fnd:['Foundations','#00A35C'], ctl:['Controls & Inputs','#1F7AE0'], nav:['Navigation','#7C5CFF'], lay:['Layout & Containers','#E89B0C'],
   fbk:['Feedback & Status','#E5484D'], int:['Interaction Patterns','#12A4A6'], law:['Principles & Laws','#4F5BD5'], vis:['Visual & Type','#E2569C'],
   sys:['Design Systems','#9B4DCA'], res:['Research & Testing','#F2762E'], prc:['Process & Deliverables','#1BA6D9'], met:['Metrics','#6BA414'],
-  a11:['Accessibility','#A86B3C'], eth:['Dark Patterns','#64748B']
+  a11:['Accessibility','#A86B3C'], eth:['Dark Patterns','#64748B'],
+  /* software engineering */
+  'sw-fnd':['Fundamentals','#2563EB','swe'], 'sw-web':['Web & APIs','#0EA5E9','swe'], 'sw-dat':['Data & Storage','#D97706','swe'],
+  'sw-sys':['Systems & Architecture','#7C3AED','swe'], 'sw-prc':['Process & Tools','#059669','swe'], 'sw-qa':['Quality & Security','#DC2626','swe'],
+  /* architecture (buildings) */
+  'ar-el':['Building Elements','#B45309','arch'], 'ar-st':['Structure','#475569','arch'], 'ar-sty':['Styles & Movements','#BE185D','arch'],
+  'ar-dr':['Drawings & Space','#0369A1','arch'], 'ar-mat':['Materials & Climate','#15803D','arch'], 'ar-pr':['Design Principles','#7C3AED','arch'],
+  /* chess */
+  'ch-pc':['Pieces & Rules','#64748B','chess'], 'ch-tac':['Tactics','#DC2626','chess'], 'ch-str':['Strategy','#2563EB','chess'],
+  'ch-op':['Openings','#059669','chess'], 'ch-end':['Endgames','#D97706','chess'], 'ch-not':['Notation & Terms','#7C3AED','chess'],
+  /* UX/UI interviews */
+  'iv-you':['About You','#DB2777','ivw'], 'iv-prc':['Process & Methods','#2563EB','ivw'], 'iv-port':['Portfolio & Case Studies','#7C3AED','ivw'],
+  'iv-col':['Collaboration','#059669','ivw'], 'iv-chl':['Design Challenges','#D97706','ivw'], 'iv-ask':['Questions to Ask','#0EA5E9','ivw']
+};
+Object.values(CATS).forEach(c=>{if(!c[2])c[2]='ux'});
+const TOPICS={
+  ux:{n:'UX & UI Design',s:'UX & UI',c:'#00A35C',i:'cards',d:'Terms and interface elements'},
+  swe:{n:'Software Engineering',s:'Software',c:'#2563EB',i:'code',d:'How software is built and shipped'},
+  arch:{n:'Architecture',s:'Architecture',c:'#B45309',i:'arch',d:'Buildings, structure and styles'},
+  chess:{n:'Chess',s:'Chess',c:'#64748B',i:'pawn',d:'Rules, tactics and strategy'},
+  ivw:{n:'UX/UI Interviews',s:'Interviews',c:'#DB2777',i:'chat',d:'Common questions, strong answers',qa:true}
 };
 const col=c=>CATS[c][1];
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-const TERMS=DATA.map((d,i)=>({...d,i,id:slug(d.c+'-'+d.t)}));
-const BYID=Object.fromEntries(TERMS.map(t=>[t.id,t]));
-const CNT={};TERMS.forEach(t=>CNT[t.c]=(CNT[t.c]||0)+1);
+const ALL=DATA.map((d,i)=>({...d,i,id:slug(d.c+'-'+d.t)}));
+let TERMS=ALL; // the current topic's cards (set once S exists)
+const topicCats=()=>Object.keys(CATS).filter(c=>CATS[c][2]===S.topic);
+const topicTerms=tp=>ALL.filter(t=>t.tp===tp);
+const BYID=Object.fromEntries(ALL.map(t=>[t.id,t]));
+const CNT={};ALL.forEach(t=>CNT[t.c]=(CNT[t.c]||0)+1);
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const REPEAT=3; // "Still learning" cards come back after this many cards
 
@@ -2220,6 +2964,10 @@ const P={
   flip:'<path d="M20 12a8 8 0 01-14.3 4.9M4 12A8 8 0 0118.3 7.1"/><path d="M18.5 3v4.5H14M5.5 21v-4.5H10"/>',
   bolt:'<path d="M13 2.5L4.5 14H11l-1 7.5L18.5 10H12z" fill="currentColor" stroke="none"/>',
   reset:'<path d="M4 12a8 8 0 102.3-5.7"/><path d="M4 4v5h5"/>',
+  home:'<path d="M4 10.5L12 4l8 6.5V19a1.5 1.5 0 01-1.5 1.5h-4V15h-5v5.5h-4A1.5 1.5 0 014 19z"/>',
+  code:'<path d="M8.5 7.5L4 12l4.5 4.5M15.5 7.5L20 12l-4.5 4.5M13.5 5l-3 14"/>',
+  arch:'<path d="M3 9.5L12 4l9 5.5M5 10v8.5M9.7 10v8.5M14.3 10v8.5M19 10v8.5M3 20.5h18"/>',
+  pawn:'<circle cx="12" cy="6.8" r="2.8"/><path d="M9.6 11.2h4.8M10.4 11.2c-.2 3-1 5.3-2.4 7.3h8c-1.4-2-2.2-4.3-2.4-7.3M6.5 20.5h11"/>',
   chat:'<path d="M5 5h14a1.5 1.5 0 011.5 1.5v9A1.5 1.5 0 0119 17H10l-4.5 3.5V17H5a1.5 1.5 0 01-1.5-1.5v-9A1.5 1.5 0 015 5z"/><path d="M8 10h8M8 13h5"/>',
   sound:'<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 010 6M18 6.5a7.5 7.5 0 010 11"/>',
   shuffle:'<path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>',
@@ -2252,7 +3000,7 @@ const KEY='ux-lexicon.v2';
 const load=k=>{try{return JSON.parse(localStorage.getItem(k))||null}catch(e){return null}};
 const saved=load(KEY)||{}, v1=load('ux-lexicon.v1')||{};
 const S={
-  tab:['study','quiz','browse','progress'].includes(saved.tab)?saved.tab:'study',
+  tab:'home', topic:TOPICS[saved.topic]?saved.topic:'ux',
   cat:CATS[saved.cat]?saved.cat:'all',
   deck:['all','learning','known'].includes(saved.deck)?saved.deck:'all',
   pic:!!saved.pic, shuffle:!!saved.shuffle,
@@ -2262,7 +3010,8 @@ const S={
   q:'', order:[], pos:0, flipped:false, busy:false, first:true, resetAsk:false,
   quiz:{cur:null,opts:[],answered:false,pick:null,score:0,total:0,streak:0,recent:[]}
 };
-const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify({tab:S.tab,cat:S.cat,deck:S.deck,pic:S.pic,shuffle:S.shuffle,known:[...S.known],qc:S.qc,qa:S.qa,best:S.best,hint:S.hint,seen:S.seen,sound:S.sound,fbDone:S.fbDone,fbNudge:S.fbNudge,marks:S.marks}))}catch(e){}};
+const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify({tab:S.tab,topic:S.topic,cat:S.cat,deck:S.deck,pic:S.pic,shuffle:S.shuffle,known:[...S.known],qc:S.qc,qa:S.qa,best:S.best,hint:S.hint,seen:S.seen,sound:S.sound,fbDone:S.fbDone,fbNudge:S.fbNudge,marks:S.marks}))}catch(e){}};
+TERMS=topicTerms(S.topic); if(S.cat!=='all'&&CATS[S.cat][2]!==S.topic) S.cat='all';
 const xp=()=>S.known.size*10+S.qc*5;
 /* ---------- sound: playful effects made on the fly with Web Audio (no files) ---------- */
 const SFX=(()=>{let ctx=null,out;
@@ -2301,6 +3050,8 @@ function inDeck(t){
 }
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
 function rebuild(){S.order=TERMS.filter(inDeck).map(t=>t.id);if(S.shuffle)shuffle(S.order);S.pos=0;S.flipped=false}
+function setTopic(tp){if(tp===S.topic)return;S.topic=tp;TERMS=topicTerms(tp);S.cat='all';S.q='';S.quiz.cur=null;S.quiz.recent=[];persist();rebuild()}
+const hasArt=()=>!TOPICS[S.topic].qa;
 
 /* ---------- DOM ---------- */
 const $=s=>document.querySelector(s);
@@ -2333,14 +3084,19 @@ const catLabel=c=>`<span class="clab" style="--c:${col(c)}"><i></i>${CATS[c][0]}
 function cardHTML(t){
   const k=S.known.has(t.id), rose=k?ROSE:'';
   const stage=`<div class="stage"><div class="vis">${t.v}</div></div>`;
-  const front=S.pic
+  const qa=!t.v, pic=S.pic&&!qa;
+  const front=pic
     ? `<div class="dk-top">${catLabel(t.c)}</div>${stage}<div class="fmid sm"><h2 class="ask">What's this called?</h2><p class="fsub">${I(P.flip,16,2.2)}Tap to see the answer</p></div>`
     : `<div class="dk-top">${catLabel(t.c)}</div>
-       <div class="dk-mid"><h2 class="term hero ${t.t.length>24?'long':''}">${esc(t.t)}${rose}</h2></div>
-       <div class="dk-foot"><span>Tap to reveal</span><span class="rv">${I(P.flip,20,2.2)}</span></div>`;
-  const back=`${stage}<h3 class="bterm">${esc(t.t)}${rose}</h3><div class="bmeta">${catLabel(t.c)}</div><p class="def">${esc(t.d)}</p>`;
+       <div class="dk-mid"><h2 class="term hero ${qa?'qtn':t.t.length>24?'long':''}">${esc(t.t)}${rose}</h2></div>
+       <div class="dk-foot"><span>${qa?'Answer out loud, then tap':'Tap to reveal'}</span><span class="rv">${I(P.flip,20,2.2)}</span></div>`;
+  const back=qa
+    ? `<div class="bmeta">${catLabel(t.c)}</div><h3 class="bterm qb">${esc(t.t)}${rose}</h3><div class="def ans">${paras(t.d)}</div>`
+    : `${stage}<h3 class="bterm">${esc(t.t)}${rose}</h3><div class="bmeta">${catLabel(t.c)}</div><p class="def">${esc(t.d)}</p>`;
   return `<div class="flip"><div class="face front dk" aria-hidden="${S.flipped}">${front}</div><div class="face back dk" aria-hidden="${!S.flipped}">${back}</div></div>`;
 }
+// answers: blank line = new paragraph, lines starting with '- ' = bullet points
+function paras(d){return esc(d).split(/\n\n+/).map(b=>/^- /m.test(b)?`<ul>${b.split(/\n/).map(l=>`<li>${l.replace(/^- /,'')}</li>`).join('')}</ul>`:`<p>${b.replace(/\n/g,'<br>')}</p>`).join('')}
 // shrink the hero term until its longest word fits the card and the lines fit the height
 function fitTerm(){
   const h=$('.term.hero'); if(!h) return;
@@ -2353,7 +3109,7 @@ function renderStudy(enter){
   const uniq=[...new Set(S.order)], u=uniq.length;
   const k=uniq.filter(id=>S.known.has(id)).length;
   const coming=S.order.filter((id,i)=>i>S.pos&&S.order.indexOf(id)<i).length;
-  const title=(S.cat==='all'?'All terms':CATS[S.cat][0])+(S.deck==='learning'?' · Learning':S.deck==='known'?' · Known':'');
+  const title=(S.cat==='all'?TOPICS[S.topic].s:CATS[S.cat][0])+(S.deck==='learning'?' · Learning':S.deck==='known'?' · Known':'');
   const sub=!n?'No cards in this set':done?`All ${u} cards seen · ${k} known`:`${k} known${coming?` · ${coming} coming back`:''}`;
   const filtered=S.cat!=='all'||S.deck!=='all'||S.shuffle||S.pic;
   let stack;
@@ -2452,13 +3208,14 @@ function newQuestion(){
   let cand=pool.filter(t=>!Q.recent.includes(t.id)); if(!cand.length) cand=pool;
   const t=cand[Math.random()*cand.length|0];
   Q.recent.push(t.id); if(Q.recent.length>Math.min(14,pool.length-1)) Q.recent.shift();
-  const same=shuffle(TERMS.filter(x=>x.c===t.c&&x.id!==t.id)), other=shuffle(TERMS.filter(x=>x.c!==t.c));
+  const same=shuffle(TERMS.filter(x=>x.c===t.c&&x.id!==t.id)), other=shuffle(TERMS.filter(x=>x.c!==t.c&&x.id!==t.id));
   const opts=[t,...same.slice(0,3)]; while(opts.length<4) opts.push(other.pop());
   Q.cur=t.id; Q.opts=shuffle(opts.map(o=>o.id)); Q.answered=false; Q.pick=null;
 }
 function renderQuiz(){
   const Q=S.quiz;
-  if(!Q.cur||!BYID[Q.cur]||(S.cat!=='all'&&BYID[Q.cur].c!==S.cat)) newQuestion();
+  if(TOPICS[S.topic].qa){main.innerHTML=`<section class="view v-quiz"><div class="endq gut"><span class="tico" style="--c:${TOPICS[S.topic].c}">${I(P[TOPICS[S.topic].i],26,2)}</span><h2>Quiz isn't available for interview practice</h2><p>These cards are questions with longer answers, so practise them in Study: read the question, answer out loud, then flip.</p><div class="row"><button class="pill dark" data-tabgo="study">Practise in Study</button><button class="pill out" data-tabgo="home">Pick another deck</button></div></div></section>`;return}
+  if(!Q.cur||!BYID[Q.cur]||BYID[Q.cur].tp!==S.topic||(S.cat!=='all'&&BYID[Q.cur].c!==S.cat)) newQuestion();
   const t=BYID[Q.cur];
   const title=S.cat==='all'?'Quiz':CATS[S.cat][0];
   const opt=(id,i)=>{const o=BYID[id];let cls='',mk='';
@@ -2499,18 +3256,18 @@ function browseList(){
   const q=S.q.toLowerCase();
   return TERMS.filter(t=>(S.cat==='all'||t.c===S.cat)&&(!q||t.t.toLowerCase().includes(q)||t.d.toLowerCase().includes(q)));
 }
-function rowHTML(t){return `<li><button class="row gut" data-open="${t.id}"><span class="thumb"><div class="vis still">${t.v}</div></span><span><b>${esc(t.t)}</b><small>${CATS[t.c][0]}</small></span><span class="st" data-st="${t.id}">${S.known.has(t.id)?ROSE:I(P.chev,18,2)}</span></button></li>`}
+function rowHTML(t){return `<li><button class="row gut" data-open="${t.id}"><span class="thumb">${t.v?`<div class="vis still">${t.v}</div>`:`<span class="tq" style="--c:${col(t.c)}">${I(P.chat,20,2)}</span>`}</span><span><b>${esc(t.t)}</b><small>${CATS[t.c][0]}</small></span><span class="st" data-st="${t.id}">${S.known.has(t.id)?ROSE:I(P.chev,18,2)}</span></button></li>`}
 function renderRows(){
   const list=browseList();
   $('#count').textContent=`${list.length} term${list.length===1?'':'s'}${S.q?` matching “${S.q}”`:''}`;
   let alt=0; if(!list.length&&S.q&&S.cat!=='all'){const q=S.q.toLowerCase();alt=TERMS.filter(t=>t.t.toLowerCase().includes(q)||t.d.toLowerCase().includes(q)).length}
   $('#rows').innerHTML=list.length?list.map(rowHTML).join(''):`<li class="empty gut"><h3>No terms match</h3>${alt?`Nothing in ${CATS[S.cat][0]}.<div style="margin-top:14px"><button class="pill out sm" data-act="searchall">Search all categories (${alt})</button></div>`:'Try a shorter word or another category.'}</li>`;
 }
-function chipsHTML(){return `<button class="chip" data-cat="all" aria-pressed="${S.cat==='all'}">All</button>`+Object.keys(CATS).map(c=>`<button class="chip" data-cat="${c}" aria-pressed="${S.cat===c}" style="--c:${col(c)}"><i></i>${CATS[c][0]}</button>`).join('')}
+function chipsHTML(){return `<button class="chip" data-cat="all" aria-pressed="${S.cat==='all'}">All</button>`+topicCats().map(c=>`<button class="chip" data-cat="${c}" aria-pressed="${S.cat===c}" style="--c:${col(c)}"><i></i>${CATS[c][0]}</button>`).join('')}
 function renderBrowse(){
   main.innerHTML=`<section class="view v-browse">
-    <h2 class="big gut">Browse</h2>
-    <div class="gut"><label class="field" for="q">${I(P.browse,20,2)}<input id="q" type="search" placeholder="Search ${TERMS.length} terms" autocomplete="off" spellcheck="false" enterkeyhint="search" value="${esc(S.q)}"><button class="clr" id="qclr" type="button" aria-label="Clear search" ${S.q?'':'hidden'}>${I(P.x,14,2.4)}</button></label></div>
+    <h2 class="big gut">${TOPICS[S.topic].n}</h2>
+    <div class="gut"><label class="field" for="q">${I(P.browse,20,2)}<input id="q" type="search" placeholder="Search ${TERMS.length} ${TOPICS[S.topic].qa?'questions':'cards'} in ${TOPICS[S.topic].s}" autocomplete="off" spellcheck="false" enterkeyhint="search" value="${esc(S.q)}"><button class="clr" id="qclr" type="button" aria-label="Clear search" ${S.q?'':'hidden'}>${I(P.x,14,2.4)}</button></label></div>
     <div class="chips gut" id="chips">${chipsHTML()}</div>
     <p class="count gut" id="count"></p>
     <ul class="rows" id="rows"></ul>
@@ -2523,39 +3280,48 @@ function renderBrowse(){
 }
 function openDetail(id){
   const t=BYID[id], k=S.known.has(id);
-  openSheet(`<div class="detail">${catPill(t.c)}<div class="stage"><div class="vis">${t.v}</div></div><h2>${esc(t.t)}</h2><p>${esc(t.d)}</p>
+  openSheet(`<div class="detail">${catPill(t.c)}${t.v?`<div class="stage"><div class="vis">${t.v}</div></div>`:''}<h2>${esc(t.t)}</h2>${paras(t.d)}
     <div class="acts2"><button class="pill out" data-act="studyfrom" data-id="${id}">Study from here</button><button class="pill ${k?'go':'dark'}" data-act="toggleknown" data-id="${id}">${k?I(P.check,20,2.6)+'Known':'Mark as known'}</button></div></div>`);
 }
 
-/* ---------- progress ---------- */
-function renderProgress(){
+/* ---------- home: decks dashboard ---------- */
+function renderHome(){
   const x=xp(), i=badgeIdx(x), cur=BADGES[i], nxt=BADGES[i+1];
   const lo=cur?cur.xp:0, p=nxt?(x-lo)/(nxt.xp-lo):1;
   const acc=S.qa?Math.round(S.qc/S.qa*100)+'%':'–';
+  const kn=tp=>topicTerms(tp).filter(t=>S.known.has(t.id)).length;
+  const T0=TOPICS[S.topic], n0=TERMS.length, k0=kn(S.topic);
   const brow=(b,j)=>{const on=x>=b.xp, isNext=j===i+1;
     return `<div class="brow ${on?'on':''} ${isNext?'next':''}">${badgeSVG(b,on)}<div><b>${b.n}</b><p>${b.d}</p>${isNext?`<div class="bbar"><i style="width:${Math.max(3,(x-(cur?cur.xp:0))/(b.xp-(cur?cur.xp:0))*100)}%"></i></div><small>${b.xp-x} xp left to unlock</small>`:''}</div></div>`};
-  main.innerHTML=`<section class="view v-prog gut">
-    <h2 class="big" style="padding-left:0;padding-right:0">My progress</h2>
-    <div class="pcard">
-      ${badgeSVG(cur||BADGES[0],!!cur)}
-      <div class="pname">${S.known.size} of ${TERMS.length} terms ${S.known.size>=TERMS.length?'<span class="tagp">All</span>':''}</div>
-      <div class="lchip">${cur?badgeSVG(cur,true):''}<span>${cur?cur.n:'No badge'}</span>${ringSVG(p)}</div>
-      <div class="xprow"><span>${x} xp</span><span>${nxt?`${nxt.xp-x} to next`:'Top badge'}</span></div>
+  const tile=tp=>{const T=TOPICS[tp],n=topicTerms(tp).length,k=kn(tp);
+    return `<button class="tile" data-topic="${tp}" style="--c:${T.c}"><span class="tico">${I(P[T.i],20,2)}</span><b>${T.n}</b><small>${k} of ${n} ${T.qa?'answered':'known'}</small><span class="tbar"><i style="width:${k/n*100}%"></i></span></button>`};
+  main.innerHTML=`<section class="view v-home gut">
+    <h2 class="big" style="padding-left:0;padding-right:0">Your decks</h2>
+    <div class="dhero" style="--c:${T0.c}">
+      <div class="hrow"><span class="tico">${I(P[T0.i],22,2)}</span><span class="hl"><small>Continue</small><b>${T0.n}</b></span><span class="hn"><b>${Math.round(k0/n0*100)}%</b><small>${k0}/${n0}</small></span></div>
+      <span class="tbar lg"><i style="width:${k0/n0*100}%"></i></span>
+      <button class="pill dark full" data-tabgo="study">${k0?'Continue studying':'Start studying'}</button>
     </div>
+    <div class="tiles">${Object.keys(TOPICS).filter(tp=>tp!==S.topic).map(tile).join('')}</div>
+    <div class="pcard lv">
+      ${badgeSVG(cur||BADGES[0],!!cur)}
+      <div><div class="pname">${cur?cur.n:'No badge yet'}</div><div class="xprow"><span>${x} xp · ${S.known.size} cards known</span><span>${nxt?`${nxt.xp-x} to next`:'Top badge'}</span></div><span class="tbar"><i style="width:${p*100}%;background:var(--green)"></i></span></div>
+    </div>
+    <p class="label">${T0.s} by category</p>
+    <div class="list">${topicCats().map(c=>{const k=TERMS.filter(t=>t.c===c&&S.known.has(t.id)).length;return `<button class="lrow" data-studycat="${c}" style="--c:${col(c)}"><span class="ico"><i></i></span><span><b>${CATS[c][0]}</b><small>${k} of ${CNT[c]} known</small></span><span class="rt"><span class="mini"><i style="width:${k/CNT[c]*100}%"></i></span></span></button>`}).join('')}</div>
     <p class="label">Badges</p>
     <div class="badges">${BADGES.map(brow).join('')}</div>
-    <p class="label">Categories</p>
-    <div class="list">${Object.keys(CATS).map(c=>{const k=TERMS.filter(t=>t.c===c&&S.known.has(t.id)).length;return `<button class="lrow" data-studycat="${c}" style="--c:${col(c)}"><span class="ico"><i></i></span><span><b>${CATS[c][0]}</b><small>${k} of ${CNT[c]} known</small></span><span class="rt"><span class="mini"><i style="width:${k/CNT[c]*100}%"></i></span></span></button>`}).join('')}</div>
     <p class="label">Quiz</p>
     <div class="stats"><div><small>Answered</small><b>${S.qa}</b></div><div><small>Accuracy</small><b>${acc}</b></div><div><small>Best streak</small><b>${S.best}</b></div></div>
     <p class="label">Settings</p>
     <div class="list">
       <button class="lrow" data-act="feedback"><span class="ico">${I(P.chat,18,2)}</span><span><b>Send feedback</b><small>Tell us what to improve</small></span><span class="rt">${I(P.chev,18,2)}</span></button>
       <button class="lrow" role="switch" data-act="sound" aria-checked="${S.sound}"><span class="ico">${I(P.sound,18,2)}</span><span><b>Sound effects</b><small>Playful sounds as you study</small></span><span class="rt"><span class="sw"></span></span></button>
-      <button class="lrow danger" data-act="askreset"><span class="ico">${I(P.reset,18,2)}</span><span><b>Reset progress</b><small>Clears known terms, xp and badges on this device</small></span><span class="rt">${I(P.chev,18,2)}</span></button>
+      <button class="lrow danger" data-act="askreset"><span class="ico">${I(P.reset,18,2)}</span><span><b>Reset progress</b><small>Clears known cards, xp and badges on this device</small></span><span class="rt">${I(P.chev,18,2)}</span></button>
       ${S.resetAsk?`<div class="confirm"><button class="pill out sm" data-act="noreset">Cancel</button><button class="pill red sm" data-act="doreset">Yes, reset</button></div>`:''}
     </div>
-    <p class="privacy">We count anonymous usage (no names, no tracking cookies) to make UX Lexicon better. Your progress stays on this device.</p>
+    <p class="privacy">We count anonymous usage (no names, no tracking cookies) to make Flashdecks better. Your progress stays on this device.</p>
+    <p class="aiwarn">Card content was written with the help of AI and may contain mistakes. Double-check anything important.</p>
   </section>`;
 }
 
@@ -2566,10 +3332,10 @@ function filterHTML(){
   return `<div class="shead"><h3>Choose cards</h3><button class="link" data-act="close">Done</button></div>
   ${S.tab==='study'?`<p class="slabel">Show</p><div class="seg">${seg.map(([v,l,n])=>`<button data-deck="${v}" aria-pressed="${S.deck===v}">${l}<small>${n}</small></button>`).join('')}</div>`:''}
   <p class="slabel">Category</p>
-  <div class="box">${[['all','All categories',TERMS.length,'var(--ink)'],...Object.keys(CATS).map(c=>[c,CATS[c][0],CNT[c],col(c)])].map(([c,l,n,cl])=>`<button class="crow" data-fcat="${c}" aria-pressed="${S.cat===c}" style="--c:${cl}"><span class="sq"><i></i></span><span>${l}</span><small>${n}</small><span class="ck">${I(P.check,20,2.6)}</span></button>`).join('')}</div>
+  <div class="box">${[['all','All categories',TERMS.length,'var(--ink)'],...topicCats().map(c=>[c,CATS[c][0],CNT[c],col(c)])].map(([c,l,n,cl])=>`<button class="crow" data-fcat="${c}" aria-pressed="${S.cat===c}" style="--c:${cl}"><span class="sq"><i></i></span><span>${l}</span><small>${n}</small><span class="ck">${I(P.check,20,2.6)}</span></button>`).join('')}</div>
   ${S.tab==='study'?`<p class="slabel">Options</p><div class="box">
     <button class="trow" role="switch" data-opt="shuffle" aria-checked="${S.shuffle}"><span>Shuffle cards</span><span class="sw"></span></button>
-    <button class="trow" role="switch" data-opt="pic" aria-checked="${S.pic}"><span>Show the picture first</span><span class="sw"></span></button>
+    ${hasArt()?`<button class="trow" role="switch" data-opt="pic" aria-checked="${S.pic}"><span>Show the picture first</span><span class="sw"></span></button>`:''}
   </div>`:''}`;
 }
 
@@ -2614,7 +3380,7 @@ if(GOATCOUNTER&&/^https?:$/.test(location.protocol)){window.goatcounter={no_onlo
   g.dataset.goatcounter=`https://${GOATCOUNTER}.goatcounter.com/count`;g.onload=()=>trackView(S.tab);document.head.appendChild(g)}
 const FACES=['😞','🙁','😐','🙂','😍'];
 function feedbackHTML(r){return `<div class="shead"><h3>Send feedback</h3><button class="link" data-act="close">Close</button></div>
-  <p class="slabel">How are you finding UX Lexicon?</p>
+  <p class="slabel">How are you finding Flashdecks?</p>
   <div class="rate">${FACES.map((f,i)=>`<button type="button" data-rate="${i+1}" aria-label="${i+1} of 5" aria-pressed="${r===i+1}">${f}</button>`).join('')}</div>
   <p class="slabel">What would make it better?</p>
   <textarea class="fb" id="fbtext" rows="4" maxlength="2000" placeholder="A missing term, a bug, an idea…"></textarea>
@@ -2639,7 +3405,7 @@ function render(enter){
   if(S.tab==='study') renderStudy(enter);
   else if(S.tab==='quiz') renderQuiz();
   else if(S.tab==='browse') renderBrowse();
-  else renderProgress();
+  else renderHome();
 }
 function go(tab){if(S.tab===tab){main.scrollTo({top:0,behavior:reduced?'auto':'smooth'});return}S.tab=tab;S.resetAsk=false;persist();SFX.play('tick');trackView(tab);closeSheet();main.scrollTop=0;render()}
 
@@ -2670,11 +3436,13 @@ function toast(msg,icon){const t=$('#toast');t.innerHTML=(icon?`<b>${I(icon,15,2
 
 /* ---------- events ---------- */
 $('.tabbar').addEventListener('click',e=>{const b=e.target.closest('.tab');if(b)go(b.dataset.tab)});
-$('#lvl').addEventListener('click',()=>go('progress'));
+$('#lvl').addEventListener('click',()=>go('home'));
 app.addEventListener('click',e=>{
   const t=e.target;
   const pk=t.closest('[data-pick]'); if(pk){pick(pk.dataset.pick);return}
   const op=t.closest('[data-open]'); if(op){openDetail(op.dataset.open);return}
+  const tg=t.closest('[data-tabgo]'); if(tg){go(tg.dataset.tabgo);return}
+  const tp=t.closest('[data-topic]'); if(tp){setTopic(tp.dataset.topic);S.first=true;go('study');return}
   const sc=t.closest('[data-studycat]'); if(sc){S.cat=sc.dataset.studycat;S.deck='all';persist();rebuild();S.quiz.cur=null;go('study');return}
   const fc=t.closest('[data-fcat]'); if(fc){S.cat=fc.dataset.fcat;persist();rebuild();S.quiz.cur=null;refreshSheet(filterHTML());render(true);return}
   const dk=t.closest('[data-deck]'); if(dk){S.deck=dk.dataset.deck;persist();rebuild();refreshSheet(filterHTML());render(true);return}
@@ -2702,9 +3470,9 @@ app.addEventListener('click',e=>{
   else if(act==='feedback'){fbRate=0;openSheet(feedbackHTML(0))}
   else if(act==='sendfb'){sendFeedback()}
   else if(act==='sound'){S.sound=!S.sound;persist();track(S.sound?'sound-on':'sound-off');a.setAttribute('aria-checked',S.sound);if(S.sound)SFX.play('know')}
-  else if(act==='askreset'){S.resetAsk=!S.resetAsk;renderProgress()}
-  else if(act==='noreset'){S.resetAsk=false;renderProgress()}
-  else if(act==='doreset'){S.known.clear();S.qc=0;S.qa=0;S.best=0;S.seen=-1;S.resetAsk=false;S.quiz={cur:null,opts:[],answered:false,pick:null,score:0,total:0,streak:0,recent:[]};persist();rebuild();renderLevel();renderProgress();toast('Progress reset')}
+  else if(act==='askreset'){S.resetAsk=!S.resetAsk;renderHome()}
+  else if(act==='noreset'){S.resetAsk=false;renderHome()}
+  else if(act==='doreset'){S.known.clear();S.qc=0;S.qa=0;S.best=0;S.seen=-1;S.resetAsk=false;S.quiz={cur:null,opts:[],answered:false,pick:null,score:0,total:0,streak:0,recent:[]};persist();rebuild();renderLevel();renderHome();toast('Progress reset')}
   else if(act==='closeunlock'){const o=document.querySelector('.unlock');if(o)o.remove()}
 });
 document.addEventListener('keydown',e=>{
