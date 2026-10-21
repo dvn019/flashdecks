@@ -445,19 +445,7 @@ svg{flex:none}
 @media (display-mode:browser) and (hover:none){:root{--tb-b:8px}}
 
 /* desktop: "best on your phone" panel beside the phone column */
-.desk{display:none}
-@media (min-width:960px) and (min-height:640px){
-  body{gap:64px}
-  .desk{display:flex;flex-direction:column;align-items:flex-start;width:300px;color:var(--ink)}
-  .desk h2{margin:18px 0 8px;font-size:30px;font-weight:600;letter-spacing:-.03em;line-height:1.1}
-  .desk p{margin:0;color:var(--ink-2);font-size:16px;line-height:1.5}
-  .desk .qr{margin-top:22px;padding:14px;background:#fff;border-radius:20px;border:1px solid var(--line-2);box-shadow:var(--shadow-card)}
-  .desk .qr svg{display:block;width:148px;height:148px}
-  .desk h3{margin:30px 0 10px;font-size:13px;font-weight:600;color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em}
-  .keys{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:15px}
-  .keys li{display:flex;align-items:center;gap:6px}
-  .keys kbd{min-width:30px;height:28px;padding:0 8px;display:inline-grid;place-items:center;border:1px solid var(--line-2);border-bottom-width:2px;border-radius:8px;background:var(--paper);font:500 13px var(--body);margin-right:6px}
-}
+
 
 /* feedback sheet */
 .rate{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
@@ -625,6 +613,82 @@ input.fb{height:50px;border-radius:99px;padding:0 18px}
 .lrow.rtime{cursor:pointer}
 .lrow.rtime select{appearance:none;-webkit-appearance:none;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:500 15px/1 var(--body);height:36px;padding:0 14px;border-radius:99px}
 .steps{margin:0 0 6px;padding-left:20px;color:var(--ink-2);font-size:15px;line-height:1.7}.steps b{color:var(--ink)}
+
+/* ---------- QR card: "Best on mobile" (bottom right, larger screens) ---------- */
+.side-foot{display:none}
+.qrcard{position:fixed;right:24px;bottom:24px;z-index:60;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;width:236px;padding:20px 20px 18px;background:var(--paper);border:1px solid var(--line-2);border-radius:24px;box-shadow:0 24px 60px -24px rgba(0,0,0,.32);opacity:0;transform:translateY(12px);transition:opacity .35s,transform .45s cubic-bezier(.3,1.3,.5,1)}
+.qrcard.on{opacity:1;transform:none}
+.qrcard .qr{flex:none;width:196px;height:196px;padding:14px;box-sizing:border-box;background:#fff;border-radius:16px;border:1px solid var(--line)}
+.qrcard .qr svg{display:block;width:100%;height:100%}
+.qrcard .qt b{display:block;font-size:17px;font-weight:600;letter-spacing:-.01em}
+.qrcard .qt span{display:block;margin-top:4px;font-size:13px;line-height:1.45;color:var(--ink-2)}
+.qrcard .qx{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;font-size:20px;line-height:1;color:var(--ink-3)}
+.qrcard .qx:hover{background:var(--m-fill);color:var(--ink)}
+.qrcard.mini:not(.open){flex-direction:row;width:auto;padding:8px 14px 8px 8px;gap:10px;border-radius:99px;cursor:pointer;text-align:left}
+.qrcard.mini:not(.open) .qr{width:36px;height:36px;padding:3px;border-radius:50%;overflow:hidden}
+.qrcard.mini:not(.open) .qt span,.qrcard.mini:not(.open) .qx{display:none}
+.qrcard.mini:not(.open) .qt b{font-size:14px}
+.qrcard.mini:not(.open):hover{border-color:var(--ink-3)}
+
+/* ---------- desktop: sidebar app ---------- */
+@media (min-width:1024px) and (min-height:600px){
+  :root{--card-max:600px}
+  body{background:var(--page);display:block;padding:0}
+  .app{width:100%;height:100%;border-radius:0;border:0;box-shadow:none;display:grid;grid-template-columns:260px minmax(0,1fr);grid-template-rows:auto auto 1fr}
+  .app::before{content:'';grid-column:1;grid-row:1/4;background:var(--surface);border-right:1px solid var(--line)}
+  .bar{grid-column:1;grid-row:1;z-index:1;flex-wrap:wrap;row-gap:18px;background:transparent;border:0;padding:28px 20px 22px}
+  .bar h1{flex:1;margin-right:0}
+  .lvl{order:3;flex:none;width:auto}
+  .bar::after{content:'';order:2;flex-basis:100%;height:0}
+  .tabbar{grid-column:1;grid-row:2;z-index:1;position:static;transform:none;flex-direction:column;align-items:stretch;gap:2px;padding:0 12px;background:transparent;border:0;box-shadow:none;border-radius:0}
+  .tab,.tab[aria-selected="true"]{height:44px;justify-content:flex-start;gap:12px;padding:0 14px;border-radius:12px}
+  .tab span{max-width:none;opacity:1}
+  .tab:hover{background:var(--m-fill);color:var(--ink)}
+  .tab[aria-selected="true"]{background:var(--paper);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.06);outline:1px solid var(--line)}
+  .side-foot{display:block;grid-column:1;grid-row:3;align-self:end;z-index:1;padding:20px 24px 28px}
+  .side-foot p{margin:0 0 10px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  .side-foot .keys{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--ink-2)}
+  .side-foot li{display:flex;align-items:center;gap:4px}
+  .side-foot kbd{min-width:24px;height:22px;padding:0 6px;display:inline-grid;place-items:center;border:1px solid var(--line-2);border-bottom-width:2px;border-radius:6px;background:var(--paper);font:500 11px var(--body);color:var(--ink);margin-right:4px}
+  .main{grid-column:2;grid-row:1/4}
+  .main .gut{padding-left:40px;padding-right:40px}
+  .view{padding-bottom:48px}
+  .v-study,.v-quiz{max-width:680px;margin:0 auto}
+  .v-study{min-height:100%}
+  .v-browse{max-width:1120px;margin:0 auto}
+  .v-browse .big{font-size:36px;padding-top:40px}
+  .rows{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;padding:8px 40px 0}
+  .rows li.empty,.rows li.osec{grid-column:1/-1}
+  .rows li.osec{border-top:0;padding-left:0;padding-right:0}
+  .row{border:1px solid var(--line-2);border-radius:16px;padding:12px 14px;background:var(--paper);transition:border-color .2s,box-shadow .2s,transform .2s}
+  .row:hover{border-color:var(--ink-3);box-shadow:var(--shadow-card);transform:translateY(-1px)}
+  .toast{left:calc(50% + 130px);bottom:32px}
+  /* sheets become centred dialogs */
+  .sheet{left:50%;right:auto;top:50%;bottom:auto;width:min(540px,calc(100% - 48px));max-height:84%;border-radius:24px;transform:translate(-50%,-46%) scale(.97);opacity:0;transition:transform .35s cubic-bezier(.3,1.2,.5,1),opacity .25s;box-shadow:0 40px 90px -30px rgba(0,0,0,.45)}
+  .sheet.on{transform:translate(-50%,-50%);opacity:1}
+  .sheet .grab{display:none}
+  .sheet .sbody{padding-top:18px;padding-left:28px;padding-right:28px}
+  .intro-in{max-width:520px;margin:0 auto}
+  /* home: all decks at once */
+  .v-homed{max-width:1120px;margin:0 auto;padding:0 40px 48px}
+  .v-homed .hd-top{padding-top:40px;padding-bottom:16px}.v-homed .hd-top h2{font-size:36px;letter-spacing:-.03em}
+  .v-homed .goal{max-width:420px;margin-bottom:28px;padding-left:0;padding-right:0}
+  .rows{padding-bottom:80px}
+  .dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:20px}
+  .dcard{display:flex;flex-direction:column;gap:16px;min-height:340px;padding:22px;background:var(--paper);border:1px solid var(--line-2);border-radius:24px;box-shadow:var(--shadow-card);cursor:pointer;transition:transform .25s cubic-bezier(.3,1.3,.5,1),box-shadow .25s,border-color .25s}
+  .dcard:hover{transform:translateY(-3px);box-shadow:0 24px 50px -24px rgba(0,0,0,.28);border-color:var(--ink-3)}
+  .dcard.cur{border-color:var(--ink)}
+  .dcard h3{margin:0;font-size:34px;line-height:1.06;font-weight:600;letter-spacing:-.04em;text-wrap:balance}
+  .dcard p{margin:8px 0 0;font-size:15px;color:var(--ink-2)}
+  .dc-sp{flex:1}
+  .dcard .hc-due{margin:0}
+  .dcard .pill{flex:none;pointer-events:none}
+  .qrcard{right:28px;bottom:28px}
+}
+/* picture stage grows to fill the card's spare height (back face, and front in picture-first mode) */
+.face.back.dk .stage{flex:1 0 auto;height:auto;min-height:clamp(140px,44%,236px)}
+.face.front.dk .stage{flex:1 1 auto;height:auto;min-height:140px}
+.qrcard[hidden]{display:none}.qrcard:not(.on){pointer-events:none}
 
 /* ===== Mini UI kit (drawn inside the card's visual stage) ===== */
 .vis{position:relative;display:flex;align-items:center;justify-content:center;font-family:var(--body);font-size:11px;line-height:1.25;color:var(--ink-2);overflow:hidden;text-align:left}
@@ -1500,21 +1564,22 @@ input.fb{height:50px;border-radius:99px;padding:0 18px}
     <button class="tab" role="tab" data-tab="quiz" aria-label="Quiz"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 014.9.6c0 1.7-2.5 2.1-2.5 3.6M12 17v.2"/></svg><span>Quiz</span></button>
     <button class="tab" role="tab" data-tab="browse" aria-label="Browse"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span>Browse</span></button>
   </nav>
+  <div class="side-foot" aria-label="Keyboard shortcuts">
+    <p>Shortcuts</p>
+    <ul class="keys">
+      <li><kbd>Space</kbd>Flip card</li>
+      <li><kbd>&rarr;</kbd>Know it</li>
+      <li><kbd>&larr;</kbd>Still learning</li>
+      <li><kbd>Z</kbd>Previous</li>
+      <li><kbd>1</kbd><kbd>4</kbd>Quiz answer</li>
+    </ul>
+  </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </div>
-<aside class="desk" aria-label="About this app">
-  <span class="mark" aria-hidden="true"><svg viewBox="0 0 100 100" width="100%" height="100%"><rect x="14" y="31" width="8" height="38" rx="4" fill="#fff" opacity=".35"/><rect x="24" y="25" width="8" height="50" rx="4" fill="#fff" opacity=".6"/><rect x="34" y="19" width="50" height="62" rx="12" fill="#fff"/><path class="bolt" d="M65 30L49 53h11l-5 16 17-24H61z" fill="currentColor"/></svg></span>
-  <h2>Best on your phone</h2>
-  <p>Flashdecks is made for quick sessions on the go. Scan to open it on your phone, then Add to Home Screen.</p>
-  <div class="qr" id="qr" hidden></div>
-  <h3>Keyboard shortcuts</h3>
-  <ul class="keys">
-    <li><kbd>Space</kbd>Flip the card</li>
-    <li><kbd>&rarr;</kbd>Know it</li>
-    <li><kbd>&larr;</kbd>Still learning</li>
-    <li><kbd>Z</kbd>Previous card</li>
-    <li><kbd>1</kbd>&ndash;<kbd>4</kbd>Answer in Quiz</li>
-  </ul>
+<aside class="qrcard" id="qrcard" aria-label="Open on your phone" hidden>
+  <button class="qx" id="qrx" type="button" aria-label="Hide">&times;</button>
+  <div class="qr" id="qr"></div>
+  <div class="qt"><b>Best on mobile</b><span>Scan to open Flashdecks on your phone, then add it to your Home Screen.</span></div>
 </aside>
 <p class="sr" id="live" aria-live="polite"></p>
 <canvas id="confetti" aria-hidden="true"></canvas>
@@ -3252,7 +3317,7 @@ let ro=null;
 function fit(){
   if(ro) ro.disconnect();
   const st=document.querySelectorAll('.stage');
-  const f=s=>{const w=s.clientWidth,h=s.clientHeight;if(w&&h)s.style.setProperty('--s',Math.min(w/300,h/186,1.3).toFixed(3))};
+  const f=s=>{const w=s.clientWidth,h=s.clientHeight;if(w&&h)s.style.setProperty('--s',Math.min(w/300,h/186,1.7).toFixed(3))};
   st.forEach(f);
   if('ResizeObserver' in window){ro=new ResizeObserver(es=>es.forEach(e=>f(e.target)));st.forEach(s=>ro.observe(s))}
 }
@@ -3474,6 +3539,7 @@ const TKEYS=Object.keys(TOPICS);
 const ringSVG2=(p,c,lab)=>{const r=22,C=2*Math.PI*r;return `<span class="hring" style="--c:${c}"><svg width="52" height="52" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="${r}" class="t"/><circle cx="26" cy="26" r="${r}" class="v" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-p)}" transform="rotate(-90 26 26)"/></svg><b>${lab}</b></span>`};
 /* ---------- home: swipe through decks (Figma: My preferred Home · B alt) ---------- */
 function renderHome(enter,dir){
+  if(DESK.matches) return renderHomeDesk();
   if(S.hpos===undefined||S.hpos<0) S.hpos=TKEYS.indexOf(S.topic);
   const n=TKEYS.length, tp=TKEYS[S.hpos], T=TOPICS[tp], all=topicTerms(tp), k=all.filter(t=>S.known.has(t.id)).length;
   const due=dueIn(tp), started=S.visited.has(tp)||k>0, cats=Object.keys(CATS).filter(c=>CATS[c][2]===tp).length, pct=k/all.length;
@@ -3496,6 +3562,20 @@ function renderHome(enter,dir){
   </section>`;
   bindHome(); fitHome();
   const hc=$('#hchips'),ac=hc&&hc.querySelector('[aria-selected="true"]');if(ac){const l=ac.offsetLeft-hc.clientWidth/2+ac.offsetWidth/2;enter&&!reduced?hc.scrollTo({left:l,behavior:'smooth'}):hc.scrollLeft=l}
+}
+function renderHomeDesk(){
+  main.innerHTML=`<section class="view v-homed">
+    <div class="hd-top"><h2>Your decks</h2><span class="hd-r"><button class="mus ${S.music?'on':''}" data-act="music" aria-label="Background music ${S.music?'on':'off'}" aria-pressed="${S.music}">${I(S.music?P.music:P.musicOff,18,2)}</button></span></div>
+    ${goalHTML()}
+    <div class="dgrid">${TKEYS.map(tp=>{const T=TOPICS[tp],all=topicTerms(tp),k=all.filter(t=>S.known.has(t.id)).length,started=S.visited.has(tp)||k>0,pct=k/all.length,due=dueIn(tp),cats=Object.keys(CATS).filter(c=>CATS[c][2]===tp).length;
+      return `<article class="dcard ${tp===S.topic?'cur':''}" style="--c:${T.c}" data-open-deck="${tp}" tabindex="0" role="button" aria-label="${esc(T.n)}. ${started?'Continue':'Start'}">
+        <div><h3>${esc(T.n)}</h3><p>${esc(T.d)}</p></div>
+        <div class="dc-sp"></div>
+        <div class="hc-prog">${started?ringSVG2(pct,T.c,Math.round(pct*100)+'%'):`<span class="hc-new">New</span>`}<div><b>${started?`${k} of ${all.length} ${T.qa?'answered':'known'}`:`${all.length} ${T.qa?'questions':'cards'} · ${cats} categories`}</b><small>${started?`${k*10} xp earned`:'About 10 minutes for 20 cards'}</small></div></div>
+        ${due?`<button class="hc-due" data-review="${tp}">${I(P.cal,16,2)}<span><b>${due} card${due===1?'':'s'} to review today</b></span>${I(P.chev,16,2)}</button>`:''}
+        <span class="pill ${started?'dark':'go'} full">${started?'Continue':'Start deck'}</span>
+      </article>`}).join('')}</div>
+  </section>`;
 }
 function jumpDeck(i){if(i===S.hpos)return;const d=i>S.hpos?1:-1;S.hpos=i;SFX.play('flip');buzz(8);renderHome(true,d>0?'fwd':'back')}
 function allDecksHTML(){return `<div class="shead"><h3>All decks</h3><button class="link" data-act="close">Done</button></div><div class="adl">${TKEYS.map((tp,i)=>{const T=TOPICS[tp],all=topicTerms(tp),k=all.filter(t=>S.known.has(t.id)).length,st=S.visited.has(tp)||k>0,due=dueIn(tp);
@@ -3648,7 +3728,8 @@ function bindIntro(o){let x0=null;
   o.addEventListener('keydown',e=>{if(e.key==='ArrowRight')stepIntro(1);if(e.key==='ArrowLeft')stepIntro(-1);if(e.key==='Escape')endIntro()})}
 
 /* ---------- render ---------- */
-function render(enter){
+function render(enter){const qc=$('#qrcard');if(qc){qc.classList.toggle('mini',S.tab!=='home');qc.classList.remove('open')}
+
   renderTabs();
   if(S.tab==='study') renderStudy(enter);
   else if(S.tab==='quiz') renderQuiz();
@@ -3800,6 +3881,7 @@ document.addEventListener('keydown',e=>{
   if(e.target.matches('input,textarea')||e.metaKey||e.ctrlKey||e.altKey) return;
   if(e.key==='Escape'){if(document.querySelector('.unlock'))document.querySelector('.unlock').remove();else if(sheetOpen)closeSheet();return}
   if(sheetOpen||document.querySelector('.unlock')) return;
+  if(S.tab==='home'&&DESK.matches){if(e.key==='Enter'&&e.target.closest('[data-open-deck]')){e.preventDefault();openDeck(e.target.closest('[data-open-deck]').dataset.openDeck)}return}
   if(S.tab==='home'){
     if(e.key==='ArrowRight'){e.preventDefault();cycleDeck(1)}else if(e.key==='ArrowLeft'){e.preventDefault();cycleDeck(-1)}else if(e.key==='Enter'&&!e.target.closest('button')){e.preventDefault();openDeck(TKEYS[S.hpos])}
   } else if(S.tab==='study'){
@@ -3816,13 +3898,18 @@ document.addEventListener('keydown',e=>{
 });
 
 
-/* desktop panel: QR code for the page's own address (only when hosted somewhere a phone can open) */
-if(matchMedia('(min-width:960px)').matches){
-  const url=/^https?:$/.test(location.protocol)&&!/claude|usercontent|localhost/.test(location.hostname)?location.origin+location.pathname:null;
-  if(url){const sc=document.createElement('script');sc.src='https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
-    sc.onload=()=>{try{const q=qrcode(0,'M');q.addData(url);q.make();const el=$('#qr');el.innerHTML=q.createSvgTag({cellSize:4,margin:0,scalable:true});el.hidden=false}catch(e){}};
-    document.head.appendChild(sc)}
-}
+/* desktop: sidebar layout, decks grid, "Best on mobile" QR card (bottom right, dismissible) */
+const DESK=matchMedia('(min-width:1024px) and (min-height:600px)');
+DESK.addEventListener('change',()=>{closeOverlays(true);render()});
+(()=>{const card=$('#qrcard');if(!card||!matchMedia('(min-width:640px) and (hover:hover)').matches)return;
+  let hide=false;try{hide=localStorage.getItem('fd.qr.hide')==='1'}catch(e){}
+  if(hide)return;
+  const sc=document.createElement('script');sc.src='https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
+  sc.onload=()=>{try{const q=qrcode(0,'M');q.addData(SITE);q.make();$('#qr').innerHTML=q.createSvgTag({cellSize:4,margin:0,scalable:true});card.hidden=false;requestAnimationFrame(()=>card.classList.add('on'))}catch(e){}};
+  document.head.appendChild(sc);
+  card.addEventListener('click',e=>{if(card.classList.contains('mini')&&!e.target.closest('#qrx')){card.classList.toggle('open')}});
+  $('#qrx').addEventListener('click',e=>{e.stopPropagation();card.classList.remove('on');setTimeout(()=>card.hidden=true,300);try{localStorage.setItem('fd.qr.hide','1')}catch(e){}track('qr-hide')});
+})();
 /* ---------- boot ---------- */
 renderLevel(); rebuild(); render();
 const deep=(()=>{try{return new URLSearchParams(location.search).get('card')}catch(e){return null}})();
