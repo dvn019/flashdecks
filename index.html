@@ -669,20 +669,62 @@ input.fb{height:50px;border-radius:99px;padding:0 18px}
   .sheet .grab{display:none}
   .sheet .sbody{padding-top:18px;padding-left:28px;padding-right:28px}
   .intro-in{max-width:520px;margin:0 auto}
-  /* home: all decks at once */
-  .v-homed{max-width:1120px;margin:0 auto;padding:0 40px 48px}
-  .v-homed .hd-top{padding-top:40px;padding-bottom:16px}.v-homed .hd-top h2{font-size:36px;letter-spacing:-.03em}
-  .v-homed .goal{max-width:420px;margin-bottom:28px;padding-left:0;padding-right:0}
+  /* home: one floating deck, previous/next named at the sides */
+  .v-homed{max-width:1240px;margin:0 auto;padding:0 40px 32px;min-height:100dvh;display:flex;flex-direction:column}
+  .v-homed .hd-top{padding-top:40px;padding-bottom:8px}.v-homed .hd-top h2{font-size:36px;letter-spacing:-.03em}
   .rows{padding-bottom:80px}
-  .dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:20px}
-  .dcard{display:flex;flex-direction:column;gap:16px;min-height:340px;padding:22px;background:var(--paper);border:1px solid var(--line-2);border-radius:24px;box-shadow:var(--shadow-card);cursor:pointer;transition:transform .25s cubic-bezier(.3,1.3,.5,1),box-shadow .25s,border-color .25s}
-  .dcard:hover{transform:translateY(-3px);box-shadow:0 24px 50px -24px rgba(0,0,0,.28);border-color:var(--ink-3)}
-  .dcard.cur{border-color:var(--ink)}
-  .dcard h3{margin:0;font-size:34px;line-height:1.06;font-weight:600;letter-spacing:-.04em;text-wrap:balance}
-  .dcard p{margin:8px 0 0;font-size:15px;color:var(--ink-2)}
+  .car{--cw:min(430px,36vw);--ch:clamp(380px,calc(100dvh - 300px),480px);position:relative;flex:none;margin-top:auto;height:calc(var(--ch) + 80px)}
+  .car-stage{position:absolute;inset:0;display:grid;place-items:center}
+  .car-track{position:relative;width:var(--cw);height:var(--ch)}
+  .ccard{position:absolute;inset:0;outline:none!important;transition:transform .75s cubic-bezier(.16,1,.3,1),opacity .4s ease;transform:translateX(calc(clamp(-1,var(--off),1) * 34%)) rotate(calc(clamp(-1,var(--off),1) * 2.5deg)) scale(.94);opacity:0;pointer-events:none}
+  .ccard.on{transform:none;opacity:1;pointer-events:auto;cursor:pointer;transition:transform .75s cubic-bezier(.16,1,.3,1),opacity .5s ease .08s}
+  .car.noanim .ccard{transition:none}
+  .cc-float{height:100%;--rx:0deg;--ry:0deg;transform:perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry));transition:transform .5s cubic-bezier(.16,1,.3,1)}
+  .ccard.on .cc-float{animation:ccbob 6s ease-in-out infinite}
+  @keyframes ccbob{0%,100%{translate:0 0}50%{translate:0 -10px}}
+  .ccard::after{content:"";position:absolute;left:15%;right:15%;bottom:-38px;height:26px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.18),transparent);opacity:0;transition:opacity .5s;pointer-events:none}
+  .ccard.on::after{opacity:1;animation:ccsh 6s ease-in-out infinite}
+  @keyframes ccsh{0%,100%{scale:1;opacity:1}50%{scale:.86;opacity:.65}}
+  .cc-in{height:100%;display:flex;flex-direction:column;gap:16px;padding:32px;background:var(--paper);border:1px solid var(--line-2);border-radius:30px;box-shadow:0 1px 0 rgba(0,0,0,.02),0 30px 70px -34px rgba(0,0,0,.35);transition:box-shadow .3s,border-color .3s,transform .3s cubic-bezier(.3,1.3,.5,1)}
+  .ccard.on:hover .cc-in{border-color:var(--ink-3);box-shadow:0 1px 0 rgba(0,0,0,.02),0 40px 90px -36px rgba(0,0,0,.42)}
+  .ccard.on:focus-visible .cc-in{outline:3px solid var(--ink);outline-offset:4px}
+  .cc-in h3{margin:0;font-size:44px;line-height:1.04;font-weight:600;letter-spacing:-.045em;text-wrap:balance}
+  .cc-in p{margin:10px 0 0;font-size:17px;line-height:1.45;color:var(--ink-2)}
+  .cc-in .ntag{margin-bottom:12px}
   .dc-sp{flex:1}
-  .dcard .hc-due{margin:0}
-  .dcard .pill{flex:none;pointer-events:none}
+  .cc-in .hc-due{margin:0}
+  .cc-in .pill{flex:none;pointer-events:none}
+  .car-side{position:absolute;top:calc(50% - 96px);z-index:20;width:min(210px,calc((100% - var(--cw)) / 2 - 56px));display:flex;flex-direction:column;gap:6px;padding:8px 0;border:0;background:none;color:var(--ink-2);font:inherit;cursor:pointer}
+  .car-side.prev{right:calc(50% + var(--cw) / 2 + 48px);align-items:flex-end;text-align:right}
+  .car-side.next{left:calc(50% + var(--cw) / 2 + 48px);align-items:flex-start;text-align:left}
+  .cs-arr{width:46px;height:46px;margin-bottom:8px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line-2);background:var(--paper);color:var(--ink);box-shadow:var(--shadow-card);transition:transform .3s cubic-bezier(.3,1.3,.5,1),border-color .2s}
+  .car-side small{font-size:13px;font-weight:500;color:var(--ink-3)}
+  .car-side .cs-n{display:block;font-size:21px;line-height:1.2;font-weight:600;letter-spacing:-.02em;text-wrap:balance;transition:color .2s}
+  .car-side:hover .cs-n{color:var(--ink)}.car-side:hover .cs-arr{border-color:var(--ink-3)}
+  .car-side.prev:hover .cs-arr{transform:translateX(-4px)}.car-side.next:hover .cs-arr{transform:translateX(4px)}
+  .car-side:active .cs-arr{transform:scale(.92)}
+  .car-foot{display:flex;flex-direction:column;align-items:center;gap:10px;padding-top:6px;margin-bottom:auto}
+  .car-dots{display:flex;gap:2px}
+  .car-dots button{width:22px;height:22px;padding:0;border:0;background:none;cursor:pointer;display:grid;place-items:center}
+  .car-dots button::before{content:"";width:8px;height:8px;border-radius:99px;background:var(--line-2);transition:width .4s cubic-bezier(.16,1,.3,1),background .3s}
+  .car-dots button:hover::before{background:var(--ink-3)}
+  .car-dots button.on::before{width:22px;background:var(--ink)}
+  .car-keys{font-size:13px;color:var(--ink-3)}.car-lab{font-weight:600;color:var(--ink-2);font-variant-numeric:tabular-nums}
+  .car-keys kbd{display:inline-block;min-width:22px;padding:1px 6px;margin:0 2px;border:1px solid var(--line-2);border-bottom-width:2px;border-radius:6px;font:600 12px/18px var(--body);color:var(--ink-2);text-align:center;background:var(--paper)}
+  /* all decks grid, dealt like cards */
+  .v-grid .dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:20px;padding:12px 0 48px}
+  .gcard{position:relative;min-height:340px;transform-style:preserve-3d;outline:none!important}
+  .gcard[data-open-deck]{cursor:pointer}
+  .g-front{height:100%;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+  .gcard .cc-in{padding:22px;border-radius:24px;box-shadow:var(--shadow-card)}
+  .gcard .cc-in h3{font-size:32px;line-height:1.06;letter-spacing:-.04em}.gcard .cc-in p{font-size:15px;margin-top:8px}
+  .gcard[data-open-deck]:hover .cc-in{transform:translateY(-4px);border-color:var(--ink-3);box-shadow:0 24px 50px -24px rgba(0,0,0,.28)}
+  .gcard.cur .cc-in{border-color:var(--ink)}
+  .gcard:focus-visible .cc-in{outline:3px solid var(--ink);outline-offset:3px}
+  .g-back{position:absolute;inset:0;display:grid;place-items:center;border-radius:24px;color:var(--green);background:var(--green) repeating-linear-gradient(45deg,rgba(255,255,255,.07) 0 2px,transparent 2px 12px);box-shadow:inset 0 0 0 12px var(--green),inset 0 0 0 13.5px rgba(255,255,255,.4),0 18px 40px -22px rgba(0,0,0,.4);transform:rotateY(180deg);-webkit-backface-visibility:hidden;backface-visibility:hidden}
+  @media (max-height:780px){.cc-in{padding:26px;gap:12px}.cc-in h3{font-size:38px}.cc-in p{font-size:16px;margin-top:8px}}
+  @media (max-height:700px){.car-keys .k{display:none}}
+  @media (prefers-reduced-motion:reduce){.ccard,.cc-float{transition-duration:.01s}.ccard.on .cc-float,.ccard.on::after{animation:none}}
   .qrcard{right:28px;bottom:28px}
 }
 /* picture stage grows to fill the card's spare height (back face, and front in picture-first mode) */
@@ -756,7 +798,6 @@ html,body,button,a,input,select,textarea,label,[role=button]{touch-action:manipu
 /* new topic tag + what's new summary */
 .ntag{display:inline-block;vertical-align:middle;margin:0 0 8px;padding:3px 9px;border-radius:99px;background:var(--green-tint);color:var(--green-ink);font-size:12px;font-weight:600;letter-spacing:0}
 .adr .ntag{margin:0 0 0 8px}
-.dcard .ntag{margin-bottom:10px}
 .alld{position:relative}.ndot{position:absolute;top:4px;right:4px;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 2px var(--page)}
 .wn-v{font-size:13px;font-weight:600;color:var(--green-ink);background:var(--green-tint);padding:4px 10px;border-radius:99px}
 .wns ul{margin:10px 0 6px;padding-left:20px;color:var(--ink);font-size:16px;line-height:1.5}.wns li{margin:6px 0}
@@ -822,6 +863,11 @@ html,body,button,a,input,select,textarea,label,[role=button]{touch-action:manipu
 .pzsvg .pza.draw line{animation:pdraw .32s cubic-bezier(.22,1,.36,1) both}.pzsvg .pza.draw path{animation:pfade .32s ease-out both}
 @keyframes pdraw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
 @keyframes pfade{0%,60%{opacity:0}}
+
+/* opening a deck: card backs stack, then the top one turns into card 1 */
+.sback{position:absolute;inset:0;display:grid;place-items:center;border-radius:var(--r-card);color:var(--green);background:var(--green) repeating-linear-gradient(45deg,rgba(255,255,255,.07) 0 2px,transparent 2px 12px);box-shadow:inset 0 0 0 10px var(--green),inset 0 0 0 11.5px rgba(255,255,255,.4),0 14px 34px -20px rgba(0,0,0,.45);pointer-events:none;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.sback svg{width:64px;height:64px}
+.fx-shield{position:fixed;inset:0;z-index:70;background:transparent}
 
 /* ===== Mini UI kit (drawn inside the card's visual stage) ===== */
 .vis{position:relative;display:flex;align-items:center;justify-content:center;font-family:var(--body);font-size:11px;line-height:1.25;color:var(--ink-2);overflow:hidden;text-align:left}
@@ -4287,7 +4333,8 @@ const SFX=(()=>{let ctx=null,out;
     wrong:()=>{const t=ctx.currentTime;tone(233,t,.15,{type:'square',vol:.07});tone(185,t+.13,.26,{type:'square',vol:.07})},
     streak:()=>run(['C5','E5','G5','C6','E6','G6'],.055,{type:'triangle',vol:.24,d:.32}),
     fanfare:()=>{run(['G5','C6','E6','G6'],.11,{type:'triangle',vol:.26,d:.42});const t=ctx.currentTime+.46;['C5','E5','G5'].forEach(k=>tone(N[k],t,.95,{type:'sine',vol:.12,attack:.02}))},
-    tick:()=>tone(1500,ctx.currentTime,.035,{type:'sine',vol:.07})
+    tick:()=>tone(1500,ctx.currentTime,.035,{type:'sine',vol:.07}),
+    deal:()=>{whoosh(ctx.currentTime,.075,2200,5200,.13);tone(2400,ctx.currentTime+.05,.02,{type:'sine',vol:.035})}
   };
   return {play(n){if(!S.sound)return;const c=init();if(!c)return;if(c.state==='suspended')c.resume();try{fx[n]()}catch(e){}},
           wake(){if(S.sound){const c=init();if(c&&c.state==='suspended')c.resume()}}};
@@ -4437,7 +4484,7 @@ function renderStudy(enter){
     stack=`<div class="endc"><span class="num">${k}/${u}</span><h2>You finished this deck</h2><p>${u-k?`${u-k} ${u-k===1?'card still needs':'cards still need'} practice.`:'You know every card in it. Nice work.'}</p><div class="row">${u-k?`<button class="pill go" data-act="learnonly">Practice the ${u-k} left</button>`:''}<button class="pill out" data-act="restart">Start over</button></div></div>`;
   } else {
     const t=BYID[S.order[S.pos]];
-    stack=`<div class="ghost g2"></div><div class="ghost g1"></div><div class="card ${S.flipped?'flipped':''} ${S.first?'first':enter?'enter':''}" id="card" tabindex="0" role="button" aria-label="${esc(t.t)}. Tap to flip.">${cardHTML(t)}<span class="dtag know">${I(P.check,16,2.6)}Know it</span><span class="dtag learn">Still learning</span></div>`;
+    stack=`<div class="ghost g2"></div><div class="ghost g1"></div><div class="card ${S.flipped?'flipped':''} ${S.dealIn&&!reduced?'':S.first?'first':enter?'enter':''}" id="card" tabindex="0" role="button" aria-label="${esc(t.t)}. Tap to flip.">${cardHTML(t)}<span class="dtag know">${I(P.check,16,2.6)}Know it</span><span class="dtag learn">Still learning</span></div>`;
     live.textContent=`Card ${S.pos+1} of ${n}: ${t.t}`;
   }
   S.first=false;
@@ -4456,6 +4503,7 @@ function renderStudy(enter){
     </div>`:''}
   </section>`;
   bindCard(); fit(); fitTerm();
+  if(S.dealIn){S.dealIn=false;stackIn()}
 }
 function hideHint(){if(S.hint)return;S.hint=true;persist();const h=$('#hint');if(h){h.classList.add('out');setTimeout(()=>h.remove(),400)}}
 function flip(){const c=$('#card');if(!c||S.busy)return;S.flipped=!S.flipped;c.classList.toggle('flipped',S.flipped);c.querySelector('.front').setAttribute('aria-hidden',S.flipped);c.querySelector('.back').setAttribute('aria-hidden',!S.flipped);SFX.play('flip');buzz(8)}
@@ -4648,20 +4696,84 @@ function renderHome(enter,dir){
   bindHome(); fitHome();
   const hc=$('#hchips'),ac=hc&&hc.querySelector('[aria-selected="true"]');if(ac){const l=ac.offsetLeft-hc.clientWidth/2+ac.offsetWidth/2;enter&&!reduced?hc.scrollTo({left:l,behavior:'smooth'}):hc.scrollLeft=l}
 }
-function renderHomeDesk(){
+/* desktop Home: one floating deck card, previous/next named at the sides; "See all decks" deals them into a grid */
+let deskGrid=false;
+const ONE='<rect x="7" y="3.5" width="10" height="17" rx="2.5"/><path d="M3.5 7.5v9M20.5 7.5v9"/>';
+const CBACK='<svg viewBox="0 0 100 100" width="76" height="76" aria-hidden="true"><rect x="18" y="27" width="38" height="52" rx="9" transform="rotate(-16 37 53)" fill="currentColor" stroke="#fff" stroke-width="6" opacity=".75"/><rect x="42" y="19" width="38" height="52" rx="9" transform="rotate(10 61 45)" fill="currentColor" stroke="#fff" stroke-width="6"/><path d="M65 30L49 53h11l-5 16 17-24H61z" fill="#fff" transform="translate(61 45) rotate(10) scale(.85) translate(-60.5 -49.5)"/></svg>';
+function deskCard(tp){const T=TOPICS[tp];
+  if(T.mix){const d=dailyBody(true);return `<div class="cc-in"><div><span class="ntag rv">Across all decks</span><h3>${esc(T.n)}</h3><p>${esc(T.d)}</p></div><div class="dc-sp"></div><div class="hc-prog">${d.prog}</div>${d.D.n?d.btn:''}</div>`}
+  const all=topicTerms(tp),k=all.filter(t=>S.known.has(t.id)).length,started=S.visited.has(tp)||k>0,pct=all.length?k/all.length:0,due=dueIn(tp),cats=Object.keys(CATS).filter(c=>CATS[c][2]===tp).length;
+  return `<div class="cc-in"><div>${isNewTopic(tp)?newTag:''}<h3>${esc(T.n)}</h3><p>${esc(T.d)}</p></div>
+    <div class="dc-sp"></div>
+    <div class="hc-prog">${started?ringSVG2(pct,T.c,Math.round(pct*100)+'%'):`<span class="hc-new">New</span>`}<div><b>${started?`${k} of ${all.length} ${T.qa?'answered':'known'}`:`${all.length} ${T.qa?'questions':'cards'} · ${cats} categories`}</b><small>${started?`${k*10} xp earned`:'About 10 minutes for 20 cards'}</small></div></div>
+    ${due?`<button class="hc-due" data-review="${tp}">${I(P.cal,16,2)}<span><b>${due} card${due===1?'':'s'} to review today</b></span>${I(P.chev,16,2)}</button>`:''}
+    <span class="pill ${started?'dark':'go'} full">${started?'Continue':'Start deck'}</span></div>`}
+const deskTop=(title,btn)=>`<div class="hd-top"><h2>${title}</h2><span class="hd-r"><button class="mus ${S.music?'on':''}" data-act="music" aria-label="Background music ${S.music?'on':'off'}" aria-pressed="${S.music}">${I(S.music?P.music:P.musicOff,18,2)}</button>${btn}</span></div>`;
+function renderHomeDesk(enter){
+  if(S.hpos===undefined||S.hpos<0) S.hpos=Math.max(0,TKEYS.indexOf(S.topic));
+  if(deskGrid) return renderDeskGrid();
   main.innerHTML=`<section class="view v-homed">
-    <div class="hd-top"><h2>Pick a deck</h2><span class="hd-r"><button class="mus ${S.music?'on':''}" data-act="music" aria-label="Background music ${S.music?'on':'off'}" aria-pressed="${S.music}">${I(S.music?P.music:P.musicOff,18,2)}</button></span></div>
-    <div class="dgrid">${TKEYS.map(tp=>{const T=TOPICS[tp];if(T.mix){const d=dailyBody(true);return `<article class="dcard dly" style="--c:${T.c}" ${d.D.n?'data-open-deck="daily"':''} tabindex="0" role="button" aria-label="${esc(T.n)}"><div><span class="ntag rv">Across all decks</span><h3>${esc(T.n)}</h3><p>${esc(T.d)}</p></div><div class="dc-sp"></div><div class="hc-prog">${d.prog}</div>${d.D.n?d.btn:''}</article>`}const all=topicTerms(tp),k=all.filter(t=>S.known.has(t.id)).length,started=S.visited.has(tp)||k>0,pct=k/all.length,due=dueIn(tp),cats=Object.keys(CATS).filter(c=>CATS[c][2]===tp).length;
-      return `<article class="dcard ${tp===S.topic?'cur':''}" style="--c:${T.c}" data-open-deck="${tp}" tabindex="0" role="button" aria-label="${esc(T.n)}. ${started?'Continue':'Start'}">
-        <div>${isNewTopic(tp)?newTag:''}<h3>${esc(T.n)}</h3><p>${esc(T.d)}</p></div>
-        <div class="dc-sp"></div>
-        <div class="hc-prog">${started?ringSVG2(pct,T.c,Math.round(pct*100)+'%'):`<span class="hc-new">New</span>`}<div><b>${started?`${k} of ${all.length} ${T.qa?'answered':'known'}`:`${all.length} ${T.qa?'questions':'cards'} · ${cats} categories`}</b><small>${started?`${k*10} xp earned`:'About 10 minutes for 20 cards'}</small></div></div>
-        ${due?`<button class="hc-due" data-review="${tp}">${I(P.cal,16,2)}<span><b>${due} card${due===1?'':'s'} to review today</b></span>${I(P.chev,16,2)}</button>`:''}
-        <span class="pill ${started?'dark':'go'} full">${started?'Continue':'Start deck'}</span>
-      </article>`}).join('')}</div>
+    ${deskTop('Pick a deck',`<button class="alld" data-act="deskgrid">${I(P.grid,16,2)}See all decks${TKEYS.some(isNewTopic)?'<i class="ndot"></i>':''}</button>`)}
+    <div class="car" id="car" aria-roledescription="carousel" aria-label="Decks">
+      <button class="car-side prev" data-car="-1"><span class="cs-arr">${I('<path d="M15 5l-7 7 7 7"/>',22,2.2)}</span><small>Previous</small><b class="cs-n"></b></button>
+      <div class="car-stage"><div class="car-track">${TKEYS.map((tp,i)=>`<article class="ccard" data-i="${i}" style="--c:${TOPICS[tp].c}" tabindex="-1"><div class="cc-float">${deskCard(tp)}</div></article>`).join('')}</div></div>
+      <button class="car-side next" data-car="1"><span class="cs-arr">${I('<path d="M9 5l7 7-7 7"/>',22,2.2)}</span><small>Next</small><b class="cs-n"></b></button>
+    </div>
+    <div class="car-foot"><span class="car-dots">${TKEYS.map((x,i)=>`<button data-cari="${i}" aria-label="${esc(TOPICS[x].n)}"></button>`).join('')}</span><span class="car-keys"><span class="car-lab" aria-live="polite"></span><span class="k"> · <kbd>←</kbd><kbd>→</kbd> to browse · <kbd>Enter</kbd> to open</span></span></div>
   </section>`;
+  carSet(0,true);bindCar();
+  if(enter&&!reduced){const c=$('#car .ccard.on');if(c)c.animate([{opacity:0,transform:'translateY(14px) scale(.94)'},{opacity:1,transform:'none'}],{duration:520,easing:'cubic-bezier(.16,1,.3,1)'});
+    document.querySelectorAll('.car-side,.car-foot').forEach(e=>e.animate([{opacity:0},{opacity:1}],{duration:400,delay:180,fill:'backwards'}))}
 }
-function jumpDeck(i){if(i===S.hpos)return;const d=i>S.hpos?1:-1;S.hpos=i;SFX.play('flip');buzz(8);renderHome(true,d>0?'fwd':'back')}
+function carSet(dir,instant){const car=$('#car');if(!car)return;const n=TKEYS.length,cards=car.querySelectorAll('.ccard');
+  if(instant)car.classList.add('noanim');
+  cards.forEach(c=>{const i=+c.dataset.i;let off=((i-S.hpos)%n+n)%n;if(off>n/2)off-=n;
+    c.style.setProperty('--off',off);c.classList.toggle('on',off===0);
+    c.style.zIndex=off===0?10:5;c.setAttribute('aria-hidden',off!==0);
+    const tp=TKEYS[i],T=TOPICS[tp];
+    if(off===0){if(!T.mix||dailyInfo().n)c.setAttribute('data-open-deck',tp);else c.removeAttribute('data-open-deck');c.setAttribute('role','button');c.setAttribute('aria-label',`${T.n}. Open deck`);c.tabIndex=0}
+    else{c.removeAttribute('data-open-deck');c.removeAttribute('role');c.tabIndex=-1}});
+  [['prev',-1,'Previous'],['next',1,'Next']].forEach(([k,d,w])=>{const b=car.querySelector('.car-side.'+k),nm=TOPICS[TKEYS[(S.hpos+d+n)%n]].n;b.querySelector('.cs-n').textContent=nm;b.setAttribute('aria-label',`${w} deck: ${nm}`);
+    if(dir&&!reduced)b.querySelector('.cs-n').animate([{opacity:0,transform:`translateX(${dir*14}px)`},{opacity:1,transform:'none'}],{duration:420,easing:'cubic-bezier(.16,1,.3,1)'})});
+  car.parentNode.querySelectorAll('.car-dots button').forEach((d,i)=>d.classList.toggle('on',i===S.hpos));
+  const lab=car.parentNode.querySelector('.car-lab');if(lab)lab.textContent=`${S.hpos+1} of ${n}`;
+  if(instant){void car.offsetWidth;car.classList.remove('noanim')}}
+function carGo(i){const n=TKEYS.length;i=(i+n)%n;if(i===S.hpos)return;let d=((i-S.hpos)%n+n)%n;d=d>n/2?-1:1;S.hpos=i;SFX.play('flip');buzz(8);const had=document.activeElement&&document.activeElement.closest('.ccard');carSet(d);if(had){const c=$('#car .ccard.on');if(c)c.focus({preventScroll:true})}}
+function bindCar(){const car=$('#car');if(!car)return;let acc=0,last=0;
+  car.addEventListener('wheel',e=>{if(Math.abs(e.deltaX)<=Math.abs(e.deltaY))return;e.preventDefault();acc+=e.deltaX;const now=Date.now();
+    if(Math.abs(acc)>60&&now-last>380){carGo(S.hpos+(acc>0?1:-1));acc=0;last=now}},{passive:false});
+  if(reduced)return;
+  car.addEventListener('pointermove',e=>{const c=car.querySelector('.ccard.on .cc-float');if(!c)return;const r=car.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.setProperty('--ry',(x*7).toFixed(2)+'deg');c.style.setProperty('--rx',(-y*5).toFixed(2)+'deg')});
+  car.addEventListener('pointerleave',()=>{const c=car.querySelector('.ccard.on .cc-float');if(c){c.style.setProperty('--ry','0deg');c.style.setProperty('--rx','0deg')}})}
+function renderDeskGrid(from){const D=dailyInfo();
+  main.innerHTML=`<section class="view v-homed v-grid">
+    ${deskTop('All decks',`<button class="alld" data-act="deskone">${I(ONE,16,2)}One at a time</button>`)}
+    <div class="dgrid">${TKEYS.map((tp,i)=>{const T=TOPICS[tp],open=!T.mix||D.n;return `<article class="gcard ${i===S.hpos?'cur':''}" data-i="${i}" style="--c:${T.c}" ${open?`data-open-deck="${tp}" role="button" tabindex="0" aria-label="${esc(T.n)}. Open deck"`:''}><div class="g-front">${deskCard(tp)}</div><div class="g-back" aria-hidden="true">${CBACK}</div></article>`}).join('')}</div>
+  </section>`;
+  if(from&&!reduced) dealCards(from);
+}
+/* dealer: every card starts face down on one pile, then flies out to its seat and turns face up */
+function dealCards(from){const cards=[...document.querySelectorAll('.gcard')],n=cards.length,gap=82,lead=140;
+  cards.forEach((c,i)=>{const r=c.getBoundingClientRect(),dx=from.x-(r.left+r.width/2),dy=from.y-(r.top+r.height/2),s=Math.min(1.25,from.w/r.width),tilt=((i*53)%7-3)*.9,spin=(i%2?1:-1)*(3+(i*29)%4);
+    c.style.zIndex=n-i+5;
+    c.animate([
+      {transform:`perspective(1600px) translate(${dx}px,${dy-i*1.2}px) rotate(${tilt}deg) rotateY(180deg) scale(${s})`},
+      {transform:`perspective(1600px) translate(${dx*.42}px,${dy*.42-46}px) rotate(${spin}deg) rotateY(90deg) scale(${(s+1)/2*1.05})`,offset:.48},
+      {transform:'perspective(1600px) translate(0,0) rotate(0deg) rotateY(0deg) scale(1)'}
+    ],{duration:680,delay:lead+i*gap,easing:'cubic-bezier(.3,.7,.25,1)',fill:'backwards'}).onfinish=()=>{c.style.zIndex=''};
+    setTimeout(()=>SFX.play('deal'),lead+i*gap)});
+}
+/* back to one at a time: the cards are swept back into a pile first */
+function deskOne(){const cards=[...document.querySelectorAll('.gcard')],done=()=>{deskGrid=false;renderHomeDesk(true)};
+  if(reduced||!cards.length){done();return}
+  const m=main.getBoundingClientRect(),x=m.left+m.width/2,y=innerHeight/2;let left=cards.length;
+  cards.slice().reverse().forEach((c,j)=>{const r=c.getBoundingClientRect(),dx=x-(r.left+r.width/2),dy=y-(r.top+r.height/2),i=cards.length-1-j;c.style.zIndex=i+5;
+    c.animate([{transform:'perspective(1600px) none'},{transform:`perspective(1600px) translate(${dx}px,${dy-i*1.2}px) rotate(${((i*53)%7-3)*.9}deg) rotateY(180deg) scale(.9)`}],
+      {duration:430,delay:j*32,easing:'cubic-bezier(.55,0,.35,1)',fill:'forwards'}).onfinish=()=>{if(--left===0)setTimeout(done,90)}});
+  SFX.play('flip');
+}
+function jumpDeck(i){if(DESK.matches&&$('#car')){carGo(i);return}if(i===S.hpos)return;const d=i>S.hpos?1:-1;S.hpos=i;SFX.play('flip');buzz(8);renderHome(true,d>0?'fwd':'back')}
 function allDecksHTML(){return `<div class="shead"><h3>All decks</h3><button class="link" data-act="close">Done</button></div><div class="adl">${GROUPS.map(([gn,ks])=>`<p class="adg">${gn}</p>`+ks.map(tp=>{const i=TKEYS.indexOf(tp);if(TOPICS[tp].mix){const D=dailyInfo();return `<button class="adr" data-hpick="${i}"><span><b>${TOPICS[tp].n}</b><small>${D.n?`${D.n} card${D.n===1?'':'s'} due today`:D.any?`All caught up · next ${whenTxt(D.nd)}`:'Cards you know come back here'}</small></span>${i===S.hpos?`<span class="ck">${I(P.check,20,2.6)}</span>`:I(P.chev,18,2)}</button>`}const T=TOPICS[tp],all=topicTerms(tp),k=all.filter(t=>S.known.has(t.id)).length,st=S.visited.has(tp)||k>0,due=dueIn(tp);
   return `<button class="adr" data-hpick="${i}"><span><b>${esc(T.n)}${isNewTopic(tp)?newTag:''}</b><small>${st?`${k} of ${all.length} ${T.qa?'answered':'known'}`:`New · ${all.length} ${T.qa?'questions':'cards'}`}${due?` · ${due} to review`:''}${k?`<span class="mini"><i style="width:${Math.max(3,k/all.length*100)}%"></i></span>`:''}</small></span>${i===S.hpos?`<span class="ck">${I(P.check,20,2.6)}</span>`:I(P.chev,18,2)}</button>`}).join('')).join('')}</div>`}
 const isNewTopic=tp=>{const T=TOPICS[tp];return !!T.added&&!S.visited.has(tp)&&!newer(T.added,APP_VERSION)&&!['2.0','2.1'].includes(T.added)};
@@ -4674,7 +4786,7 @@ function fitHome(){
   while((h.scrollWidth>h.clientWidth+1||c.scrollHeight>c.clientHeight+1)&&fs>30&&i++<20){fs-=3;h.style.fontSize=fs+'px'}
   if(c.scrollHeight>c.clientHeight+1) c.classList.add('tight');
 }
-function cycleDeck(d,quiet){const n=TKEYS.length;S.hpos=(S.hpos+d+n)%n;SFX.play('flip');if(!quiet)buzz(8);renderHome(true,d>0?'fwd':'back')}
+function cycleDeck(d,quiet){if(DESK.matches&&$('#car')){carGo(S.hpos+d);return}const n=TKEYS.length;S.hpos=(S.hpos+d+n)%n;SFX.play('flip');if(!quiet)buzz(8);renderHome(true,d>0?'fwd':'back')}
 function bindHome(){
   const c=$('#hcard'); if(!c) return; let d=null;
   c.addEventListener('pointerdown',e=>{if(e.button!==0||e.target.closest('button'))return;d={x:e.clientX,y:e.clientY,dx:0,moved:false,id:e.pointerId};c.style.transition='none'});
@@ -4687,7 +4799,26 @@ function bindHome(){
     c.style.transition='transform .45s cubic-bezier(.3,1.6,.5,1)';c.style.transform=''});
   c.addEventListener('pointercancel',()=>{if(!d)return;d=null;c.style.transition='transform .45s cubic-bezier(.3,1.6,.5,1)';c.style.transform=''});
 }
-function openDeck(tp){setTopic(tp);S.first=true;S.flipped=false;go('study')}
+/* opening a deck: a few card backs slide in and stack, then the top one turns over into card 1. Tap or any key skips. */
+function stackIn(){const card=$('#card'),stack=$('#stack');if(!card||!stack||reduced)return;
+  const ghosts=[...stack.querySelectorAll('.ghost')],n=4,gap=45,dur=240,land=(n-1)*gap+dur,turn=100,shells=[],anims=[];
+  ghosts.forEach(g=>g.style.opacity='0');
+  for(let i=0;i<n;i++){const b=document.createElement('div');b.className='sback';b.setAttribute('aria-hidden','true');b.innerHTML=CBACK;stack.insertBefore(b,card);shells.push(b)}
+  shells.forEach((b,i)=>{const top=i===n-1,r=top?0:(i%2?1:-1)*(1.5+i*.8),y=top?0:(n-1-i)*3;
+    anims.push(b.animate([{transform:`translateY(70px) rotate(${(i%2?-1:1)*7}deg) scale(.88)`,opacity:0},{transform:`translateY(${y}px) rotate(${r}deg) scale(1)`,opacity:1}],{duration:dur,delay:i*gap,easing:'cubic-bezier(.3,1.25,.5,1)',fill:'both'}));
+    setTimeout(()=>SFX.play('deal'),i*gap)});
+  anims.push(shells[n-1].animate([{transform:'perspective(1200px) rotateY(0deg)'},{transform:'perspective(1200px) rotateY(90deg)'}],{duration:turn,delay:land,easing:'cubic-bezier(.5,0,1,1)',fill:'forwards'}));
+  anims.push(card.animate([{transform:'perspective(1200px) rotateY(-90deg)'},{transform:'perspective(1200px) rotateY(0deg)'}],{duration:210,delay:land+turn,easing:'cubic-bezier(.2,1.2,.4,1)',fill:'backwards'}));
+  const ft=setTimeout(()=>SFX.play('flip'),land);
+  const shield=document.createElement('div');shield.className='fx-shield';document.body.appendChild(shield);
+  let over=false;const end=()=>{if(over)return;over=true;clearTimeout(ft);shells.forEach(b=>b.remove());shield.remove();document.removeEventListener('keydown',skipKey,true);
+    ghosts.forEach(g=>{g.style.opacity='';if(!reduced)g.animate([{opacity:0},{opacity:1}],{duration:220})})};
+  const skip=()=>{anims.forEach(a=>{try{a.finish()}catch(e){}});end()};
+  const skipKey=e=>{e.preventDefault();e.stopPropagation();skip()};
+  shield.addEventListener('pointerdown',e=>{e.preventDefault();skip()});document.addEventListener('keydown',skipKey,true);
+  anims[anims.length-1].finished.then(end,end);
+}
+function openDeck(tp){setTopic(tp);S.first=true;S.dealIn=true;S.flipped=false;go('study')}
 /* ---------- progress sheet (opened from the level chip) ---------- */
 function avInner(){return S.name?esc(S.name.trim()[0].toUpperCase()):I(P.user,20,2)}
 function profileHTML(){
@@ -4739,7 +4870,7 @@ function nameHTML(){return `<div class="shead"><h3>Your name</h3><button class="
   <label class="bk-in"><input id="nmin" type="text" maxlength="24" placeholder="First name or nickname" value="${esc(S.name||'')}" autocomplete="given-name" enterkeyhint="done"></label>
   <div class="bk-btns"><button class="pill go" data-act="savename">Save</button></div></div>`}
 /* special thanks (names shown with consent, plain names only) */
-const THANKS=['Fola ( Fom x2 )','Oyinlayefa','Wale','Axel'];
+const THANKS=['Fola ( Fom x2 )','Oyinlayefa','Wale','Axel','thepressman','Multimudia','OG'];
 function scriptFont(){if(document.getElementById('dsfont'))return;const l=document.createElement('link');l.id='dsfont';l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap';document.head.appendChild(l)}
 function thanksHTML(){return `<div class="shead"><h3>Special thanks</h3><button class="link" data-act="close">Done</button></div><div class="thx-s">
   <p class="thx-sub">The people whose ideas and feedback shaped every version of Flashdecks.</p>
@@ -5061,8 +5192,9 @@ function maybeIcon(n=0){if(S.iconSeen||!iconAsk())return;
 setTimeout(maybeIcon,2600);
 
 /* ---------- version, What's new, update banner ---------- */
-const APP_VERSION='2.12';
+const APP_VERSION='2.13';
 const CHANGELOG=[ // newest first; the first line is the update banner's note
+  ['2.13','Oct 22, 2026','Opening a deck now deals your cards in. On desktop, browse one deck at a time, or tap See all decks to have them dealt into a grid. Plus more names in Special thanks.'],
   ['2.12','Oct 22, 2026','A new Profile: tap your avatar for your stats, badges and all settings. Plus smoother chess puzzle moves, and a special thanks to the people who shaped Flashdecks.'],
   ['2.11','Oct 22, 2026','Daily review brings due cards from every deck into one session. New decks: AI & Machine Learning, Typography & Colour and Product Management. And Chess has a Puzzles tab: tap the winning move.'],
   ['2.10','Oct 22, 2026','A short "What\'s new" summary after each update, and new topics are now marked so you can spot them.'],
@@ -5122,9 +5254,11 @@ app.addEventListener('click',e=>{
   const wo=t.closest('[data-wnopen]'); if(wo){closeSheet();track('whats-new-open-'+wo.dataset.wnopen);setTimeout(()=>openDeck(wo.dataset.wnopen),200);return}
   const hj=t.closest('[data-hjump]'); if(hj){jumpDeck(+hj.dataset.hjump);return}
   const hp=t.closest('[data-hpick]'); if(hp){closeSheet();setTimeout(()=>jumpDeck(+hp.dataset.hpick),180);return}
-  const rv=t.closest('[data-review]'); if(rv){setTopic(rv.dataset.review);S.cat='all';S.deck='review';persist();rebuild();S.first=true;go('study');return}
+  const cn=t.closest('[data-car]'); if(cn){carGo(S.hpos+ +cn.dataset.car);return}
+  const ci=t.closest('[data-cari]'); if(ci){carGo(+ci.dataset.cari);return}
+  const rv=t.closest('[data-review]'); if(rv){setTopic(rv.dataset.review);S.cat='all';S.deck='review';persist();rebuild();S.first=true;S.dealIn=true;go('study');return}
   const tg=t.closest('[data-tabgo]'); if(tg){go(tg.dataset.tabgo);return}
-  const od=t.closest('[data-open-deck]'); if(od){openDeck(od.dataset.openDeck);return}
+  const od=t.closest('[data-open-deck]'); if(od){if(od.dataset.i)S.hpos=+od.dataset.i;openDeck(od.dataset.openDeck);return}
   const tp=t.closest('[data-topic]'); if(tp){closeSheet();openDeck(tp.dataset.topic);return}
   const sc=t.closest('[data-studycat]'); if(sc){if(sc.dataset.studycat==='ch-puz'){closeSheet();go('puzzles');return}S.cat=sc.dataset.studycat;S.deck='all';persist();rebuild();S.quiz.cur=null;if(S.tab==='study'){closeSheet();render(true)}else go('study');return}
   const fc=t.closest('[data-fcat]'); if(fc){S.cat=fc.dataset.fcat;persist();rebuild();S.quiz.cur=null;refreshSheet(filterHTML());render(true);return}
@@ -5167,6 +5301,8 @@ app.addEventListener('click',e=>{
   else if(act==='install'){openSheet(installHTML());track('install-open')}
   else if(act==='doinstall'){doInstall()}
   else if(act==='alldecks'){openSheet(allDecksHTML());track('all-decks')}
+  else if(act==='deskgrid'){const r=$('#car .ccard.on .cc-in'),f=r&&r.getBoundingClientRect();deskGrid=true;SFX.play('flip');renderDeskGrid(f?{x:f.left+f.width/2,y:f.top+f.height/2,w:f.width}:{x:innerWidth/2,y:innerHeight/2,w:300});track('all-decks')}
+  else if(act==='deskone'){deskOne()}
   else if(act==='askreset'){S.resetAsk=!S.resetAsk;refreshSheet(progressHTML())}
   else if(act==='noreset'){S.resetAsk=false;refreshSheet(progressHTML())}
   else if(act==='doreset'){S.known.clear();S.srs={};S.day={d:0,n:0};S.dstreak={last:0,n:0};S.qc=0;S.qa=0;S.best=0;S.seen=-1;S.resetAsk=false;S.quiz={cur:null,opts:[],answered:false,pick:null,score:0,total:0,streak:0,recent:[]};persist();rebuild();renderLevel();refreshSheet(progressHTML());if(S.tab==='home')renderHome();toast('Progress reset')}
@@ -5183,9 +5319,9 @@ app.addEventListener('click',e=>{
 });
 document.addEventListener('keydown',e=>{
   if(e.target.matches('input,textarea')||e.metaKey||e.ctrlKey||e.altKey) return;
-  if(e.key==='Escape'){if(document.querySelector('.unlock'))document.querySelector('.unlock').remove();else if(sheetOpen)closeSheet();return}
+  if(e.key==='Escape'){if(document.querySelector('.unlock'))document.querySelector('.unlock').remove();else if(sheetOpen)closeSheet();else if(deskGrid&&S.tab==='home'&&DESK.matches)deskOne();return}
   if(sheetOpen||document.querySelector('.unlock')) return;
-  if(S.tab==='home'&&DESK.matches){if(e.key==='Enter'&&e.target.closest('[data-open-deck]')){e.preventDefault();openDeck(e.target.closest('[data-open-deck]').dataset.openDeck)}return}
+  if(S.tab==='home'&&DESK.matches){if(deskGrid){const g=e.target.closest&&e.target.closest('.gcard[data-open-deck]');if(g&&(e.key==='Enter'||e.key===' ')){e.preventDefault();S.hpos=+g.dataset.i;openDeck(g.dataset.openDeck)}return}if(e.key==='ArrowRight'){e.preventDefault();carGo(S.hpos+1)}else if(e.key==='ArrowLeft'){e.preventDefault();carGo(S.hpos-1)}else if(e.key==='Enter'&&!e.target.closest('button')){const c=$('#car .ccard.on[data-open-deck]');if(c){e.preventDefault();openDeck(c.dataset.openDeck)}}return}
   if(S.tab==='home'){
     if(e.key==='ArrowRight'){e.preventDefault();cycleDeck(1)}else if(e.key==='ArrowLeft'){e.preventDefault();cycleDeck(-1)}else if(e.key==='Enter'&&!e.target.closest('button')){e.preventDefault();openDeck(TKEYS[S.hpos])}
   } else if(S.tab==='study'){
