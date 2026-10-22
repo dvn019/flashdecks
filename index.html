@@ -4,26 +4,26 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Flashdecks</title>
-<meta name="description" content="Flashcards for UX & UI design, software engineering, architecture, chess and design interviews. Free, no sign-up, made for your phone.">
+<meta name="description" content="Learn anything, one card at a time: UX, AI, code, typography & colour, product, architecture, CAD, baking and chess puzzles. Free, no sign-up, made for your phone.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Flashdecks">
 <meta property="og:title" content="Flashdecks: learn anything, one card at a time">
-<meta property="og:description" content="UX & UI, software, architecture, chess and interview decks, with little drawings. Free, no sign-up.">
+<meta property="og:description" content="11 illustrated decks, a daily review and chess puzzles. Free, no sign-up.">
 <meta property="og:url" content="https://dvn019.github.io/flashdecks/">
-<meta property="og:image" content="https://dvn019.github.io/flashdecks/og-image.png">
+<meta property="og:image" content="https://dvn019.github.io/flashdecks/og-image.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Flashdecks app on two phones showing flashcards">
+<meta property="og:image:alt" content="Flashdecks app on a phone showing an illustrated flashcard">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://dvn019.github.io/flashdecks/og-image.png">
+<meta name="twitter:image" content="https://dvn019.github.io/flashdecks/og-image.png?v=2">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Flashdecks">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<link rel="icon" href="favicon.svg?v=3" type="image/svg+xml">
-<link rel="icon" href="favicon-32.png?v=3" type="image/png" sizes="32x32">
-<link rel="alternate icon" href="favicon.ico?v=3">
-<link rel="apple-touch-icon" href="icon-180.png?v=3">
+<link rel="icon" href="favicon.svg?v=5" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png?v=5" type="image/png" sizes="32x32">
+<link rel="alternate icon" href="favicon.ico?v=5">
+<link rel="apple-touch-icon" href="icon-180.png?v=5">
 <link rel="manifest" href="manifest.webmanifest">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
 </head>
@@ -784,6 +784,7 @@ html,body,button,a,input,select,textarea,label,[role=button]{touch-action:manipu
 .pzshow{align-self:flex-start;min-height:40px;font-size:15px;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px}
 .pzshow:disabled{opacity:.4}
 .ctx h2 .rose{width:20px;height:20px;vertical-align:-3px;color:var(--green)}
+.lvl{white-space:nowrap;flex:none}
 
 /* ===== Mini UI kit (drawn inside the card's visual stage) ===== */
 .vis{position:relative;display:flex;align-items:center;justify-content:center;font-family:var(--body);font-size:11px;line-height:1.25;color:var(--ink-2);overflow:hidden;text-align:left}
@@ -1649,7 +1650,7 @@ html,body,button,a,input,select,textarea,label,[role=button]{touch-action:manipu
 <div class="app" id="app">
   <header class="bar gut">
     <button class="hback" id="bkhome" type="button" data-act="home" aria-label="Back to all decks"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-    <span class="mark" aria-hidden="true"><svg viewBox="0 0 100 100" width="34" height="34"><rect x="14" y="31" width="8" height="38" rx="4" fill="#fff" opacity=".35"/><rect x="24" y="25" width="8" height="50" rx="4" fill="#fff" opacity=".6"/><rect x="34" y="19" width="50" height="62" rx="12" fill="#fff"/><path class="bolt" d="M65 30L49 53h11l-5 16 17-24H61z" fill="currentColor"/></svg></span>
+    <span class="mark" aria-hidden="true"><svg viewBox="0 0 100 100" width="34" height="34"><rect x="18" y="27" width="38" height="52" rx="9" transform="rotate(-16 37.0 53.0)" fill="currentColor" stroke="#fff" stroke-width="6" opacity="0.75"/><rect x="42" y="19" width="38" height="52" rx="9" transform="rotate(10 61.0 45.0)" fill="currentColor" stroke="#fff" stroke-width="6" opacity="1"/><path class="bolt" d="M65 30L49 53h11l-5 16 17-24H61z" fill="#fff" transform="translate(61 45) rotate(10) scale(0.85) translate(-60.5 -49.5)"/></svg></span>
     <h1><span class="hb-app">Flashdecks</span><span class="hb-deck" id="hbdeck"></span></h1>
     <button class="lvl" id="lvl" type="button"></button>
   </header>

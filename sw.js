@@ -1,6 +1,6 @@
 /* Flashdecks offline support: the app opens with no signal.
    Page: network first (so updates arrive), cached copy when offline. Icons/images: cache first. */
-const V='flashdecks-v4';
+const V='flashdecks-v6';
 const CORE=['./','index.html','manifest.webmanifest','icon-180.png','icon-192.png','icon-512.png','favicon.svg','favicon-32.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
