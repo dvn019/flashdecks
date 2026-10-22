@@ -785,6 +785,7 @@ html,body,button,a,input,select,textarea,label,[role=button]{touch-action:manipu
 .pzshow:disabled{opacity:.4}
 .ctx h2 .rose{width:20px;height:20px;vertical-align:-3px;color:var(--green)}
 .lvl{white-space:nowrap;flex:none}
+.ic-act{margin-top:10px}.isteps li:has(.ic-act){align-items:flex-start;padding:12px 0}.isteps li:has(.ic-act) .isi{margin-top:2px}.isi b{font-size:15px;font-weight:650}
 
 /* ===== Mini UI kit (drawn inside the card's visual stage) ===== */
 .vis{position:relative;display:flex;align-items:center;justify-content:center;font-family:var(--body);font-size:11px;line-height:1.25;color:var(--ink-2);overflow:hidden;text-align:left}
@@ -4206,11 +4207,11 @@ const S={
   known:new Set([...(saved.known||[]),...(v1.known||[])].filter(id=>BYID[id])),
   qc:saved.qc||0, qa:saved.qa||0, best:Math.max(saved.best||0,v1.best||0),
   hint:!!saved.hint, seen:saved.seen??-2, sound:saved.sound!==false, fbDone:!!saved.fbDone, music:saved.music!==false, toured:!!saved.toured, visited:new Set(saved.visited||[]), hpos:-1, fbNudge:!!saved.fbNudge, marks:saved.marks||0,
-  srs:saved.srs||{}, goal:saved.goal||20, remind:Object.assign({on:false,hour:19,daily:true,updates:true},saved.remind||{}), nAsk:saved.nAsk||0, seenVer:saved.seenVer||'', nAskAt:saved.nAskAt||0, instAsk:saved.instAsk||0, instCount:saved.instCount||0, pzPos:saved.pzPos, lastStudy:saved.lastStudy||0, day:saved.day||{d:0,n:0}, dstreak:saved.dstreak||{last:0,n:0},
+  srs:saved.srs||{}, goal:saved.goal||20, remind:Object.assign({on:false,hour:19,daily:true,updates:true},saved.remind||{}), nAsk:saved.nAsk||0, seenVer:saved.seenVer||'', nAskAt:saved.nAskAt||0, instAsk:saved.instAsk||0, instCount:saved.instCount||0, pzPos:saved.pzPos, iconSeen:!!saved.iconSeen||!Object.keys(saved).length, lastStudy:saved.lastStudy||0, day:saved.day||{d:0,n:0}, dstreak:saved.dstreak||{last:0,n:0},
   q:'', order:[], pos:0, flipped:false, busy:false, first:true, resetAsk:false,
   quiz:{cur:null,opts:[],answered:false,pick:null,score:0,total:0,streak:0,recent:[]}
 };
-const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify({tab:S.tab,topic:S.topic,cat:S.cat,deck:S.deck,pic:S.pic,shuffle:S.shuffle,known:[...S.known],qc:S.qc,qa:S.qa,best:S.best,hint:S.hint,seen:S.seen,sound:S.sound,fbDone:S.fbDone,music:S.music,toured:S.toured,visited:[...S.visited],fbNudge:S.fbNudge,marks:S.marks,srs:S.srs,goal:S.goal,day:S.day,dstreak:S.dstreak,remind:S.remind,seenVer:S.seenVer,nAsk:S.nAsk,nAskAt:S.nAskAt,lastStudy:S.lastStudy,instAsk:S.instAsk,instCount:S.instCount,pzPos:S.pzPos}))}catch(e){}};
+const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify({tab:S.tab,topic:S.topic,cat:S.cat,deck:S.deck,pic:S.pic,shuffle:S.shuffle,known:[...S.known],qc:S.qc,qa:S.qa,best:S.best,hint:S.hint,seen:S.seen,sound:S.sound,fbDone:S.fbDone,music:S.music,toured:S.toured,visited:[...S.visited],fbNudge:S.fbNudge,marks:S.marks,srs:S.srs,goal:S.goal,day:S.day,dstreak:S.dstreak,remind:S.remind,seenVer:S.seenVer,nAsk:S.nAsk,nAskAt:S.nAskAt,lastStudy:S.lastStudy,instAsk:S.instAsk,instCount:S.instCount,pzPos:S.pzPos,iconSeen:S.iconSeen}))}catch(e){}};
 /* ---------- spaced repetition + daily goal ---------- */
 const today=()=>{const d=new Date();return Math.floor((d-d.getTimezoneOffset()*6e4)/864e5)};
 const GAPS=[1,3,7,14,30,60];
@@ -4676,6 +4677,7 @@ function progressHTML(){
     <div class="list">
       ${standalone()||!onPhone()?'':`<button class="lrow" data-act="install"><span class="ico">${I(P.phone,18,2)}</span><span><b>Install the app</b><small>Add Flashdecks to your Home Screen</small></span><span class="rt">${I(P.chev,18,2)}</span></button>`}
       <button class="lrow" data-act="goal"><span class="ico">${I(P.target,18,2)}</span><span><b>Daily goal</b><small>${S.goal} cards a day · tap to change</small></span><span class="rt">${I(P.chev,18,2)}</span></button>
+      ${iconAsk()?`<button class="lrow" data-act="iconhelp"><span class="ico">${I(P.phone,18,2)}</span><span><b>Get the new app icon</b><small>Swap the icon on your Home Screen</small></span><span class="rt">${I(P.chev,18,2)}</span></button>`:''}
       <button class="lrow" data-act="backup"><span class="ico">${I(P.save,18,2)}</span><span><b>Back up progress</b><small>Save a copy, or restore on a new phone</small></span><span class="rt">${I(P.chev,18,2)}</span></button>
       <button class="lrow" data-act="feedback"><span class="ico">${I(P.chat,18,2)}</span><span><b>Send feedback</b><small>Tell us what to improve</small></span><span class="rt">${I(P.chev,18,2)}</span></button>
       <button class="lrow" role="switch" data-act="music" aria-checked="${S.music}"><span class="ico">${I(P.music,18,2)}</span><span><b>Background music</b><small>Soft lo-fi while you study</small></span><span class="rt"><span class="sw"></span></span></button>
@@ -4892,7 +4894,7 @@ function backupHTML(){return `<div class="shead"><h3>Back up progress</h3><butto
   <p class="bk-note">Restoring replaces the progress on this phone.</p></div>`}
 function restoreBackup(code){code=(code||'').trim();
   try{if(!code.startsWith('FD1.'))throw 0;const raw=decodeURIComponent(escape(atob(code.slice(4))));const o=JSON.parse(raw);if(!o||!Array.isArray(o.known))throw 0;
-    localStorage.setItem(KEY,raw);track('backup-restore');toast('Progress restored');setTimeout(()=>location.reload(),900)}
+    if(S.iconSeen)o.iconSeen=true;localStorage.setItem(KEY,JSON.stringify(o));track('backup-restore');toast('Progress restored');setTimeout(()=>location.reload(),900)}
   catch(e){toast("That code doesn't look right. Check you copied all of it")}}
 document.addEventListener('change',e=>{if(e.target.id!=='bkfile'||!e.target.files[0])return;e.target.files[0].text().then(s=>{$('#bkin').value=s.trim();restoreBackup(s)})});
 /* ---------- share a card ---------- */
@@ -4985,6 +4987,22 @@ function maybeInstall(){
   if(S.instCount>=3||(S.instAsk&&Date.now()-S.instAsk<3*864e5))return;
   S.instAsk=Date.now();S.instCount++;persist();track('install-prompt');openSheet(installHTML());
 }
+
+/* ---------- new app icon (Oct 2026): iPhone keeps the icon it saved at install, so walk installed users through re-adding it ---------- */
+const iconStep=(n,html)=>`<li><span class="isi"><b>${n}</b></span><span>${html}</span></li>`;
+function iconHTML(){return `<div class="shead"><h3>New app icon</h3><button class="link" data-act="close">Maybe later</button></div><div class="inst">
+  <div class="inst-hero"><span class="inst-ico">${$('.bar .mark').innerHTML}</span><p>Flashdecks has a new icon. iPhone doesn't update Home Screen icons by itself, so here's how to swap it. It takes about a minute.</p></div>
+  <ol class="isteps">
+    ${iconStep(1,'<b>Back up your progress first.</b> Removing the app from your Home Screen also deletes its progress on iPhone.<div class="ic-act"><button class="pill dark sm" data-act="copybk">Copy backup code</button></div>')}
+    ${iconStep(2,'Press and hold Flashdecks on your Home Screen and remove it.')}
+    ${iconStep(3,'Open <b>dvn019.github.io/flashdecks</b> in Safari, tap <b>Share</b>, then <b>Add to Home Screen</b>.<div class="ic-act"><button class="pill out sm" data-act="copylink">Copy link</button></div>')}
+    ${iconStep(4,'Open the new app, tap your level badge, then <b>Back up progress</b>. Paste the code and tap <b>Restore</b>.')}
+  </ol></div>`}
+const iconAsk=()=>isIOS()&&standalone();
+function maybeIcon(n=0){if(S.iconSeen||!iconAsk())return;
+  if(sheetOpen||document.querySelector('#intro,.unlock')){if(n<4)setTimeout(()=>maybeIcon(n+1),4000);return}
+  S.iconSeen=true;persist();track('icon-card');openSheet(iconHTML())}
+setTimeout(maybeIcon,2600);
 
 /* ---------- version, What's new, update banner ---------- */
 const APP_VERSION='2.11';
@@ -5094,6 +5112,8 @@ app.addEventListener('click',e=>{
   else if(act==='goal'){const G=[10,20,30,50],i=G.indexOf(S.goal);S.goal=G[(i+1)%G.length];persist();SFX.play('tick');track('goal-'+S.goal);
     if(sheetOpen)refreshSheet(progressHTML());if(S.tab==='home'){const g=$('.goal');if(g)g.outerHTML=goalHTML()}toast(`Daily goal: ${S.goal} cards`,P.target)}
   else if(act==='backup'){openSheet(backupHTML())}
+  else if(act==='iconhelp'){openSheet(iconHTML())}
+  else if(act==='copylink'){copyText(SITE).then(ok=>toast(ok?'Link copied':'Could not copy'))}
   else if(act==='copybk'){copyText(backupCode()).then(ok=>toast(ok?'Backup code copied':'Could not copy. Use Save file instead'));track('backup-copy')}
   else if(act==='filebk'){const b=new Blob([backupCode()],{type:'text/plain'}),u=URL.createObjectURL(b),l=document.createElement('a');l.href=u;l.download=`flashdecks-backup-${new Date().toISOString().slice(0,10)}.txt`;document.body.append(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);track('backup-file')}
   else if(act==='restorebk'){restoreBackup($('#bkin').value)}
