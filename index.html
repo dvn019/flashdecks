@@ -753,6 +753,19 @@ html,body,button,a,input,select,textarea,label,[role=button]{touch-action:manipu
 .adg{margin:18px 0 2px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}.adl .adg:first-child{margin-top:6px}
 .adg+.adr{border-top:0}
 
+/* new topic tag + what's new summary */
+.ntag{display:inline-block;vertical-align:middle;margin:0 0 8px;padding:3px 9px;border-radius:99px;background:var(--green-tint);color:var(--green-ink);font-size:12px;font-weight:600;letter-spacing:0}
+.adr .ntag{margin:0 0 0 8px}
+.dcard .ntag{margin-bottom:10px}
+.alld{position:relative}.ndot{position:absolute;top:4px;right:4px;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 2px var(--page)}
+.wn-v{font-size:13px;font-weight:600;color:var(--green-ink);background:var(--green-tint);padding:4px 10px;border-radius:99px}
+.wns ul{margin:10px 0 6px;padding-left:20px;color:var(--ink);font-size:16px;line-height:1.5}.wns li{margin:6px 0}
+.wnt{border:1px solid var(--line-2);border-radius:16px;overflow:hidden;margin-bottom:18px}
+.wnt-r{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;text-align:left;border-top:1px solid var(--line)}.wnt-r:first-child{border-top:0}
+.wnt-r span{flex:1;min-width:0}.wnt-r b{display:block;font-size:16px;font-weight:600}.wnt-r small{display:block;font-size:13px;color:var(--ink-2);margin-top:2px}
+.wnt-r>svg{color:var(--ink-3)}
+.wns .pill{margin-top:4px}
+
 /* ===== Mini UI kit (drawn inside the card's visual stage) ===== */
 .vis{position:relative;display:flex;align-items:center;justify-content:center;font-family:var(--body);font-size:11px;line-height:1.25;color:var(--ink-2);overflow:hidden;text-align:left}
 .vis *{box-sizing:border-box}
@@ -3614,9 +3627,9 @@ const TOPICS={
   arch:{n:'Architecture',s:'Architecture',c:'var(--green)',i:'arch',d:'Buildings, structure and styles'},
   chess:{n:'Chess',s:'Chess',c:'var(--green)',i:'pawn',d:'Rules, tactics and strategy'},
   ivw:{n:'UX/UI Interviews',s:'Interviews',c:'var(--green)',i:'chat',d:'Common questions, strong answers',qa:true},
-  cada:{n:'CAD for Architects',s:'CAD Arch',c:'var(--green)',i:'arch',d:'BIM, Revit and AutoCAD essentials'},
-  cade:{n:'CAD for Engineers',s:'CAD Eng',c:'var(--green)',i:'code',d:'3D parts, assemblies and drawings'},
-  bake:{n:'Home Baking',s:'Baking',c:'var(--green)',i:'cards',d:'Techniques, ingredients and fixes'}
+  cada:{added:'2.9',n:'CAD for Architects',s:'CAD Arch',c:'var(--green)',i:'arch',d:'BIM, Revit and AutoCAD essentials'},
+  cade:{added:'2.9',n:'CAD for Engineers',s:'CAD Eng',c:'var(--green)',i:'code',d:'3D parts, assemblies and drawings'},
+  bake:{added:'2.9',n:'Home Baking',s:'Baking',c:'var(--green)',i:'cards',d:'Techniques, ingredients and fixes'}
 };
 /* groups for the All decks list */
 const GROUPS=[['Design & tech',['ux','swe','ivw']],['Architecture & engineering',['arch','cada','cade']],['Games',['chess']],['Food',['bake']]];
@@ -3702,11 +3715,11 @@ const S={
   known:new Set([...(saved.known||[]),...(v1.known||[])].filter(id=>BYID[id])),
   qc:saved.qc||0, qa:saved.qa||0, best:Math.max(saved.best||0,v1.best||0),
   hint:!!saved.hint, seen:saved.seen??-2, sound:saved.sound!==false, fbDone:!!saved.fbDone, music:saved.music!==false, toured:!!saved.toured, visited:new Set(saved.visited||[]), hpos:-1, fbNudge:!!saved.fbNudge, marks:saved.marks||0,
-  srs:saved.srs||{}, goal:saved.goal||20, remind:Object.assign({on:false,hour:19,daily:true,updates:true},saved.remind||{}), nAsk:saved.nAsk||0, nAskAt:saved.nAskAt||0, instAsk:saved.instAsk||0, instCount:saved.instCount||0, lastStudy:saved.lastStudy||0, day:saved.day||{d:0,n:0}, dstreak:saved.dstreak||{last:0,n:0},
+  srs:saved.srs||{}, goal:saved.goal||20, remind:Object.assign({on:false,hour:19,daily:true,updates:true},saved.remind||{}), nAsk:saved.nAsk||0, seenVer:saved.seenVer||'', nAskAt:saved.nAskAt||0, instAsk:saved.instAsk||0, instCount:saved.instCount||0, lastStudy:saved.lastStudy||0, day:saved.day||{d:0,n:0}, dstreak:saved.dstreak||{last:0,n:0},
   q:'', order:[], pos:0, flipped:false, busy:false, first:true, resetAsk:false,
   quiz:{cur:null,opts:[],answered:false,pick:null,score:0,total:0,streak:0,recent:[]}
 };
-const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify({tab:S.tab,topic:S.topic,cat:S.cat,deck:S.deck,pic:S.pic,shuffle:S.shuffle,known:[...S.known],qc:S.qc,qa:S.qa,best:S.best,hint:S.hint,seen:S.seen,sound:S.sound,fbDone:S.fbDone,music:S.music,toured:S.toured,visited:[...S.visited],fbNudge:S.fbNudge,marks:S.marks,srs:S.srs,goal:S.goal,day:S.day,dstreak:S.dstreak,remind:S.remind,nAsk:S.nAsk,nAskAt:S.nAskAt,lastStudy:S.lastStudy,instAsk:S.instAsk,instCount:S.instCount}))}catch(e){}};
+const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify({tab:S.tab,topic:S.topic,cat:S.cat,deck:S.deck,pic:S.pic,shuffle:S.shuffle,known:[...S.known],qc:S.qc,qa:S.qa,best:S.best,hint:S.hint,seen:S.seen,sound:S.sound,fbDone:S.fbDone,music:S.music,toured:S.toured,visited:[...S.visited],fbNudge:S.fbNudge,marks:S.marks,srs:S.srs,goal:S.goal,day:S.day,dstreak:S.dstreak,remind:S.remind,seenVer:S.seenVer,nAsk:S.nAsk,nAskAt:S.nAskAt,lastStudy:S.lastStudy,instAsk:S.instAsk,instCount:S.instCount}))}catch(e){}};
 /* ---------- spaced repetition + daily goal ---------- */
 const today=()=>{const d=new Date();return Math.floor((d-d.getTimezoneOffset()*6e4)/864e5)};
 const GAPS=[1,3,7,14,30,60];
@@ -4063,11 +4076,11 @@ function renderHome(enter,dir){
   const n=TKEYS.length, tp=TKEYS[S.hpos], T=TOPICS[tp], all=topicTerms(tp), k=all.filter(t=>S.known.has(t.id)).length;
   const due=dueIn(tp), started=S.visited.has(tp)||k>0, cats=Object.keys(CATS).filter(c=>CATS[c][2]===tp).length, pct=k/all.length;
   main.innerHTML=`<section class="view v-home">
-    <div class="hd-top gut"><h2>Pick a deck</h2><span class="hd-r"><button class="mus ${S.music?'on':''}" data-act="music" aria-label="Background music ${S.music?'on':'off'}" aria-pressed="${S.music}">${I(S.music?P.music:P.musicOff,18,2)}</button><button class="alld" data-act="alldecks" aria-label="All decks, ${n}">${I(P.grid,16,2)}All decks · ${n}</button></span><span class="sr" aria-live="polite">${esc(T.n)}, deck ${S.hpos+1} of ${n}</span></div>
+    <div class="hd-top gut"><h2>Pick a deck</h2><span class="hd-r"><button class="mus ${S.music?'on':''}" data-act="music" aria-label="Background music ${S.music?'on':'off'}" aria-pressed="${S.music}">${I(S.music?P.music:P.musicOff,18,2)}</button><button class="alld" data-act="alldecks" aria-label="All decks, ${n}">${I(P.grid,16,2)}All decks · ${n}${TKEYS.some(isNewTopic)?'<i class="ndot"></i>':''}</button></span><span class="sr" aria-live="polite">${esc(T.n)}, deck ${S.hpos+1} of ${n}</span></div>
     <div class="hstack" id="hstack">
       <div class="hg g2"></div><div class="hg g1"><button class="hnext" data-act="nextdeck" tabindex="-1">Next <b>${esc(TOPICS[TKEYS[(S.hpos+1)%n]].n)}</b>${I(P.arrow,14,2.2)}</button></div>
       <div class="hcard ${enter?'enter h-'+(dir||'fwd'):''}" id="hcard" style="--c:${T.c}" role="group" aria-label="${esc(T.n)} deck">
-        <div class="hc-head"><h2 class="hc-title" id="hctitle">${esc(T.n)}</h2><p class="hc-desc">${esc(T.d)}</p></div>
+        <div class="hc-head">${isNewTopic(tp)?newTag:''}<h2 class="hc-title" id="hctitle">${esc(T.n)}</h2><p class="hc-desc">${esc(T.d)}</p></div>
         <div class="hc-sp"></div>
         <div class="hc-prog">${started?ringSVG2(pct,T.c,Math.round(pct*100)+'%'):`<span class="hc-new">New</span>`}<div><b>${started?`${k} of ${all.length} ${T.qa?'answered':'known'}`:`${all.length} ${T.qa?'questions':'cards'} · ${cats} categories`}</b><small>${started?`${k*10} xp earned in this deck`:'About 10 minutes for your first 20 cards'}</small></div></div>
         ${due?`<button class="hc-due" data-review="${tp}">${I(P.cal,16,2)}<span><b>${due} card${due===1?'':'s'} to review today</b></span>${I(P.chev,16,2)}</button>`:''}
@@ -4085,7 +4098,7 @@ function renderHomeDesk(){
     <div class="hd-top"><h2>Pick a deck</h2><span class="hd-r"><button class="mus ${S.music?'on':''}" data-act="music" aria-label="Background music ${S.music?'on':'off'}" aria-pressed="${S.music}">${I(S.music?P.music:P.musicOff,18,2)}</button></span></div>
     <div class="dgrid">${TKEYS.map(tp=>{const T=TOPICS[tp],all=topicTerms(tp),k=all.filter(t=>S.known.has(t.id)).length,started=S.visited.has(tp)||k>0,pct=k/all.length,due=dueIn(tp),cats=Object.keys(CATS).filter(c=>CATS[c][2]===tp).length;
       return `<article class="dcard ${tp===S.topic?'cur':''}" style="--c:${T.c}" data-open-deck="${tp}" tabindex="0" role="button" aria-label="${esc(T.n)}. ${started?'Continue':'Start'}">
-        <div><h3>${esc(T.n)}</h3><p>${esc(T.d)}</p></div>
+        <div>${isNewTopic(tp)?newTag:''}<h3>${esc(T.n)}</h3><p>${esc(T.d)}</p></div>
         <div class="dc-sp"></div>
         <div class="hc-prog">${started?ringSVG2(pct,T.c,Math.round(pct*100)+'%'):`<span class="hc-new">New</span>`}<div><b>${started?`${k} of ${all.length} ${T.qa?'answered':'known'}`:`${all.length} ${T.qa?'questions':'cards'} · ${cats} categories`}</b><small>${started?`${k*10} xp earned`:'About 10 minutes for 20 cards'}</small></div></div>
         ${due?`<button class="hc-due" data-review="${tp}">${I(P.cal,16,2)}<span><b>${due} card${due===1?'':'s'} to review today</b></span>${I(P.chev,16,2)}</button>`:''}
@@ -4095,7 +4108,9 @@ function renderHomeDesk(){
 }
 function jumpDeck(i){if(i===S.hpos)return;const d=i>S.hpos?1:-1;S.hpos=i;SFX.play('flip');buzz(8);renderHome(true,d>0?'fwd':'back')}
 function allDecksHTML(){return `<div class="shead"><h3>All decks</h3><button class="link" data-act="close">Done</button></div><div class="adl">${GROUPS.map(([gn,ks])=>`<p class="adg">${gn}</p>`+ks.map(tp=>{const i=TKEYS.indexOf(tp);const T=TOPICS[tp],all=topicTerms(tp),k=all.filter(t=>S.known.has(t.id)).length,st=S.visited.has(tp)||k>0,due=dueIn(tp);
-  return `<button class="adr" data-hpick="${i}"><span><b>${esc(T.n)}</b><small>${st?`${k} of ${all.length} ${T.qa?'answered':'known'}`:`New · ${all.length} ${T.qa?'questions':'cards'}`}${due?` · ${due} to review`:''}${k?`<span class="mini"><i style="width:${Math.max(3,k/all.length*100)}%"></i></span>`:''}</small></span>${i===S.hpos?`<span class="ck">${I(P.check,20,2.6)}</span>`:I(P.chev,18,2)}</button>`}).join('')).join('')}</div>`}
+  return `<button class="adr" data-hpick="${i}"><span><b>${esc(T.n)}${isNewTopic(tp)?newTag:''}</b><small>${st?`${k} of ${all.length} ${T.qa?'answered':'known'}`:`New · ${all.length} ${T.qa?'questions':'cards'}`}${due?` · ${due} to review`:''}${k?`<span class="mini"><i style="width:${Math.max(3,k/all.length*100)}%"></i></span>`:''}</small></span>${i===S.hpos?`<span class="ck">${I(P.check,20,2.6)}</span>`:I(P.chev,18,2)}</button>`}).join('')).join('')}</div>`}
+const isNewTopic=tp=>{const T=TOPICS[tp];return !!T.added&&!S.visited.has(tp)&&!newer(T.added,APP_VERSION)&&!['2.0','2.1'].includes(T.added)};
+const newTag='<span class="ntag">New topic</span>';
 function goalHTML(){const n=dayCount(),g=S.goal,p=Math.min(1,n/g),st=dayStreak();
   return `<button class="goal gut" data-act="goal" aria-label="Daily goal: ${Math.min(n,g)} of ${g} cards today. Tap to change."><span class="gl-t">${I(P.target,16,2)}<b>${n>=g?'Goal done':'Today'}</b><em>${Math.min(n,g)} / ${g} cards</em>${st?`<span class="gl-s">${st} day${st===1?'':'s'} in a row</span>`:''}</span><span class="gl-bar"><i style="width:${p*100}%"></i></span></button>`}
 function fitHome(){
@@ -4390,8 +4405,9 @@ function maybeInstall(){
 }
 
 /* ---------- version, What's new, update banner ---------- */
-const APP_VERSION='2.9';
+const APP_VERSION='2.10';
 const CHANGELOG=[ // newest first; the first line is the update banner's note
+  ['2.10','Oct 22, 2026','A short "What\'s new" summary after each update, and new topics are now marked so you can spot them.'],
   ['2.9','Oct 21, 2026','Three new decks: Home Baking, CAD for Architects and CAD for Engineers, plus All decks now grouped by topic.'],
   ['2.8','Oct 21, 2026','Notifications: choose daily reminders and/or updates and check-ins, and hear about new versions as soon as they land.'],
   ['2.7','Oct 21, 2026','Clearer navigation: pick a deck on Home, then Study, Quiz and Search inside it, with the deck name always at the top.'],
@@ -4420,6 +4436,21 @@ function showUpdate(o){if($('#upd'))return;const b=document.createElement('div')
   b.dataset.v=o.v;app.append(b);requestAnimationFrame(()=>b.classList.add('on'));track('update-shown')}
 async function doRefresh(){track('update-refresh');try{const r=await navigator.serviceWorker.getRegistration();if(r)await r.update()}catch(e){}location.reload()}
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkUpdate()});
+/* after an update: a small summary of what changed since the version they last saw, and any new topics */
+function whatsNewSummary(){
+  const prev=S.seenVer||(S.toured?'2.8':APP_VERSION);
+  if(!newer(APP_VERSION,prev)){if(S.seenVer!==APP_VERSION){S.seenVer=APP_VERSION;persist()}return}
+  if(sheetOpen||document.querySelector('#intro,.unlock')){setTimeout(whatsNewSummary,1500);return}
+  const notes=CHANGELOG.filter(([v])=>newer(v,prev)).slice(0,3);
+  const fresh=TKEYS.filter(tp=>TOPICS[tp].added&&newer(TOPICS[tp].added,prev)&&!S.visited.has(tp));
+  S.seenVer=APP_VERSION;persist();track('whats-new-summary-'+APP_VERSION);
+  openSheet(`<div class="shead"><h3>What's new</h3><span class="wn-v">Version ${APP_VERSION}</span></div><div class="wns">
+    <ul>${notes.map(([v,d,t])=>`<li>${esc(t)}</li>`).join('')}</ul>
+    ${fresh.length?`<p class="slabel">New topics</p><div class="wnt">${fresh.map(tp=>`<button class="wnt-r" data-wnopen="${tp}"><span><b>${esc(TOPICS[tp].n)}</b><small>${topicTerms(tp).length} cards · ${esc(TOPICS[tp].d)}</small></span>${I(P.chev,18,2)}</button>`).join('')}</div>`:''}
+    <button class="pill dark full" data-act="close">Got it</button></div>`);
+  requestAnimationFrame(()=>{const g=document.querySelector('.wns .pill');if(g)g.focus({preventScroll:true})});
+}
+setTimeout(whatsNewSummary,1200);
 setTimeout(checkUpdate,4000);
 
 /* ---------- events ---------- */
@@ -4429,6 +4460,7 @@ app.addEventListener('click',e=>{
   const t=e.target;
   const pk=t.closest('[data-pick]'); if(pk){pick(pk.dataset.pick);return}
   const op=t.closest('[data-open]'); if(op){openDetail(op.dataset.open);return}
+  const wo=t.closest('[data-wnopen]'); if(wo){closeSheet();track('whats-new-open-'+wo.dataset.wnopen);setTimeout(()=>openDeck(wo.dataset.wnopen),200);return}
   const hj=t.closest('[data-hjump]'); if(hj){jumpDeck(+hj.dataset.hjump);return}
   const hp=t.closest('[data-hpick]'); if(hp){closeSheet();setTimeout(()=>jumpDeck(+hp.dataset.hpick),180);return}
   const rv=t.closest('[data-review]'); if(rv){setTopic(rv.dataset.review);S.cat='all';S.deck='review';persist();rebuild();S.first=true;go('study');return}
