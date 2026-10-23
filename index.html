@@ -869,6 +869,19 @@ html,body,button,a,input,select,textarea,label,[role=button]{touch-action:manipu
 .sback svg{width:64px;height:64px}
 .fx-shield{position:fixed;inset:0;z-index:70;background:transparent}
 
+/* speaker: mute everything from the header */
+.spk{flex:none;width:40px;height:40px;margin-right:6px;display:grid;place-items:center;border:1px solid var(--line-2);border-radius:50%;background:var(--paper);color:var(--ink);cursor:pointer;transition:transform .2s cubic-bezier(.3,1.3,.5,1),border-color .2s}
+.spk:hover{border-color:var(--ink-3)}.spk:active{transform:scale(.92)}
+.spk.off{color:var(--ink-3)}
+@media (min-width:1024px) and (min-height:600px){.spk{order:4;margin:0 0 0 10px}}
+.spk-tip{position:fixed;z-index:80;width:max-content;max-width:240px;padding:12px 14px;border-radius:14px;background:var(--ink);color:var(--page);font-size:14px;line-height:1.35;box-shadow:0 18px 40px -18px rgba(0,0,0,.45);opacity:0;transform:translateY(-6px);transition:opacity .25s,transform .35s cubic-bezier(.3,1.3,.5,1);pointer-events:none}
+.spk-tip.on{opacity:1;transform:none}
+.spk-tip::before{content:"";position:absolute;top:-6px;left:calc(var(--ax) - 6px);width:12px;height:12px;background:var(--ink);transform:rotate(45deg);border-radius:2px}
+.spk-tip b{display:block;font-weight:600;margin-bottom:2px}.spk-tip span{opacity:.8}
+.spk.pulse{animation:spkp 1.4s ease-in-out 3}
+@keyframes spkp{50%{box-shadow:0 0 0 6px var(--green-tint);border-color:var(--green)}}
+@media (prefers-reduced-motion:reduce){.spk.pulse{animation:none}}
+
 /* ===== Mini UI kit (drawn inside the card's visual stage) ===== */
 .vis{position:relative;display:flex;align-items:center;justify-content:center;font-family:var(--body);font-size:11px;line-height:1.25;color:var(--ink-2);overflow:hidden;text-align:left}
 .vis *{box-sizing:border-box}
@@ -1735,6 +1748,7 @@ html,body,button,a,input,select,textarea,label,[role=button]{touch-action:manipu
     <button class="hback" id="bkhome" type="button" data-act="home" aria-label="Back to all decks"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
     <span class="mark" aria-hidden="true"><svg viewBox="0 0 100 100" width="34" height="34"><rect x="18" y="27" width="38" height="52" rx="9" transform="rotate(-16 37.0 53.0)" fill="currentColor" stroke="#fff" stroke-width="6" opacity="0.75"/><rect x="42" y="19" width="38" height="52" rx="9" transform="rotate(10 61.0 45.0)" fill="currentColor" stroke="#fff" stroke-width="6" opacity="1"/><path class="bolt" d="M65 30L49 53h11l-5 16 17-24H61z" fill="#fff" transform="translate(61 45) rotate(10) scale(0.85) translate(-60.5 -49.5)"/></svg></span>
     <h1><span class="hb-app">Flashdecks</span><span class="hb-deck" id="hbdeck"></span></h1>
+    <button class="spk" id="spk" type="button" data-act="sound"></button>
     <button class="lvl" id="lvl" type="button"></button>
   </header>
   <main class="main" id="main"></main>
@@ -4251,6 +4265,9 @@ const P={
   pawn:'<circle cx="12" cy="6.8" r="2.8"/><path d="M9.6 11.2h4.8M10.4 11.2c-.2 3-1 5.3-2.4 7.3h8c-1.4-2-2.2-4.3-2.4-7.3M6.5 20.5h11"/>',
   chat:'<path d="M5 5h14a1.5 1.5 0 011.5 1.5v9A1.5 1.5 0 0119 17H10l-4.5 3.5V17H5a1.5 1.5 0 01-1.5-1.5v-9A1.5 1.5 0 015 5z"/><path d="M8 10h8M8 13h5"/>',
   music:'<path d="M9 17.5V6l10-2v11.5"/><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="15.5" r="2.5"/>',
+  spk:'<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 010 6M18 6.5a7.5 7.5 0 010 11"/>',
+  vib:'<rect x="8" y="4" width="8" height="16" rx="2"/><path d="M4 9v6M20 9v6"/>',
+  spkOff:'<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/>',
   musicOff:'<path d="M9 17.5V6l10-2v11.5"/><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="15.5" r="2.5"/><path d="M3 3l18 18"/>',
   sound:'<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 010 6M18 6.5a7.5 7.5 0 010 11"/>',
   shuffle:'<path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>',
@@ -4289,12 +4306,12 @@ const S={
   pic:!!saved.pic, shuffle:!!saved.shuffle,
   known:new Set([...(saved.known||[]),...(v1.known||[])].filter(id=>BYID[id])),
   qc:saved.qc||0, qa:saved.qa||0, best:Math.max(saved.best||0,v1.best||0),
-  hint:!!saved.hint, seen:saved.seen??-2, sound:saved.sound!==false, fbDone:!!saved.fbDone, music:saved.music!==false, toured:!!saved.toured, visited:new Set(saved.visited||[]), hpos:-1, fbNudge:!!saved.fbNudge, marks:saved.marks||0,
+  hint:!!saved.hint, seen:saved.seen??-2, sound:saved.sndMig?saved.sound===true:false, sndTip:!!saved.sndTip, haptics:saved.haptics!==false, fbDone:!!saved.fbDone, music:saved.music!==false, toured:!!saved.toured, visited:new Set(saved.visited||[]), hpos:-1, fbNudge:!!saved.fbNudge, marks:saved.marks||0,
   srs:saved.srs||{}, goal:saved.goal||20, remind:Object.assign({on:false,hour:19,daily:true,updates:true},saved.remind||{}), nAsk:saved.nAsk||0, seenVer:saved.seenVer||'', nAskAt:saved.nAskAt||0, instAsk:saved.instAsk||0, instCount:saved.instCount||0, pzPos:saved.pzPos, iconSeen:!!saved.iconSeen||!Object.keys(saved).length, name:saved.name||'', lastStudy:saved.lastStudy||0, day:saved.day||{d:0,n:0}, dstreak:saved.dstreak||{last:0,n:0},
   q:'', order:[], pos:0, flipped:false, busy:false, first:true, resetAsk:false,
   quiz:{cur:null,opts:[],answered:false,pick:null,score:0,total:0,streak:0,recent:[]}
 };
-const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify({tab:S.tab,topic:S.topic,cat:S.cat,deck:S.deck,pic:S.pic,shuffle:S.shuffle,known:[...S.known],qc:S.qc,qa:S.qa,best:S.best,hint:S.hint,seen:S.seen,sound:S.sound,fbDone:S.fbDone,music:S.music,toured:S.toured,visited:[...S.visited],fbNudge:S.fbNudge,marks:S.marks,srs:S.srs,goal:S.goal,day:S.day,dstreak:S.dstreak,remind:S.remind,seenVer:S.seenVer,nAsk:S.nAsk,nAskAt:S.nAskAt,lastStudy:S.lastStudy,instAsk:S.instAsk,instCount:S.instCount,pzPos:S.pzPos,iconSeen:S.iconSeen,name:S.name}))}catch(e){}};
+const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify({sndMig:true,haptics:S.haptics,sndTip:S.sndTip,tab:S.tab,topic:S.topic,cat:S.cat,deck:S.deck,pic:S.pic,shuffle:S.shuffle,known:[...S.known],qc:S.qc,qa:S.qa,best:S.best,hint:S.hint,seen:S.seen,sound:S.sound,fbDone:S.fbDone,music:S.music,toured:S.toured,visited:[...S.visited],fbNudge:S.fbNudge,marks:S.marks,srs:S.srs,goal:S.goal,day:S.day,dstreak:S.dstreak,remind:S.remind,seenVer:S.seenVer,nAsk:S.nAsk,nAskAt:S.nAskAt,lastStudy:S.lastStudy,instAsk:S.instAsk,instCount:S.instCount,pzPos:S.pzPos,iconSeen:S.iconSeen,name:S.name}))}catch(e){}};
 /* ---------- spaced repetition + daily goal ---------- */
 const today=()=>{const d=new Date();return Math.floor((d-d.getTimezoneOffset()*6e4)/864e5)};
 const GAPS=[1,3,7,14,30,60];
@@ -4363,7 +4380,7 @@ const MUSIC=(()=>{let ctx=null,out,timer=0,next=0,bar=0,on=false;
       for(let s=0;s<8;s++)hat(t+s*ST+(s%2?ST*.12:0),s%2?.012:.022);
       next+=BAR;bar++}}
   return {kick(){if(ctx&&ctx.state!=='running')try{ctx.resume()}catch(e){}},
-    start(){if(!S.music)return;if(on){this.kick();return}const c=init();if(!c)return;if(c.state==='suspended')c.resume();on=true;next=Math.max(next,c.currentTime+.1);
+    start(){if(!S.music||!S.sound)return;if(on){this.kick();return}const c=init();if(!c)return;if(c.state==='suspended')c.resume();on=true;next=Math.max(next,c.currentTime+.1);
       out.gain.cancelScheduledValues(c.currentTime);out.gain.setValueAtTime(out.gain.value,c.currentTime);out.gain.linearRampToValueAtTime(.45,c.currentTime+2);schedule();timer=setInterval(schedule,400)},
     stop(){if(!on||!ctx)return;on=false;clearInterval(timer);out.gain.cancelScheduledValues(ctx.currentTime);out.gain.setValueAtTime(out.gain.value,ctx.currentTime);out.gain.linearRampToValueAtTime(0,ctx.currentTime+.8);next=0},
     get on(){return on}};
@@ -4375,16 +4392,15 @@ const audioTap=()=>{audioMode();SFX.wake();if(S.music)MUSIC.start()};
 ['touchend','click','keydown'].forEach(t=>addEventListener(t,audioTap,{capture:true,passive:true}));
 document.addEventListener('visibilitychange',()=>{if(document.hidden)MUSIC.stop();else if(S.music)MUSIC.start()});
 /* haptics: Vibration API on Android; on iOS 18+ Safari, tapping a hidden <input switch> gives a system haptic tick */
-const HAPT=(()=>{let lbl=null;
-  function el(){if(lbl)return lbl;const l=document.createElement('label'),i=document.createElement('input');i.type='checkbox';i.setAttribute('switch','');i.tabIndex=-1;l.setAttribute('aria-hidden','true');
-    l.style.cssText='position:fixed;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none';l.append(i);document.body.append(l);return lbl=l}
-  return {tick(n=1,gap=90){try{const l=el();l.click();for(let k=1;k<n;k++)setTimeout(()=>l.click(),gap*k)}catch(e){}}};
+const HAPT=(()=>{
+  const one=()=>{const l=document.createElement('label'),i=document.createElement('input');i.type='checkbox';i.setAttribute('switch','');l.setAttribute('aria-hidden','true');l.style.display='none';l.append(i);document.head.append(l);l.click();l.remove()};
+  return {tick(n=1,gap=90){try{one();for(let k=1;k<n;k++)setTimeout(()=>{try{one()}catch(e){}},gap*k)}catch(e){}}};
 })();
 /* iOS only plays the switch haptic while handling a real tap (click / touchend / keydown).
    Swipes and taps on the card finish in pointerup, which comes just before touchend, so hold the tick until then. */
 let hapPend=0,hapAt=0;
 const inGesture=()=>{const e=window.event;return !!e&&/^(click|touchend|keydown|keyup|mouseup)$/.test(e.type)};
-const buzz=p=>{if(!S.sound)return;if(navigator.vibrate){try{navigator.vibrate(p)}catch(e){}return}
+const buzz=p=>{if(!S.haptics)return;if(navigator.vibrate){try{navigator.vibrate(p)}catch(e){}return}
   const n=Array.isArray(p)?Math.ceil(p.length/2):1;
   if(inGesture())HAPT.tick(n);else{hapPend=Math.max(hapPend,n);hapAt=Date.now()}};
 const hapFlush=()=>{if(hapPend&&Date.now()-hapAt<400)HAPT.tick(hapPend);hapPend=0};
@@ -4679,7 +4695,7 @@ function renderHome(enter,dir){
   const due=T.mix?0:dueIn(tp), started=S.visited.has(tp)||k>0, cats=Object.keys(CATS).filter(c=>CATS[c][2]===tp).length, pct=all.length?k/all.length:0;
   const dly=T.mix?dailyBody():null;
   main.innerHTML=`<section class="view v-home">
-    <div class="hd-top gut"><h2>Pick a deck</h2><span class="hd-r"><button class="mus ${S.music?'on':''}" data-act="music" aria-label="Background music ${S.music?'on':'off'}" aria-pressed="${S.music}">${I(S.music?P.music:P.musicOff,18,2)}</button><button class="alld" data-act="alldecks" aria-label="All decks, ${NDECKS}">${I(P.grid,16,2)}All decks · ${NDECKS}${TKEYS.some(isNewTopic)?'<i class="ndot"></i>':''}</button></span><span class="sr" aria-live="polite">${esc(T.n)}, deck ${S.hpos+1} of ${n}</span></div>
+    <div class="hd-top gut"><h2>Pick a deck</h2><span class="hd-r"><button class="alld" data-act="alldecks" aria-label="All decks, ${NDECKS}">${I(P.grid,16,2)}All decks · ${NDECKS}${TKEYS.some(isNewTopic)?'<i class="ndot"></i>':''}</button></span><span class="sr" aria-live="polite">${esc(T.n)}, deck ${S.hpos+1} of ${n}</span></div>
     <div class="hstack" id="hstack">
       <div class="hg g2"></div><div class="hg g1"><button class="hnext" data-act="nextdeck" tabindex="-1">Next <b>${esc(TOPICS[TKEYS[(S.hpos+1)%n]].n)}</b>${I(P.arrow,14,2.2)}</button></div>
       <div class="hcard ${enter?'enter h-'+(dir||'fwd'):''}" id="hcard" style="--c:${T.c}" role="group" aria-label="${esc(T.n)} deck">
@@ -4708,7 +4724,7 @@ function deskCard(tp){const T=TOPICS[tp];
     <div class="hc-prog">${started?ringSVG2(pct,T.c,Math.round(pct*100)+'%'):`<span class="hc-new">New</span>`}<div><b>${started?`${k} of ${all.length} ${T.qa?'answered':'known'}`:`${all.length} ${T.qa?'questions':'cards'} · ${cats} categories`}</b><small>${started?`${k*10} xp earned`:'About 10 minutes for 20 cards'}</small></div></div>
     ${due?`<button class="hc-due" data-review="${tp}">${I(P.cal,16,2)}<span><b>${due} card${due===1?'':'s'} to review today</b></span>${I(P.chev,16,2)}</button>`:''}
     <span class="pill ${started?'dark':'go'} full">${started?'Continue':'Start deck'}</span></div>`}
-const deskTop=(title,btn)=>`<div class="hd-top"><h2>${title}</h2><span class="hd-r"><button class="mus ${S.music?'on':''}" data-act="music" aria-label="Background music ${S.music?'on':'off'}" aria-pressed="${S.music}">${I(S.music?P.music:P.musicOff,18,2)}</button>${btn}</span></div>`;
+const deskTop=(title,btn)=>`<div class="hd-top"><h2>${title}</h2><span class="hd-r">${btn}</span></div>`;
 function renderHomeDesk(enter){
   if(S.hpos===undefined||S.hpos<0) S.hpos=Math.max(0,TKEYS.indexOf(S.topic));
   if(deskGrid) return renderDeskGrid();
@@ -4818,6 +4834,17 @@ function stackIn(){const card=$('#card'),stack=$('#stack');if(!card||!stack||red
   shield.addEventListener('pointerdown',e=>{e.preventDefault();skip()});document.addEventListener('keydown',skipKey,true);
   anims[anims.length-1].finished.then(end,end);
 }
+/* speaker in the header: one tap mutes every sound (effects and music) */
+/* one-time heads-up: sound starts off, here's where to turn it on */
+function soundTip(){if(S.sound||S.sndTip||!S.toured||sheetOpen||document.querySelector('.intro:not([hidden]),.unlock'))return;const b=$('#spk');if(!b||!b.offsetParent)return;
+  S.sndTip=true;persist();const r=b.getBoundingClientRect(),t=document.createElement('div');t.className='spk-tip';t.setAttribute('role','status');
+  t.innerHTML=`<b>Sounds are off</b><span>Tap the speaker to turn on app sounds and music.</span>`;document.body.appendChild(t);
+  const w=t.offsetWidth,x=Math.min(innerWidth-w-12,Math.max(12,r.left+r.width/2-w/2));t.style.left=x+'px';t.style.top=(r.bottom+10)+'px';t.style.setProperty('--ax',(r.left+r.width/2-x)+'px');
+  requestAnimationFrame(()=>t.classList.add('on'));b.classList.add('pulse');
+  const close=()=>{t.classList.remove('on');b.classList.remove('pulse');setTimeout(()=>t.remove(),300);document.removeEventListener('pointerdown',close,true)};
+  setTimeout(()=>document.addEventListener('pointerdown',close,true),50);setTimeout(close,7000)}
+function syncSound(){const b=$('#spk');if(b){b.innerHTML=I(S.sound?P.spk:P.spkOff,20,2);b.classList.toggle('off',!S.sound);b.setAttribute('aria-label',S.sound?'Sound on. Tap to mute':'Sound off. Tap to turn on');b.setAttribute('aria-pressed',!S.sound)}
+  document.querySelectorAll('[data-act=sound]:not(#spk)').forEach(x=>x.setAttribute('aria-checked',S.sound))}
 function openDeck(tp){setTopic(tp);S.first=true;S.dealIn=true;S.flipped=false;go('study')}
 /* ---------- progress sheet (opened from the level chip) ---------- */
 function avInner(){return S.name?esc(S.name.trim()[0].toUpperCase()):I(P.user,20,2)}
@@ -4847,6 +4874,7 @@ function profileHTML(){
       ${S.remind.on&&S.remind.daily?`<label class="lrow rtime"><span class="ico">${I(P.cal,18,2)}</span><span><b>Reminder time</b><small>In your time zone</small></span><span class="rt"><select id="rhour" aria-label="Reminder time">${Array.from({length:18},(_,i)=>i+6).map(h=>`<option value="${h}" ${h===S.remind.hour?'selected':''}>${fmtHour(h)}</option>`).join('')}</select></span></label>`:''}
       <button class="lrow" role="switch" data-act="npref" data-k="updates" aria-checked="${S.remind.on&&S.remind.updates}"><span class="ico">${I(P.bolt,18,2)}</span><span><b>Updates & check-ins</b><small>New versions and come-back nudges</small></span><span class="rt"><span class="sw"></span></span></button>`:''}
       <button class="lrow" role="switch" data-act="sound" aria-checked="${S.sound}"><span class="ico">${I(P.sound,18,2)}</span><span><b>Sound effects</b><small>Playful sounds as you study</small></span><span class="rt"><span class="sw"></span></span></button>
+      <button class="lrow" role="switch" data-act="haptics" aria-checked="${S.haptics}"><span class="ico">${I(P.vib,18,2)}</span><span><b>Vibration</b><small>A light tap when you swipe, answer or flip</small></span><span class="rt"><span class="sw"></span></span></button>
     
     </div>
     <p class="label">About</p>
@@ -4904,7 +4932,7 @@ function openSheet(html){
   sh.addEventListener('pointerup',e=>{if(y0!==null&&e.clientY-y0>60)closeSheet();y0=null});
 }
 function refreshSheet(html){const b=document.querySelector('.sheet .sbody');if(b){b.innerHTML=html;fit()}}
-function closeSheet(){
+function closeSheet(){if(!S.sndTip)setTimeout(soundTip,500);
   const sc=document.querySelector('.scrim'),sh=document.querySelector('.sheet');if(!sh)return;
   sheetOpen=false;sc.classList.remove('on');sh.classList.remove('on');
   setTimeout(()=>{sc.remove();sh.remove()},400);
@@ -4954,7 +4982,7 @@ function introHTML(){const s=INTRO[introI],last=introI===INTRO.length-1;
   <div class="intro-txt"><h2>${s.t}</h2><p>${s.b}</p></div><div class="intro-dots">${INTRO.map((x,i)=>`<i class="${i===introI?'on':''}"></i>`).join('')}</div>
   <button class="pill ${last?'go':'dark'} full" data-intro="next">${last?'Start learning':'Next'}</button></div>`}
 function startIntro(){introI=0;let o=$('#intro');if(!o){o=document.createElement('div');o.id='intro';o.className='intro';o.setAttribute('role','dialog');o.setAttribute('aria-label','How Flashdecks works');app.append(o);bindIntro(o)}o.innerHTML=introHTML()}
-function endIntro(){S.toured=true;S.hint=true;persist();const o=$('#intro');if(o){o.classList.add('out');setTimeout(()=>o.remove(),350)}setTimeout(maybeInstall,700)}
+function endIntro(){S.toured=true;S.hint=true;persist();const o=$('#intro');if(o){o.classList.add('out');setTimeout(()=>o.remove(),350)}setTimeout(soundTip,450);setTimeout(maybeInstall,900)}
 function stepIntro(d){const n=introI+d;if(n<0)return;if(n>=INTRO.length){endIntro();return}introI=n;SFX.play('flip');const o=$('#intro');o.innerHTML=introHTML();o.querySelector('.intro-in').classList.add(d>0?'nx':'pv')}
 function bindIntro(o){let x0=null;
   o.addEventListener('click',e=>{const b=e.target.closest('[data-intro]');if(!b)return;e.stopPropagation();if(b.dataset.intro==='skip')endIntro();else stepIntro(1)});
@@ -5192,8 +5220,9 @@ function maybeIcon(n=0){if(S.iconSeen||!iconAsk())return;
 setTimeout(maybeIcon,2600);
 
 /* ---------- version, What's new, update banner ---------- */
-const APP_VERSION='2.13';
+const APP_VERSION='2.14';
 const CHANGELOG=[ // newest first; the first line is the update banner's note
+  ['2.14','Oct 23, 2026','Sound now starts off. Tap the speaker at the top to turn app sounds and music on or off. Vibration has its own switch in Profile.'],
   ['2.13','Oct 22, 2026','Opening a deck now deals your cards in. On desktop, browse one deck at a time, or tap See all decks to have them dealt into a grid. Plus more names in Special thanks.'],
   ['2.12','Oct 22, 2026','A new Profile: tap your avatar for your stats, badges and all settings. Plus smoother chess puzzle moves, and a special thanks to the people who shaped Flashdecks.'],
   ['2.11','Oct 22, 2026','Daily review brings due cards from every deck into one session. New decks: AI & Machine Learning, Typography & Colour and Product Management. And Chess has a Puzzles tab: tap the winning move.'],
@@ -5286,7 +5315,8 @@ app.addEventListener('click',e=>{
   else if(act==='feedback'){closeSheet();openFeedback()}
   else if(act==='music'){S.music=!S.music;persist();track(S.music?'music-on':'music-off');audioMode();if(S.music)MUSIC.start();else MUSIC.stop();document.querySelectorAll('[data-act=music]').forEach(b=>{if(b.classList.contains('mus')){b.classList.toggle('on',S.music);b.setAttribute('aria-pressed',S.music);b.innerHTML=I(S.music?P.music:P.musicOff,18,2)}else b.setAttribute('aria-checked',S.music)})}
   else if(act==='tour'){closeSheet();startIntro()}
-  else if(act==='sound'){S.sound=!S.sound;persist();track(S.sound?'sound-on':'sound-off');a.setAttribute('aria-checked',S.sound);if(S.sound)SFX.play('know')}
+  else if(act==='haptics'){S.haptics=!S.haptics;persist();a.setAttribute('aria-checked',S.haptics);track(S.haptics?'haptics-on':'haptics-off');if(S.haptics)buzz(12)}
+  else if(act==='sound'){S.sound=!S.sound;persist();track(S.sound?'sound-on':'sound-off');syncSound();if(S.sound){SFX.play('know');if(S.music)MUSIC.start()}else MUSIC.stop()}
   else if(act==='nextdeck'){cycleDeck(1)}
   else if(act==='home'){go('home')}
   else if(act==='npref'){setPref(a.dataset.k)}
@@ -5364,6 +5394,8 @@ else{const dk=(()=>{try{return new URLSearchParams(location.search).get('deck')}
 if('serviceWorker' in navigator&&/github\.io$/.test(location.hostname)) addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>{fit();fitTerm()});
 let rt; addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(fitTerm,120)});
+syncSound();
+setTimeout(soundTip,1600);
 })();
 
 </script>
